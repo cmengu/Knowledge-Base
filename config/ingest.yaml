@@ -1,0 +1,30 @@
+# Layer 1 (ingest) configuration.
+#
+# Ingest runs on the local residential IP by design — YouTube blocks
+# cloud/datacenter IPs, so keep this on your laptop and leave the proxy OFF.
+# The proxy block below is a config-driven escape hatch, wired to
+# youtube-transcript-api's native Webshare rotating-residential-proxy support,
+# for the case where you must ingest from a blocked network.
+
+# SQLite database that holds one row per ingested video.
+# (Relative paths resolve against the current working directory.)
+database: data/knowledge_base.sqlite3
+
+# Preferred transcript languages, most-preferred first. The first available
+# track wins; if none of these exist the video is reported as failed.
+languages:
+  - en
+
+# Webshare rotating-residential-proxy escape hatch for youtube-transcript-api.
+# OFF by default. Turn this on ONLY if YouTube starts blocking your IP
+# (e.g. you are forced to run from a cloud host). Requires a Webshare
+# "Residential" proxy plan: https://www.webshare.io/
+proxy:
+  enabled: false
+  webshare_proxy_username: ""
+  webshare_proxy_password: ""
+
+# Optional generic proxy URL for yt-dlp metadata fetches only
+# (e.g. "http://user:pass@host:port"). Leave empty to use the local IP.
+# Independent of the Webshare transcript proxy above.
+metadata_proxy_url: ""
