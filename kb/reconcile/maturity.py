@@ -39,7 +39,7 @@ from pydantic import BaseModel, ConfigDict, Field
 from kb.config import CONFIG_DIR, load_yaml
 from kb.reconcile.schema import Maturity, Position
 
-__all__ = ["MaturityConfig", "compute_maturity", "maturity_reason", "load_maturity_config"]
+__all__ = ["MaturityConfig", "compute_maturity", "load_maturity_config"]
 
 
 class MaturityConfig(BaseModel):
@@ -111,27 +111,6 @@ def compute_maturity(
     if sources >= config.emerging_min_sources:
         return Maturity.emerging_trend
     return Maturity.open_question
-
-
-def maturity_reason(position: Position, flag: Maturity) -> str:
-    """A plain-words reason for a *ladder* transition to ``flag`` (for the status history).
-
-    Contested transitions are recorded by the engine with the reconciliation attempt's own
-    reason, so this covers only the open/emerging/converging/solved rungs; it falls back to
-    a generic line if handed ``contested``.
-    """
-
-    sources = len(position.distinct_videos)
-    span = position.span_days or 0
-    if flag is Maturity.solved:
-        return f"settled — {sources} independent sources over {span}d, no contest"
-    if flag is Maturity.converging:
-        return f"converging — {sources} independent sources agreeing over {span}d"
-    if flag is Maturity.emerging_trend:
-        return f"emerging — {sources} independent sources so far ({span}d span)"
-    if flag is Maturity.open_question:
-        return "open question — a single source so far"
-    return "contested — credible sources disagree"
 
 
 def load_maturity_config(path: str | Path | None = None) -> MaturityConfig:

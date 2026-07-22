@@ -65,7 +65,6 @@ from kb.reconcile.maturity import (
     MaturityConfig,
     compute_maturity,
     load_maturity_config,
-    maturity_reason,
 )
 from kb.reconcile.retrieval import Candidate, CandidateRetriever, LocalVectorRetriever
 from kb.reconcile.schema import (
@@ -118,7 +117,6 @@ __all__ = [
     "ReconciliationType",
     # -- maturity policy (config-driven, injected) --
     "compute_maturity",
-    "maturity_reason",
     "MaturityConfig",
     "load_maturity_config",
 ]

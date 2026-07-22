@@ -54,8 +54,8 @@ from kb.reconcile.deltas import (
     NetNewDelta,
 )
 from kb.reconcile.incoming import IncomingUnit
-from kb.reconcile.maturity import MaturityConfig, compute_maturity as default_compute_maturity
-from kb.reconcile.maturity import maturity_reason
+from kb.reconcile.maturity import MaturityConfig
+from kb.reconcile.maturity import compute_maturity as default_compute_maturity
 from kb.reconcile.retrieval import CandidateRetriever
 from kb.reconcile.schema import Alignment, Maturity, Position
 from kb.reconcile.store import KBStore
@@ -282,7 +282,7 @@ def _reflag(
     """Recompute the position's maturity and record a transition if it moved."""
 
     new_flag = compute_maturity(position, now=now, config=maturity_config)
-    reason = override_reason or maturity_reason(position, new_flag)
+    reason = override_reason or _ladder_reason(position, new_flag)
     event = position.record_transition(
         new_flag, at=now, reason=reason, trigger_unit_id=incoming.unit_id
     )
@@ -317,3 +317,26 @@ def _incoming_citation(incoming: IncomingUnit) -> Citation:
         quote=unit.raw_quote,
         statement=unit.text,
     )
+
+
+def _ladder_reason(position: Position, flag: Maturity) -> str:
+    """A plain-words reason for a *ladder* maturity transition, for the status history.
+
+    How the engine narrates a transition is an engine concern, so it lives here rather than
+    in the maturity policy — which keeps the engine's dependency on the (ticket #09)
+    maturity module to just ``compute_maturity`` + ``MaturityConfig``. Contested transitions
+    are narrated by the adversarial branch with the reconciliation attempt's own reason, so
+    this covers only the open/emerging/converging/solved rungs.
+    """
+
+    sources = len(position.distinct_videos)
+    span = position.span_days or 0
+    if flag is Maturity.solved:
+        return f"settled — {sources} independent sources over {span}d, no contest"
+    if flag is Maturity.converging:
+        return f"converging — {sources} independent sources agreeing over {span}d"
+    if flag is Maturity.emerging_trend:
+        return f"emerging — {sources} independent sources so far ({span}d span)"
+    if flag is Maturity.open_question:
+        return "open question — a single source so far"
+    return "contested — credible sources disagree"
