@@ -2,7 +2,8 @@
 
 No test touches the network or an LLM. The two ingest dependencies (metadata +
 transcript) are replaced by fakes that serve *recorded* fixtures captured from a
-one-off live run (``tests/fixtures/*.json``).
+one-off live run (``tests/fixtures/*.json``). Extract-layer doubles and loaders
+live in ``tests/helpers.py``.
 """
 
 from __future__ import annotations
@@ -12,9 +13,11 @@ from pathlib import Path
 
 import pytest
 
+from kb.extract import TranscriptSegment
 from kb.ingest.errors import MetadataUnavailableError, TranscriptUnavailableError
 from kb.ingest.fetchers import metadata_from_info
 from kb.store import VideoStore
+from tests.helpers import FakeLLMClient, transcript_ids
 
 FIXTURES = Path(__file__).parent / "fixtures"
 
@@ -110,3 +113,30 @@ FIXED_NOW = "2026-07-22T00:00:00Z"
 @pytest.fixture
 def fixed_now():
     return lambda: FIXED_NOW
+
+
+@pytest.fixture
+def fake_llm_factory():
+    """Factory so a test can mint a FakeLLMClient with a chosen scripted response."""
+
+    def _make(response: str = "", *, raises: Exception | None = None) -> FakeLLMClient:
+        return FakeLLMClient(response, raises=raises)
+
+    return _make
+
+
+@pytest.fixture(params=transcript_ids())
+def fixture_video_id(request) -> str:
+    """Parametrizes over every committed transcript fixture (currently one)."""
+
+    return request.param
+
+
+@pytest.fixture
+def sample_segments() -> list[TranscriptSegment]:
+    """A short, hand-built transcript for extractor wiring tests."""
+
+    return [
+        TranscriptSegment(text="Public benchmarks measure general model skill.", start=12.0, duration=3.0),
+        TranscriptSegment(text="But you must evaluate your own system on its real task.", start=15.0, duration=4.0),
+    ]

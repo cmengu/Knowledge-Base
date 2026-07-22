@@ -1,0 +1,14 @@
+# Layer 2 (extract) configuration — ticket #04.
+#
+# The extraction step turns a video transcript into validated units via the Claude
+# Agent SDK. Per the spec's model-routing decision, extraction/structure runs on the
+# Sonnet tier ("sonnet" is the Agent SDK model alias; the SDK resolves it to the
+# current Sonnet model). Opus is reserved for reconciliation (ticket #08), Haiku for
+# cheap bulk steps.
+model: sonnet
+
+# Single-call guard. A transcript rendered longer than this (characters of the
+# timestamped prompt body) is truncated before the LLM call, keeping one video = one
+# request. Multi-call chunking of very long videos is deferred (see PR notes); the
+# evals-slice talks all fit comfortably under this ceiling.
+max_transcript_chars: 200000

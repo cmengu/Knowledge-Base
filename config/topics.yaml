@@ -1,0 +1,14 @@
+# Fixed topic set (spec: "the fixed topic set to be extensible in config").
+#
+# This file is the single source of truth for the six topics. Layer 3 topic routing
+# (ticket #07) assigns each video and each unit to one or more of these. Layer 2
+# extraction (this ticket, #04) does NOT route: it leaves ExtractedVideo.topic_tags
+# empty for the routing layer to populate, so the unit schema stays decoupled from the
+# topic list and topics remain config-extensible without touching the extractor.
+topics:
+  - evals
+  - small-models
+  - open-source
+  - harness
+  - enterprise
+  - swe-practices

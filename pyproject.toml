@@ -5,12 +5,17 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "youtube-kb"
 version = "0.1.0"
-description = "YouTube AI-topic knowledge-base pipeline — Layer 1 ingest"
+description = "YouTube AI-topic knowledge-base pipeline (evals vertical slice)"
 requires-python = ">=3.10"
 dependencies = [
-    "yt-dlp>=2025.1.1",
-    "youtube-transcript-api>=1.0.0",
+    "pydantic>=2",
     "PyYAML>=6.0",
+    # Layer 1 ingest — metadata + transcript fetch (no API key).
+    "yt-dlp>=2025.1.1",
+    "youtube-transcript-api>=1.2",
+    # Layer 2+ LLM execution on the Claude subscription (Agent SDK credit). Used by the
+    # real LLM client and prototype scripts, never inside the test suite.
+    "claude-agent-sdk>=0.2",
 ]
 
 [project.optional-dependencies]

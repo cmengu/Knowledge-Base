@@ -1,9 +1,13 @@
-# Python
+# Python virtual environment (per-worktree venv)
 .venv/
+venv/
+
+# Byte-compiled / caches
 __pycache__/
 *.py[cod]
 *.egg-info/
 .pytest_cache/
+.mypy_cache/
 .ruff_cache/
 
 # Ingest output / local data stores (SQLite lives here; canonical data is re-derivable)
@@ -13,5 +17,5 @@ data/
 *.sqlite3-wal
 *.sqlite3-shm
 
-# OS noise
+# OS / editor cruft
 .DS_Store
