@@ -1,0 +1,28 @@
+# Maturity state machine thresholds — tickets #08/#09.
+#
+# The reconciliation engine reads these every batch and applies them via the pure
+# `compute_maturity(position, config, now)` function, recording a status-history
+# transition whenever a position's flag moves. Tune here as you learn what "converging"
+# should mean; no code change needed.
+#
+# Signals: "independent sources" = distinct source videos; "span" = days between the
+# oldest and newest source. Three months is encoded as 90 days.
+#
+# The ladder is monotonic — more independent sources over more time ratchets a position
+# up open-question -> emerging-trend -> converging -> solved — and ANY live contest (a
+# position holding both a supporting and an opposing source) overrides it to `contested`,
+# so a single credible dissent reopens a question (spec: "any adversarial unit resets to
+# contested/open").
+
+# Leave open-question once at least this many independent sources agree.
+emerging_min_sources: 2
+
+# Converge once at least this many independent sources agree over at least the span below.
+converging_min_sources: 3
+converging_min_span_days: 90        # ~3 months
+
+# Settle ("solved") once at least this many independent sources agree over a long span,
+# with the position never having been contested (a conservative stand-in for "no
+# contesting unit in the last N videos"; ticket #09 may refine with the batch timeline).
+solved_min_sources: 3
+solved_min_span_days: 180           # ~6 months

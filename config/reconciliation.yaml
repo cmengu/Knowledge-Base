@@ -1,0 +1,20 @@
+# Layer 5 (reconcile) configuration — ticket #08.
+#
+# The two-stage matcher. Stage 1 retrieves candidate positions by local BGE-M3 embedding
+# similarity; stage 2 has the Opus "manager" adjudicate them. These knobs govern the
+# narrowing (how many candidates the adjudicator sees, and how unrelated is too unrelated)
+# and which model does the judging — never how things merge, which is the adjudicator's
+# call alone (spec: "never merge on embedding distance alone").
+
+# How many nearest positions stage 1 hands the adjudicator per unit. Positions stay few,
+# so a small k covers the plausible matches without flooding the prompt.
+top_k: 5
+
+# Cosine-similarity floor (BGE-M3, normalized). A candidate below this is too unrelated to
+# be worth an Opus judgment; if nothing clears it the unit is novel by construction. This
+# prunes the adjudicator's input only — it is not a merge threshold.
+min_score: 0.30
+
+# Stage-2 model. Opus 4.8 is the strongest tier, reserved for reconciliation/adjudication
+# per the spec's model-routing decision (Sonnet does extraction/routing, Haiku bulk work).
+adjudicator_model: opus
