@@ -19,3 +19,7 @@ data/
 
 # OS / editor cruft
 .DS_Store
+
+# Per-run digest output surface (ticket #10). Digests are generated artifacts written on
+# every run; the committed eyeball sample lives under fixtures/digest-sample/ instead.
+digests/
