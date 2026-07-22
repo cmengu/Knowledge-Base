@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>evals digest · 2026-07-22</title>
+<style>
+:root {
+  --bg: #fbfaf7;
+  --surface: #ffffff;
+  --surface-2: #f5f3ee;
+  --ink: #1d1b16;
+  --ink-soft: #45413a;
+  --muted: #726d63;
+  --border: #e7e2d7;
+  --border-strong: #d8d2c4;
+  --accent: #a23b2c;
+  --accent-ink: #872f22;
+  --shadow: 0 1px 2px rgba(28,27,22,.05), 0 8px 24px -12px rgba(28,27,22,.18);
+
+  /* delta / maturity colour families: --x = text, --x-bg = tint, --x-line = border */
+  --new: #3a3ad0;      --new-bg: #ececfb;      --new-line: #cfcef6;
+  --evid: #1c7a4b;     --evid-bg: #e3f5ea;     --evid-line: #c2e8d1;
+  --redun: #5c6470;    --redun-bg: #eef0f3;    --redun-line: #dde1e7;
+  --contest: #96650e;  --contest-bg: #fbf0d6;  --contest-line: #f0dfae;
+  --matured: #0e7683;  --matured-bg: #d9f1f4;  --matured-line: #b6e4e9;
+  --reopen: #a5324a;   --reopen-bg: #fbe3e9;   --reopen-line: #f4c7d1;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #16150f;
+    --surface: #201e17;
+    --surface-2: #2a271e;
+    --ink: #f2efe6;
+    --ink-soft: #d7d2c4;
+    --muted: #a29c8c;
+    --border: #34301f00;
+    --border: #35322a;
+    --border-strong: #45402f;
+    --accent: #e98a6a;
+    --accent-ink: #f0a488;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 30px -14px rgba(0,0,0,.6);
+
+    --new: #a9a7ff;      --new-bg: #23224a;      --new-line: #34336a;
+    --evid: #74e4a4;     --evid-bg: #163325;     --evid-line: #245039;
+    --redun: #9aa4b2;    --redun-bg: #24272e;    --redun-line: #363b45;
+    --contest: #f3c56a;  --contest-bg: #38300f;  --contest-line: #574916;
+    --matured: #63d6e3;  --matured-bg: #103139;  --matured-line: #1c4c58;
+    --reopen: #f59ab0;   --reopen-bg: #3a1622;   --reopen-line: #5a2436;
+  }
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 400 18px/1.65 "Iowan Old Style", "Charter", "Bitstream Charter", Georgia, Cambria, "Times New Roman", serif;
+  padding: 0 20px 96px;
+}
+.wrap { max-width: 780px; margin: 0 auto; }
+
+/* --- UI type: labels, chips, tiles use a system sans; prose stays serif --- */
+.sans, .tag, .chip, .tile-label, .badge, .cite, .kicker, nav.toc a, .filterbar, .rung-label, .section-kicker {
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+code, .mono, .cite { font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace; }
+
+/* --- masthead --- */
+header.masthead { padding: 48px 0 18px; border-bottom: 2px solid var(--ink); margin-bottom: 8px; }
+.kicker {
+  font-size: 12px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--accent-ink); font-weight: 700; margin: 0 0 10px;
+}
+h1.title { font-size: clamp(30px, 6vw, 46px); line-height: 1.08; margin: 0 0 12px; letter-spacing: -.015em; }
+.dek { font-size: 20px; color: var(--ink-soft); margin: 0 0 18px; font-style: italic; }
+.dateline { font-size: 14px; color: var(--muted); margin: 0; }
+.dateline .sep { opacity: .5; padding: 0 8px; }
+
+/* --- stat tiles --- */
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; margin: 24px 0 8px; }
+.tile {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+  padding: 14px 16px; box-shadow: var(--shadow); border-top: 3px solid var(--tile-accent, var(--border-strong));
+}
+.tile .num { font-size: 30px; font-weight: 700; line-height: 1; letter-spacing: -.02em; }
+.tile-label { font-size: 12px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); margin-top: 6px; }
+.tile-sub { font-size: 11.5px; color: var(--muted); margin-top: 3px; opacity: .85; }
+.tile--new { --tile-accent: var(--new); } .tile--new .num { color: var(--new); }
+.tile--confirmed { --tile-accent: var(--evid); } .tile--confirmed .num { color: var(--evid); }
+.tile--contested { --tile-accent: var(--contest); } .tile--contested .num { color: var(--contest); }
+.tile--matured { --tile-accent: var(--matured); } .tile--matured .num { color: var(--matured); }
+
+/* --- filter bar (progressive enhancement; starts hidden) --- */
+.filterbar {
+  display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+  margin: 22px 0 4px; padding: 12px 14px; background: var(--surface-2);
+  border: 1px solid var(--border); border-radius: 12px; font-size: 13px;
+}
+.filterbar .fl-label { color: var(--muted); font-weight: 600; margin-right: 2px; }
+.chip {
+  cursor: pointer; border: 1px solid var(--border-strong); background: var(--surface);
+  color: var(--ink-soft); border-radius: 999px; padding: 5px 12px; font-size: 13px; font-weight: 600;
+}
+.chip[aria-pressed="false"] { opacity: .42; text-decoration: line-through; }
+.chip .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; vertical-align: middle; }
+
+/* --- table of contents --- */
+nav.toc { margin: 26px 0 8px; font-size: 14px; }
+nav.toc a {
+  color: var(--ink-soft); text-decoration: none; border-bottom: 1px solid var(--border-strong);
+  padding-bottom: 1px; margin-right: 18px; white-space: nowrap;
+}
+nav.toc a:hover { color: var(--accent-ink); border-color: var(--accent); }
+
+/* --- prose --- */
+.lede { font-size: 20px; line-height: 1.6; margin: 22px 0; color: var(--ink); }
+.lede .drop { float: left; font-size: 62px; line-height: .82; padding: 4px 10px 0 0; font-weight: 700; color: var(--accent); }
+p { margin: 0 0 16px; }
+a { color: var(--accent-ink); }
+
+/* --- sections --- */
+section.diff { margin: 40px 0 8px; scroll-margin-top: 16px; }
+.section-kicker { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); font-weight: 700; margin: 0 0 2px; }
+h2.section-title { font-size: 26px; margin: 0 0 6px; letter-spacing: -.01em; }
+.section-intro { color: var(--ink-soft); margin: 0 0 18px; font-size: 17px; }
+
+/* --- cards --- */
+.card {
+  background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--card-line, var(--border-strong));
+  border-radius: 12px; padding: 18px 20px; margin: 0 0 16px; box-shadow: var(--shadow);
+}
+.card--new { --card-line: var(--new); }
+.card--confirmed { --card-line: var(--evid); }
+.card--contested { --card-line: var(--contest); }
+.card--matured { --card-line: var(--matured); }
+.card .statement { font-size: 19px; font-weight: 600; margin: 8px 0 12px; line-height: 1.4; }
+.card .pid { color: var(--muted); font-weight: 400; }
+
+/* --- delta tag (colour-coded label) --- */
+.tag {
+  display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 700;
+  letter-spacing: .05em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px;
+  border: 1px solid transparent;
+}
+.tag--new { color: var(--new); background: var(--new-bg); border-color: var(--new-line); }
+.tag--new-evidence { color: var(--evid); background: var(--evid-bg); border-color: var(--evid-line); }
+.tag--redundant { color: var(--redun); background: var(--redun-bg); border-color: var(--redun-line); }
+.tag--contested { color: var(--contest); background: var(--contest-bg); border-color: var(--contest-line); }
+.tag--matured { color: var(--matured); background: var(--matured-bg); border-color: var(--matured-line); }
+.tag--reopened { color: var(--reopen); background: var(--reopen-bg); border-color: var(--reopen-line); }
+
+/* --- quote + citation chip --- */
+blockquote.q {
+  margin: 0; padding: 2px 0 2px 14px; border-left: 3px solid var(--border-strong);
+  font-size: 17px; line-height: 1.55; color: var(--ink);
+}
+.cite {
+  display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--muted);
+  background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px;
+  padding: 3px 9px; margin-top: 8px; white-space: nowrap; max-width: 100%;
+}
+.cite .play { color: var(--accent); font-size: 11px; }
+.cite b { color: var(--ink-soft); font-weight: 600; }
+.cite .u { opacity: .7; }
+.cite .sep { opacity: .55; }
+.cite.more { font-weight: 600; }
+
+/* citation row under a maturity move ("Backed by: …") */
+.cite-row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 4px 0 0; }
+.cite-lead { font-size: 12.5px; color: var(--muted); font-weight: 600; margin-right: 2px; }
+
+/* redundant confirmations disclosure */
+.redundant-wrap { margin-top: 4px; }
+.redundant-wrap > summary { cursor: pointer; color: var(--muted); font-size: 14px; font-weight: 600; padding: 6px 0; }
+.redundant-wrap[open] > summary { margin-bottom: 10px; }
+.redundant-wrap .card--confirmed { opacity: .82; }
+
+/* --- two-column stance card (a contest) --- */
+.stances { display: grid; grid-template-columns: 1fr auto 1fr; gap: 0; align-items: stretch; margin: 6px 0 4px; }
+.stance { padding: 14px 16px; border: 1px solid var(--border); background: var(--surface-2); }
+.stance.support { border-radius: 12px 0 0 12px; border-right: none; }
+.stance.oppose { border-radius: 0 12px 12px 0; border-left: none; }
+.stance .side { font-size: 11.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 8px; }
+.stance.support .side { color: var(--evid); }
+.stance.oppose .side { color: var(--reopen); }
+.vs {
+  display: flex; align-items: center; justify-content: center; width: 42px;
+  font: 700 13px ui-sans-serif, system-ui, sans-serif; color: var(--muted);
+  background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+}
+.vs span { background: var(--surface); border: 1px solid var(--border-strong); border-radius: 999px; padding: 4px 7px; }
+
+/* --- reconciliation callout --- */
+.recon {
+  margin-top: 12px; padding: 12px 14px; border-radius: 10px; background: var(--contest-bg);
+  border: 1px solid var(--contest-line); font-size: 15.5px; line-height: 1.55;
+}
+.recon .rtype { font-weight: 700; color: var(--contest); font-family: ui-sans-serif, system-ui, sans-serif; }
+.recon .verdict { font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; padding: 2px 8px; border-radius: 999px; margin-left: 6px; }
+.recon .verdict.open { color: var(--reopen); background: var(--reopen-bg); border: 1px solid var(--reopen-line); }
+.recon .verdict.resolved { color: var(--evid); background: var(--evid-bg); border: 1px solid var(--evid-line); }
+.recon details { margin-top: 8px; }
+.recon summary { cursor: pointer; color: var(--contest); font-weight: 600; font-size: 14px; font-family: ui-sans-serif, system-ui, sans-serif; }
+.recon .explain { margin-top: 8px; color: var(--ink-soft); }
+
+/* --- maturity ladder --- */
+.ladder { display: flex; align-items: center; flex-wrap: wrap; gap: 4px; margin: 10px 0 4px; }
+.rung {
+  display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 8px 10px; border-radius: 10px;
+  border: 1px dashed var(--border-strong); color: var(--muted); background: var(--surface); min-width: 96px;
+}
+.rung .rung-label { font-size: 12px; font-weight: 600; }
+.rung .rung-tag { font-size: 10px; letter-spacing: .06em; text-transform: uppercase; font-weight: 700; }
+.rung.from { border-style: solid; opacity: .8; }
+.rung.from .rung-tag { color: var(--muted); }
+.rung.to { border-style: solid; border-width: 2px; }
+.rung.to.mat--emerging { border-color: var(--new); color: var(--new); } .rung.to.mat--emerging .rung-tag { color: var(--new); }
+.rung.to.mat--converging { border-color: var(--matured); color: var(--matured); } .rung.to.mat--converging .rung-tag { color: var(--matured); }
+.rung.to.mat--solved { border-color: var(--evid); color: var(--evid); } .rung.to.mat--solved .rung-tag { color: var(--evid); }
+.rung.to.mat--open { border-color: var(--redun); color: var(--redun); } .rung.to.mat--open .rung-tag { color: var(--redun); }
+.ladder .arrow { color: var(--muted); font-size: 18px; padding: 0 2px; }
+.contested-marker {
+  display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 8px 12px; border-radius: 10px;
+  border: 2px solid var(--contest); color: var(--contest); background: var(--contest-bg); min-width: 96px;
+}
+.contested-marker .rung-label { font-size: 12px; font-weight: 700; }
+.contested-marker .rung-tag { font-size: 10px; letter-spacing: .06em; text-transform: uppercase; font-weight: 700; }
+
+/* --- maturity badge (state summary + cards) --- */
+.badge {
+  display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 700;
+  padding: 3px 9px; border-radius: 999px; border: 1px solid transparent; white-space: nowrap;
+}
+.mat--open { color: var(--redun); background: var(--redun-bg); border-color: var(--redun-line); }
+.mat--emerging { color: var(--new); background: var(--new-bg); border-color: var(--new-line); }
+.mat--converging { color: var(--matured); background: var(--matured-bg); border-color: var(--matured-line); }
+.mat--solved { color: var(--evid); background: var(--evid-bg); border-color: var(--evid-line); }
+.mat--contested { color: var(--contest); background: var(--contest-bg); border-color: var(--contest-line); }
+
+/* --- state-of-the-KB section --- */
+.kb-bar { display: flex; height: 12px; border-radius: 999px; overflow: hidden; border: 1px solid var(--border); margin: 6px 0 4px; }
+.kb-bar span { display: block; }
+.kb-bar .s-open { background: var(--redun); } .kb-bar .s-emerging { background: var(--new); }
+.kb-bar .s-converging { background: var(--matured); } .kb-bar .s-solved { background: var(--evid); }
+.kb-bar .s-contested { background: var(--contest); }
+.kb-legend { display: flex; flex-wrap: wrap; gap: 10px 18px; font-size: 13px; color: var(--muted); margin: 10px 0 20px; }
+.kb-legend .lg { display: inline-flex; align-items: center; gap: 6px; }
+.kb-legend .sw { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+.pos-row {
+  display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; border-top: 1px solid var(--border);
+}
+.pos-row .pmeta { flex: 0 0 auto; display: flex; flex-direction: column; gap: 6px; align-items: flex-start; min-width: 148px; }
+.pos-row .pstmt { flex: 1 1 auto; }
+.pos-row .pstmt .s { font-weight: 500; }
+.pos-row .pcount { font-size: 12.5px; color: var(--muted); }
+
+/* --- no-changes hero --- */
+.calm {
+  text-align: center; padding: 30px 20px; border: 1px dashed var(--border-strong);
+  border-radius: 16px; background: var(--surface); margin: 22px 0 8px;
+}
+.calm .mark { font-size: 40px; line-height: 1; }
+.calm h2 { font-size: 24px; margin: 12px 0 6px; }
+.calm p { color: var(--ink-soft); max-width: 46ch; margin: 0 auto; }
+
+/* --- callout --- */
+.callout {
+  border: 1px solid var(--border); border-left: 4px solid var(--accent); background: var(--surface);
+  border-radius: 10px; padding: 14px 18px; margin: 26px 0; font-size: 16px; color: var(--ink-soft);
+}
+.callout b { color: var(--ink); }
+
+/* --- footer --- */
+footer.foot {
+  margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border);
+  font-size: 13px; color: var(--muted); font-family: ui-sans-serif, system-ui, sans-serif;
+}
+footer.foot code { font-size: 12.5px; color: var(--ink-soft); }
+
+.empty-note { color: var(--muted); font-style: italic; }
+
+/* --- filter visibility (JS toggles body classes) --- */
+body.hide-new section[data-cat="new"],
+body.hide-confirmed section[data-cat="confirmed"],
+body.hide-contested section[data-cat="contested"],
+body.hide-matured section[data-cat="matured"] { display: none; }
+
+/* --- responsive --- */
+@media (max-width: 620px) {
+  body { font-size: 17px; padding: 0 15px 72px; }
+  .stances { grid-template-columns: 1fr; }
+  .stance.support { border-radius: 12px 12px 0 0; border-right: 1px solid var(--border); border-bottom: none; }
+  .stance.oppose { border-radius: 0 0 12px 12px; border-left: 1px solid var(--border); border-top: none; }
+  .vs { width: 100%; height: 34px; border-left: 1px solid var(--border); border-right: 1px solid var(--border); }
+  .pos-row { flex-direction: column; gap: 8px; }
+  nav.toc a { display: inline-block; margin-bottom: 8px; }
+}
+
+@media print {
+  body { background: #fff; color: #000; }
+  .filterbar { display: none; }
+  .card, .tile { box-shadow: none; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="masthead"><p class="kicker">Knowledge Base · Reader’s Digest</p><h1 class="title">What changed in <em>evals</em></h1><p class="dek">A diff of the evals knowledge base.</p><p class="dateline sans"><span>July 22, 2026</span><span class="sep">·</span><span>topic · evals</span></p></header>
+<div class="tiles"><div class="tile tile--new"><div class="num">31</div><div class="tile-label">New positions</div></div><div class="tile tile--confirmed"><div class="num">5</div><div class="tile-label">Confirmations</div><div class="tile-sub sans">1 new evidence</div></div><div class="tile tile--contested"><div class="num">1</div><div class="tile-label">Newly contested</div></div><div class="tile tile--matured"><div class="num">2</div><div class="tile-label">Maturity shifts</div><div class="tile-sub sans">1 matured ↑</div></div></div>
+<div class="filterbar sans" id="filterbar" hidden><span class="fl-label">Focus</span><button class="chip" data-cat="new" aria-pressed="true"><span class="dot" style="background:var(--new)"></span>New positions</button><button class="chip" data-cat="contested" aria-pressed="true"><span class="dot" style="background:var(--contest)"></span>Disagreements</button><button class="chip" data-cat="confirmed" aria-pressed="true"><span class="dot" style="background:var(--evid)"></span>Confirmations</button><button class="chip" data-cat="matured" aria-pressed="true"><span class="dot" style="background:var(--matured)"></span>Maturity</button></div>
+<nav class="toc sans"><a href="#new">New positions</a><a href="#contested">Disagreements</a><a href="#confirmed">Confirmations</a><a href="#matured">How maturity moved</a><a href="#state">State of the field</a></nav>
+<p class="lede"><span class="drop">S</span>ince the last run, the <b>evals</b> knowledge base moved in 39 places. This briefing is a <b>diff of what you know</b>: 31 new positions opened, one position picked up fresh evidence, four points were restated, one genuine disagreement surfaced, and one position matured up the ladder. Where two credible voices disagree, both are quoted side by side below — the digest preserves the argument rather than settling it for you.</p>
+<section class="diff" id="new" data-cat="new"><p class="section-kicker">Net-new</p><h2 class="section-title">New positions</h2><p class="section-intro">Positions the field had not stated before this run — each opens as an <b>open question</b>, a single voice on the record, waiting to be confirmed or contested.</p><div class="card card--new"><span class="tag tag--new">New position</span><p class="statement">Research shows that using too many skills at once actually makes an agent substantially worse. <span class="pid mono">evals-0001</span></p><blockquote class="q">there&#x27;s lots of research out there that shows that if you use very many of these, it actually makes your agent substantially worse.</blockquote><span class="cite"><span class="play">▷</span> <b>spNAUEgq_A8</b><span class="sep"> · </span>2026-06-29 <span class="u">spNAUEgq_A8#17</span></span></div><div class="card card--new"><span class="tag tag--new">New position</span><p class="statement">Domain-specific (narrow) agents are substantially more token efficient than broader agents, regularly achieving over 80% token efficiency gains for a given task. <span class="pid mono">evals-0002</span></p><blockquote class="q">they are far more token efficient. Far more token efficient. We regularly see over 80% token efficiency for any given task.</blockquote><span class="cite"><span class="play">▷</span> <b>spNAUEgq_A8</b><span class="sep"> · </span>2026-06-29 <span class="u">spNAUEgq_A8#24</span></span></div><div class="card card--new"><span class="tag tag--new">New position</span><p class="statement">The cost and usability advantages of small models depend on the model reliably completing its narrowly scoped task; repeated failures erode both the savings and the usability benefit. <span class="pid mono">evals-0003</span></p><blockquote class="q">if DeepSeek V4 Flash fails over and over and over again to do the job, then not only is it going to be, you know, not that much cheaper, it&#x27;s also going to be much more annoying to use it.</blockquote><span class="cite"><span class="play">▷</span> <b>spNAUEgq_A8</b><span class="sep"> · </span>2026-06-29 <span class="u">spNAUEgq_A8#28</span></span></div><div class="card card--new"><span class="tag tag--new">New position</span><p class="statement">The long-running decline in the cost of intelligence reversed in 2026: IQ-adjusted token costs have risen roughly 29-30% this year, and unadjusted token costs have risen roughly 76%. <span class="pid mono">evals-0004</span></p><blockquote class="q">the cost of intelligence is going down. That trend reversed in 2026... They&#x27;re up 29% when you adjust for IQ... tokens are up 76% this year.</blockquote><span class="cite"><span class="play">▷</span> <b>spNAUEgq_A8</b><span class="sep"> · </span>2026-06-29 <span class="u">spNAUEgq_A8#36</span></span></div><div class="card card--new"><span class="tag tag--new">New position</span><p class="statement">Being able to distinguish good skills from bad skills for AI agents is becoming increasingly important. <span class="pid mono">evals-0005</span></p><blockquote class="q">the ability to distinguish good skills from bad skills is only getting more important</blockquote><span class="cite"><span class="play">▷</span> <b>UNzCG3lw6O0</b><span class="sep"> · </span>2026-06-29 <span class="u">UNzCG3lw6O0#0</span></span></div><div class="card card--new"><span class="tag tag--new">New position</span><p class="statement">The root cause of &#x27;skill hell&#x27; is the absence of a shared rubric or framework for evaluating what makes a skill great. <span class="pid mono">evals-0006</span></p><blockquote class="q">the thing that we&#x27;re missing is we don&#x27;t know what makes a skill great...There&#x27;s no shared rubric, no framework for looking at a skill and making it better</blockquote><span class="cite"><span class="play">▷</span> <b>UNzCG3lw6O0</b><span class="sep"> · </span>2026-06-29 <span class="u">UNzCG3lw6O0#2</span></span></div><div class="card card--new"><span class="tag tag--new">New position</span><p class="statement">Model-invoked skills are unpredictable because the model can decline to invoke a skill even when it is a perfect fit for the task, which forces developers to build evals to verify that skills are invoked at the right time. <span class="pid mono">evals-0007</span></p><blockquote class="q">the model may just choose not to follow it, you know, even if it&#x27;s absolutely perfect for the task, it may just choose not to invoke the skill.</blockquote><span class="cite"><span class="play">▷</span> <b>UNzCG3lw6O0</b><span class="sep"> · </span>2026-06-29 <span class="u">UNzCG3lw6O0#11</span></span></div><div class="card card--new"><span class="tag tag--new">New position</span><p class="statement">The effectiveness of a leading-word technique can be verified by observing whether the chosen phrase appears in the agent&#x27;s reasoning/thinking traces. <span class="pid mono">evals-0008</span></p><blockquote class="q">The cool thing about this technique is you can know if it&#x27;s worked because you say vertical slice in your skill, and then you&#x27;ll notice in the reasoning traces that it&#x27;s saying, &quot;Okay, we&#x27;re going to do this as a thin vertical slice.&quot;</blockquote><span class="cite"><span class="play">▷</span> <b>UNzCG3lw6O0</b><span class="sep"> · </span>2026-06-29 <span class="u">UNzCG3lw6O0#21</span></span></div><div class="card card--new"><span class="tag tag--new">New position</span><p class="statement">Skills can be kept small and effective by systematically applying deletion tests, compacting instructions into leading words, and removing irrelevant content and sediment. <span class="pid mono">evals-0009</span></p><blockquote class="q">it&#x27;s just using these techniques, using deletion tests, using um making sure that I compact things into leading words, I don&#x27;t have anything irrelevant in there, and I don&#x27;t have any sediment.</blockquote><span class="cite"><span class="play">▷</span> <b>UNzCG3lw6O0</b><span class="sep"> · </span>2026-06-29 <span class="u">UNzCG3lw6O0#30</span></span></div><div class="card card--new"><span class="tag tag--new">New position</span><p class="statement">A key challenge with Fable is identifying its &#x27;capability overhang&#x27; — discovering what tasks are newly possible with the model that were not possible before. <span class="pid mono">evals-0010</span></p><blockquote class="q">this is I think part of the challenge with Fable is figuring out this capability overhang. What is now possible?</blockquote><span class="cite"><span class="play">▷</span> <b>9fubhllmsBU</b><span class="sep"> · </span>2026-07-06 <span class="u">9fubhllmsBU#8</span></span></div><div class="card card--new"><span class="tag tag--new">New position</span><p class="statement">Benchmark scores for the same model vary dramatically depending on the evaluation harness used; in HarnessBench, the same model scored between 52.4% and 76.2% — a swing of more than 20 points — with only the harness changed. <span class="pid mono">evals-0011</span></p><blockquote class="q">scores range from 52.4% to 76.2%. So, more than a 20-point difference, and only the harness changed.</blockquote><span class="cite"><span class="play">▷</span> <b>2e9ANoOEn28</b><span class="sep"> · </span>2026-07-07 <span class="u">2e9ANoOEn28#5</span></span></div><div class="card card--new"><span class="tag tag--new">New position</span><p class="statement">The PFA version of the agent is the best demonstrated so far because it produces the correct solution without any human input, although it still does not actually apply the fix to the code itself. <span class="pid mono">evals-0012</span></p><blockquote class="q">this version of this agent is the best one we&#x27;ve seen so far because it does give us the correct solution without any human input needed, but it hasn&#x27;t actually fixed the code.</blockquote><span class="cite"><span class="play">▷</span> <b>2e9ANoOEn28</b><span class="sep"> · </span>2026-07-07 <span class="u">2e9ANoOEn28#25</span></span></div><div class="card card--new"><span class="tag tag--new">New position</span><p class="statement">Self-optimization is a major advance because it replaces trial-and-error prompt tweaking (guess-and-check) with a systematic, measurable process for improving agent performance. <span class="pid mono">evals-0013</span></p><blockquote class="q">the reason this self-optimization is so great is because we&#x27;re not guessing and checking. We&#x27;re systematically measuring and improving, which is a big leap forward.</blockquote><span class="cite"><span class="play">▷</span> <b>2e9ANoOEn28</b><span class="sep"> · </span>2026-07-07 <span class="u">2e9ANoOEn28#36</span></span></div><div class="card card--new"><span class="tag tag--new">New position</span><p class="statement">Given equal time on a medium-length computer task, current AI models typically outperform an average person on the average task. <span class="pid mono">evals-0014</span></p><blockquote class="q">if you pick like a medium length computer task and you give me and the model the same amount of time to get that task done, probably at least in my case, the model will do a better job than me for the average task.</blockquote><span class="cite"><span class="play">▷</span> <b>pMggiOb18tc</b><span class="sep"> · </span>2026-07-09 <span class="u">pMggiOb18tc#11</span></span></div><div class="card card--new"><span class="tag tag--new">New position</span><p class="statement">The Luna model outperforms several notable models on the featured benchmark while being priced at only $1 per million input tokens and $6 per million output tokens, making it exceptional value for its performance. <span class="pid mono">evals-0015</span></p><blockquote class="q">Luna there beats some pretty notable models in this eval. But at only $1 per million input tokens and $6 per million output tokens... that is insane value.</blockquote><span class="cite"><span class="play">▷</span> <b>pMggiOb18tc</b><span class="sep"> · </span>2026-07-09 <span class="u">pMggiOb18tc#28</span></span></div><div class="card card--new"><span class="tag tag--new">New position</span><p class="statement">GPT 5.6 Sol running on Cerebras hardware delivers frontier-level intelligence at approximately 750 tokens per second. <span class="pid mono">evals-0016</span></p><blockquote class="q">this is GPT 5.6 Soul running on Cerebras, the frontier intelligence at now 750 tokens a second.</blockquote><span class="cite"><span class="play">▷</span> <b>pMggiOb18tc</b><span class="sep"> · </span>2026-07-09 <span class="u">pMggiOb18tc#29</span></span></div><div class="card card--new"><span class="tag tag--new">New position</span><p class="statement">As AI agents improve at self-verification and correctness checking, the human role in checking correctness is decreasing over time. <span class="pid mono">evals-0017</span></p><blockquote class="q">the role of humans in correctness checking is decreasing.</blockquote><span class="cite"><span class="play">▷</span> <b>WkBPX-oDMnA</b><span class="sep"> · </span>2026-07-10 <span class="u">WkBPX-oDMnA#4</span></span></div><div class="card card--new"><span class="tag tag--new">New position</span><p class="statement">Reduced human involvement in correctness-checking is acceptable, provided the human&#x27;s intent is clear and the agent executes it correctly. <span class="pid mono">evals-0018</span></p><blockquote class="q">And you know what? I actually don&#x27;t hate that. If I have a clear idea of what I want to do, and the agent does it correctly... I&#x27;m into it.</blockquote><span class="cite"><span class="play">▷</span> <b>WkBPX-oDMnA</b><span class="sep"> · </span>2026-07-10 <span class="u">WkBPX-oDMnA#5</span></span></div><div class="card card--new"><span class="tag tag--new">New position</span><p class="statement">The vast majority of publicly shared skills lack evals — Skill Bench indexed over 50,000 skills and found almost none had evals, with most being AI-written and untested, making it hard to assess skill quality given agent non-determinism. <span class="pid mono">evals-0019</span></p><blockquote class="q">Skill Bench is a very popular and nice like eval or benchmark which um index like over like 50,000 skills from like it up and like try to look into him and almost none of those skills had evals. Most of them were AI written um not really tested</blockquote><span class="cite"><span class="play">▷</span> <b>0vphxNt4wyk</b><span class="sep"> · </span>2026-07-14 <span class="u">0vphxNt4wyk#0</span></span></div><div class="card card--new"><span class="tag tag--new">New position</span><p class="statement">Preference skills — skills encoding company- or domain-specific knowledge that foundation models lack — should be protected with evals so that agent or model updates do not silently degrade performance on those domain-specific preferences. <span class="pid mono">evals-0020</span></p><blockquote class="q">those uh preference skills are then protected with e-walls where because most of like the foundation models might not uh integrate the knowledge which is very specific to your use case or your domain.</blockquote><span class="cite"><span class="play">▷</span> <b>0vphxNt4wyk</b><span class="sep"> · </span>2026-07-14 <span class="u">0vphxNt4wyk#4</span></span></div><div class="card card--new"><span class="tag tag--new">New position</span><p class="statement">According to the Skill Bench 1.1 evaluation across open and closed models and multiple harnesses, skills are effective, improving model performance by roughly 15% on average. <span class="pid mono">evals-0021</span></p><blockquote class="q">do skills work? Yes, they do work and I going back to a skills bench which has an update of 1.1 which has evaluated all kinds of open and closed models in different harnesses showing that skills on average improve the performance by roughly 15%.</blockquote><span class="cite"><span class="play">▷</span> <b>0vphxNt4wyk</b><span class="sep"> · </span>2026-07-14 <span class="u">0vphxNt4wyk#5</span></span></div><div class="card card--new"><span class="tag tag--new">New position</span><p class="statement">Human-written skills outperform AI-generated skills and are the best skills you can provide to AI agents. <span class="pid mono">evals-0022</span></p><blockquote class="q">human-written skills are the best we can provide.</blockquote><span class="cite"><span class="play">▷</span> <b>0vphxNt4wyk</b><span class="sep"> · </span>2026-07-14 <span class="u">0vphxNt4wyk#7</span></span></div><div class="card card--new"><span class="tag tag--new">New position</span><p class="statement">Teams should test skills early with a small eval set of roughly 10-20 prompts per skill — about five covering the happy path and five covering cases where the skill should not trigger — and should incorporate real production traces into these tests when available. <span class="pid mono">evals-0023</span></p><blockquote class="q">Always try to create 10 of 20 prompts. I like to create five for like the happy path... Five when I don&#x27;t want to use that skill just to make sure the model is not over triggering... nothing is better than than real-world data.</blockquote><span class="cite"><span class="play">▷</span> <b>0vphxNt4wyk</b><span class="sep"> · </span>2026-07-14 <span class="u">0vphxNt4wyk#18</span></span></div><div class="card card--new"><span class="tag tag--new">New position</span><p class="statement">AI-generated skills tend to contain many &#x27;no-ops&#x27; — instructions that do not actually change agent behavior (e.g., telling the model to make code easy to read) — and these no-op instructions should be identified and removed from skills. <span class="pid mono">evals-0024</span></p><blockquote class="q">AI generated skills tend to include a lot of no-ops. And no-ops basically is an instruction which does nothing to change the agent&#x27;s behavior. It&#x27;s like before making an implementation easy to read.</blockquote><span class="cite"><span class="play">▷</span> <b>0vphxNt4wyk</b><span class="sep"> · </span>2026-07-14 <span class="u">0vphxNt4wyk#19</span></span></div><div class="card card--new"><span class="tag tag--new">New position</span><p class="statement">Teams should periodically run evals with a skill enabled and disabled, and retire the skill if the model performs just as well without it, in order to save token cost and reduce maintenance burden. <span class="pid mono">evals-0025</span></p><blockquote class="q">always try to run evals with and without the skill enabled. And if the model achieves the performance without even like triggering the skill, you know you can retire that skill, save the cost uh for your tokens</blockquote><span class="cite"><span class="play">▷</span> <b>0vphxNt4wyk</b><span class="sep"> · </span>2026-07-14 <span class="u">0vphxNt4wyk#20</span></span></div><div class="card card--new"><span class="tag tag--new">New position</span><p class="statement">Most skill evals can be implemented as simple, cheap regex-based assertions (e.g., checking for the correct SDK, model, methods, and the absence of deprecated patterns) that are easy to update and rerun, while LLM-as-judge evaluation is better reserved for complex skills that require judging whole traces. <span class="pid mono">evals-0026</span></p><blockquote class="q">most of the tests or evals for skills can be regex... it&#x27;s really for us it was all about, &#x27;Okay, do we use the correct SDK? Do we use the correct um model?&#x27;... But of course, you can use LLM as a judge if you have like more complex skills</blockquote><span class="cite"><span class="play">▷</span> <b>0vphxNt4wyk</b><span class="sep"> · </span>2026-07-14 <span class="u">0vphxNt4wyk#23</span></span></div><div class="card card--new"><span class="tag tag--new">New position</span><p class="statement">Skill evals should assert on task outcomes rather than on the specific trajectory the model takes — e.g., it should not matter on which turn the skill loads, only whether the model achieves the task from the prompt. <span class="pid mono">evals-0027</span></p><blockquote class="q">definitely like create outcomes, not paths. Uh we don&#x27;t want to test if the model loads the skill on like the first turn. We really want to test if it can achieve the task based on the prompt.</blockquote><span class="cite"><span class="play">▷</span> <b>0vphxNt4wyk</b><span class="sep"> · </span>2026-07-14 <span class="u">0vphxNt4wyk#28</span></span></div><div class="card card--new"><span class="tag tag--new">New position</span><p class="statement">Skill evals should be run in isolated environments, because coding agents are adept at &#x27;cheating&#x27; — retrieving context from prior chats or other executions instead of genuinely exercising the skill under test. <span class="pid mono">evals-0028</span></p><blockquote class="q">coding agents are very good at finding or cheating. So, if you run inside uh your existing environment, it might look up previous chats or it might look up some other executions and then like try to cheat it and get the context from the skill without even using the skill.</blockquote><span class="cite"><span class="play">▷</span> <b>0vphxNt4wyk</b><span class="sep"> · </span>2026-07-14 <span class="u">0vphxNt4wyk#29</span></span></div><div class="card card--new"><span class="tag tag--new">New position</span><p class="statement">Because model outputs are non-deterministic, skill evals should run multiple trials (roughly two to six) per test case in order to reliably measure skill performance. <span class="pid mono">evals-0029</span></p><blockquote class="q">definitely run more than one trial when running evals. Like agents, our models are non-deterministic... always run the to six uh trials per case and to measure reliability</blockquote><span class="cite"><span class="play">▷</span> <b>0vphxNt4wyk</b><span class="sep"> · </span>2026-07-14 <span class="u">0vphxNt4wyk#30</span></span></div><div class="card card--new"><span class="tag tag--new">New position</span><p class="statement">Skill evals should be tested across multiple agent harnesses and models rather than a single one, because a skill&#x27;s effectiveness can vary significantly depending on the harness and model used. <span class="pid mono">evals-0030</span></p><blockquote class="q">test across different harnesses... not only just evaluate against Claude or anti-gravity... maybe your skill is very good with a Gemini but very bad with Codex and then you have uh customers, consumers using your harness with Codex and then it fails.</blockquote><span class="cite"><span class="play">▷</span> <b>0vphxNt4wyk</b><span class="sep"> · </span>2026-07-14 <span class="u">0vphxNt4wyk#31</span></span></div><div class="card card--new"><span class="tag tag--new">New position</span><p class="statement">When a skill is retired because the model no longer needs it, its eval should be retained and kept running so that future model or agent regressions can be detected and the skill reintroduced if performance degrades. <span class="pid mono">evals-0031</span></p><blockquote class="q">You don&#x27;t need to throw that eval away because you throw the skill away. You can keep that eval to make sure that the model or the agent keeps the performance and as soon as you start seeing some degradation, you can reintroduce the skill.</blockquote><span class="cite"><span class="play">▷</span> <b>0vphxNt4wyk</b><span class="sep"> · </span>2026-07-14 <span class="u">0vphxNt4wyk#32</span></span></div></section>
+<section class="diff" id="contested" data-cat="contested"><p class="section-kicker">Newly contested</p><h2 class="section-title">New disagreements</h2><p class="section-intro">The heart of the briefing. A credible dissent met an existing position, so both stances are kept side by side — quoted, sourced, and dated — with the disagreement typed but <b>not</b> smoothed away.</p><div class="card card--contested"><span class="tag tag--contested">Newly contested</span><p class="statement">The long-running decline in the cost of intelligence reversed in 2026: IQ-adjusted token costs have risen roughly 29-30% this year, and unadjusted token costs have risen roughly 76%. <span class="pid mono">evals-0004</span></p><p class="section-intro" style="margin:0 0 10px">This run flipped it to contested.</p><div class="stances"><div class="stance support"><div class="side">Supporting</div><blockquote class="q">the cost of intelligence is going down. That trend reversed in 2026... They&#x27;re up 29% when you adjust for IQ... tokens are up 76% this year.</blockquote><span class="cite"><span class="play">▷</span> <b>spNAUEgq_A8</b><span class="sep"> · </span>2026-06-29 <span class="u">spNAUEgq_A8#36</span></span></div><div class="vs"><span>vs</span></div><div class="stance oppose"><div class="side">Opposing</div><blockquote class="q">GPT 5.6 Terra, I think it&#x27;s in like dark blue in there. Brings GPT 5.5 level intelligence, but at half the cost.</blockquote><span class="cite"><span class="play">▷</span> <b>pMggiOb18tc</b><span class="sep"> · </span>2026-07-09 <span class="u">pMggiOb18tc#27</span></span></div></div><div class="recon"><span class="rtype">Empirical disagreement</span><span class="verdict open">unreconciled — genuinely open</span><details><summary>Why they disagree</summary><p class="explain">They disagree over the factual direction of intelligence costs in 2026. The existing position asserts a measured, aggregate reversal (IQ-adjusted token costs up ~29-30%, unadjusted up ~76%), while the new unit cites a specific model release as evidence that costs are still falling (same intelligence at half the cost). One flagship release halving its price does not by itself settle whether aggregate IQ-adjusted costs rose this year, and neither side presents data covering the other&#x27;s scope, so the disagreement remains an unresolved question of measurement.</p></details></div></div></section>
+<section class="diff" id="confirmed" data-cat="confirmed"><p class="section-kicker">Confirmed</p><h2 class="section-title">Confirmations</h2><p class="section-intro">Existing positions that gained backing. A <b>fresh, independent voice</b> strengthens confidence and can ratchet maturity up; a mere restatement is kept for the record but tucked away so it does not crowd the briefing.</p><div class="card card--confirmed"><span class="tag tag--new-evidence">Confirmed · new evidence</span><p class="statement">Model-invoked skills are unpredictable because the model can decline to invoke a skill even when it is a perfect fit for the task, which forces developers to build evals to verify that skills are invoked at the right time. <span class="pid mono">evals-0007</span></p><blockquote class="q">we have seen 50% of the failures uh because the skill was not triggered correctly because the prompt of the user was not uh detailed enough for the model to understand</blockquote><span class="cite"><span class="play">▷</span> <b>0vphxNt4wyk</b><span class="sep"> · </span>2026-07-14 <span class="u">0vphxNt4wyk#25</span></span></div><details class='redundant-wrap'><summary class='sans'>Show 4 restatements (redundant)</summary><div class="card card--confirmed"><span class="tag tag--redundant">Confirmed · restated</span><p class="statement">Research shows that using too many skills at once actually makes an agent substantially worse. <span class="pid mono">evals-0001</span></p><blockquote class="q">the truth about inheritance is it works. It does work... Eventually, inheritance starts to break down... There&#x27;s some point at which I get diminishing returns from adding additional context.</blockquote><span class="cite"><span class="play">▷</span> <b>spNAUEgq_A8</b><span class="sep"> · </span>2026-06-29 <span class="u">spNAUEgq_A8#20</span></span></div><div class="card card--confirmed"><span class="tag tag--redundant">Confirmed · restated</span><p class="statement">Model-invoked skills are unpredictable because the model can decline to invoke a skill even when it is a perfect fit for the task, which forces developers to build evals to verify that skills are invoked at the right time. <span class="pid mono">evals-0007</span></p><blockquote class="q">I much prefer removing that level of unpredictability, imposing a bit more cognitive load on the user, and what you get is just you&#x27;re removing a class of problem from even being a problem.</blockquote><span class="cite"><span class="play">▷</span> <b>UNzCG3lw6O0</b><span class="sep"> · </span>2026-06-29 <span class="u">UNzCG3lw6O0#12</span></span></div><div class="card card--confirmed"><span class="tag tag--redundant">Confirmed · restated</span><p class="statement">Human-written skills outperform AI-generated skills and are the best skills you can provide to AI agents. <span class="pid mono">evals-0022</span></p><blockquote class="q">AI-generated skills can uh impact performance negatively.</blockquote><span class="cite"><span class="play">▷</span> <b>0vphxNt4wyk</b><span class="sep"> · </span>2026-07-14 <span class="u">0vphxNt4wyk#8</span></span></div><div class="card card--confirmed"><span class="tag tag--redundant">Confirmed · restated</span><p class="statement">Teams should test skills early with a small eval set of roughly 10-20 prompts per skill — about five covering the happy path and five covering cases where the skill should not trigger — and should incorporate real production traces into these tests when available. <span class="pid mono">evals-0023</span></p><blockquote class="q">include negative tests. Uh we always forget negative tests. Start small. Even like 10 to 20 skill eval samples are better than nothing. You will be surprised on how much you will find even from like five to 10 examples.</blockquote><span class="cite"><span class="play">▷</span> <b>0vphxNt4wyk</b><span class="sep"> · </span>2026-07-14 <span class="u">0vphxNt4wyk#27</span></span></div></details></section>
+<section class="diff" id="matured" data-cat="matured"><p class="section-kicker">Maturity</p><h2 class="section-title">How maturity moved</h2><p class="section-intro">How positions moved along <b>open question → emerging → converging → solved</b> — and where a dissent knocked one back to contested. Every move is tied to the specific videos behind it; a trend is never asserted on thin air.</p><div class="card card--matured"><span class="tag tag--reopened">Reopened</span><p class="statement">The long-running decline in the cost of intelligence reversed in 2026: IQ-adjusted token costs have risen roughly 29-30% this year, and unadjusted token costs have risen roughly 76%. <span class="pid mono">evals-0004</span></p><div class="ladder"><div class="rung from"><span class="rung-label">open question</span><span class="rung-tag">was</span></div><div class="rung"><span class="rung-label">emerging trend</span><span class="rung-tag">&nbsp;</span></div><div class="rung"><span class="rung-label">converging</span><span class="rung-tag">&nbsp;</span></div><div class="rung"><span class="rung-label">solved</span><span class="rung-tag">&nbsp;</span></div><span class="arrow">→</span><div class="contested-marker"><span class="rung-label">⚔ contested</span><span class="rung-tag">now</span></div></div><p class="section-intro" style="margin:8px 0 6px">contested — empirical disagreement, unreconciled — genuinely open: They disagree over the factual direction of intelligence costs in 2026. The existing position asserts a measured, aggregate reversal (IQ-adjusted token costs up ~29-30%, unadjusted up ~76%), while the new unit cites a specific model release as evidence that costs are still falling (same intelligence at half the cost). One flagship release halving its price does not by itself settle whether aggregate IQ-adjusted costs rose this year, and neither side presents data covering the other&#x27;s scope, so the disagreement remains an unresolved question of measurement.</p><p class="cite-row"><span class="cite-lead sans">Triggered by:</span> <span class="cite"><span class="play">▷</span> <b>pMggiOb18tc</b><span class="sep"> · </span>2026-07-09 <span class="u">pMggiOb18tc#27</span></span></p></div><div class="card card--matured"><span class="tag tag--matured">Matured</span><p class="statement">Model-invoked skills are unpredictable because the model can decline to invoke a skill even when it is a perfect fit for the task, which forces developers to build evals to verify that skills are invoked at the right time. <span class="pid mono">evals-0007</span></p><div class="ladder"><div class="rung from"><span class="rung-label">open question</span><span class="rung-tag">was</span></div><div class="rung to mat--emerging"><span class="rung-label">emerging trend</span><span class="rung-tag">now</span></div><div class="rung"><span class="rung-label">converging</span><span class="rung-tag">&nbsp;</span></div><div class="rung"><span class="rung-label">solved</span><span class="rung-tag">&nbsp;</span></div></div><p class="section-intro" style="margin:8px 0 6px">emerging — 2 independent sources so far (15d span)</p><p class="cite-row"><span class="cite-lead sans">Backed by:</span> <span class="cite"><span class="play">▷</span> <b>UNzCG3lw6O0</b><span class="sep"> · </span>2026-06-29 <span class="u">UNzCG3lw6O0#11</span></span><span class="cite"><span class="play">▷</span> <b>0vphxNt4wyk</b><span class="sep"> · </span>2026-07-14 <span class="u">0vphxNt4wyk#25</span></span></p></div></section>
+<div class="callout sans"><b>How to read this.</b> This digest <b>critiques, it does not predict.</b> Contested positions are kept side by side rather than resolved into a narrative, and every trend claim is bound to the videos that support it. A confident forecast is exactly what you will not find here.</div>
+<section class="diff" id="state"><p class="section-kicker">State</p><h2 class="section-title">State of the field</h2><p class="section-intro">Where <b>31 positions</b> stand today, <b>1</b> of them contested. Live debates lead; settled consensus follows.</p><div class="kb-bar"><span class="s-contested" style="width:3.23%" title="contested: 1"></span><span class="s-open" style="width:93.55%" title="open: 29"></span><span class="s-emerging" style="width:3.23%" title="emerging: 1"></span></div><div class="kb-legend sans"><span class="lg"><span class="sw s-contested"></span>contested · 1</span><span class="lg"><span class="sw s-open"></span>open · 29</span><span class="lg"><span class="sw s-emerging"></span>emerging · 1</span></div><div class="pos-row"><div class="pmeta"><span class="badge mat--contested">⚔ contested</span><span class="pcount sans">2 sources · 10-day span</span></div><div class="pstmt"><span class="pid mono">evals-0004</span> <span class="s">The long-running decline in the cost of intelligence reversed in 2026: IQ-adjusted token costs have risen roughly 29-30% this year, and unadjusted token costs have risen roughly 76%.</span></div></div><div class="pos-row"><div class="pmeta"><span class="badge mat--emerging">◔ emerging trend</span><span class="pcount sans">2 sources · 15-day span</span></div><div class="pstmt"><span class="pid mono">evals-0007</span> <span class="s">Model-invoked skills are unpredictable because the model can decline to invoke a skill even when it is a perfect fit for the task, which forces developers to build evals to verify that skills are invoked at the right time.</span></div></div><div class="pos-row"><div class="pmeta"><span class="badge mat--open">○ open question</span><span class="pcount sans">1 source · same-day</span></div><div class="pstmt"><span class="pid mono">evals-0001</span> <span class="s">Research shows that using too many skills at once actually makes an agent substantially worse.</span></div></div><div class="pos-row"><div class="pmeta"><span class="badge mat--open">○ open question</span><span class="pcount sans">1 source · same-day</span></div><div class="pstmt"><span class="pid mono">evals-0002</span> <span class="s">Domain-specific (narrow) agents are substantially more token efficient than broader agents, regularly achieving over 80% token efficiency gains for a given task.</span></div></div><div class="pos-row"><div class="pmeta"><span class="badge mat--open">○ open question</span><span class="pcount sans">1 source · same-day</span></div><div class="pstmt"><span class="pid mono">evals-0003</span> <span class="s">The cost and usability advantages of small models depend on the model reliably completing its narrowly scoped task; repeated failures erode both the savings and the usability benefit.</span></div></div><div class="pos-row"><div class="pmeta"><span class="badge mat--open">○ open question</span><span class="pcount sans">1 source · same-day</span></div><div class="pstmt"><span class="pid mono">evals-0005</span> <span class="s">Being able to distinguish good skills from bad skills for AI agents is becoming increasingly important.</span></div></div><div class="pos-row"><div class="pmeta"><span class="badge mat--open">○ open question</span><span class="pcount sans">1 source · same-day</span></div><div class="pstmt"><span class="pid mono">evals-0006</span> <span class="s">The root cause of &#x27;skill hell&#x27; is the absence of a shared rubric or framework for evaluating what makes a skill great.</span></div></div><div class="pos-row"><div class="pmeta"><span class="badge mat--open">○ open question</span><span class="pcount sans">1 source · same-day</span></div><div class="pstmt"><span class="pid mono">evals-0008</span> <span class="s">The effectiveness of a leading-word technique can be verified by observing whether the chosen phrase appears in the agent&#x27;s reasoning/thinking traces.</span></div></div><div class="pos-row"><div class="pmeta"><span class="badge mat--open">○ open question</span><span class="pcount sans">1 source · same-day</span></div><div class="pstmt"><span class="pid mono">evals-0009</span> <span class="s">Skills can be kept small and effective by systematically applying deletion tests, compacting instructions into leading words, and removing irrelevant content and sediment.</span></div></div><div class="pos-row"><div class="pmeta"><span class="badge mat--open">○ open question</span><span class="pcount sans">1 source · same-day</span></div><div class="pstmt"><span class="pid mono">evals-0010</span> <span class="s">A key challenge with Fable is identifying its &#x27;capability overhang&#x27; — discovering what tasks are newly possible with the model that were not possible before.</span></div></div><div class="pos-row"><div class="pmeta"><span class="badge mat--open">○ open question</span><span class="pcount sans">1 source · same-day</span></div><div class="pstmt"><span class="pid mono">evals-0011</span> <span class="s">Benchmark scores for the same model vary dramatically depending on the evaluation harness used; in HarnessBench, the same model scored between 52.4% and 76.2% — a swing of more than 20 points — with only the harness changed.</span></div></div><div class="pos-row"><div class="pmeta"><span class="badge mat--open">○ open question</span><span class="pcount sans">1 source · same-day</span></div><div class="pstmt"><span class="pid mono">evals-0012</span> <span class="s">The PFA version of the agent is the best demonstrated so far because it produces the correct solution without any human input, although it still does not actually apply the fix to the code itself.</span></div></div><div class="pos-row"><div class="pmeta"><span class="badge mat--open">○ open question</span><span class="pcount sans">1 source · same-day</span></div><div class="pstmt"><span class="pid mono">evals-0013</span> <span class="s">Self-optimization is a major advance because it replaces trial-and-error prompt tweaking (guess-and-check) with a systematic, measurable process for improving agent performance.</span></div></div><div class="pos-row"><div class="pmeta"><span class="badge mat--open">○ open question</span><span class="pcount sans">1 source · same-day</span></div><div class="pstmt"><span class="pid mono">evals-0014</span> <span class="s">Given equal time on a medium-length computer task, current AI models typically outperform an average person on the average task.</span></div></div><div class="pos-row"><div class="pmeta"><span class="badge mat--open">○ open question</span><span class="pcount sans">1 source · same-day</span></div><div class="pstmt"><span class="pid mono">evals-0015</span> <span class="s">The Luna model outperforms several notable models on the featured benchmark while being priced at only $1 per million input tokens and $6 per million output tokens, making it exceptional value for its performance.</span></div></div><div class="pos-row"><div class="pmeta"><span class="badge mat--open">○ open question</span><span class="pcount sans">1 source · same-day</span></div><div class="pstmt"><span class="pid mono">evals-0016</span> <span class="s">GPT 5.6 Sol running on Cerebras hardware delivers frontier-level intelligence at approximately 750 tokens per second.</span></div></div><div class="pos-row"><div class="pmeta"><span class="badge mat--open">○ open question</span><span class="pcount sans">1 source · same-day</span></div><div class="pstmt"><span class="pid mono">evals-0017</span> <span class="s">As AI agents improve at self-verification and correctness checking, the human role in checking correctness is decreasing over time.</span></div></div><div class="pos-row"><div class="pmeta"><span class="badge mat--open">○ open question</span><span class="pcount sans">1 source · same-day</span></div><div class="pstmt"><span class="pid mono">evals-0018</span> <span class="s">Reduced human involvement in correctness-checking is acceptable, provided the human&#x27;s intent is clear and the agent executes it correctly.</span></div></div><div class="pos-row"><div class="pmeta"><span class="badge mat--open">○ open question</span><span class="pcount sans">1 source · same-day</span></div><div class="pstmt"><span class="pid mono">evals-0019</span> <span class="s">The vast majority of publicly shared skills lack evals — Skill Bench indexed over 50,000 skills and found almost none had evals, with most being AI-written and untested, making it hard to assess skill quality given agent non-determinism.</span></div></div><div class="pos-row"><div class="pmeta"><span class="badge mat--open">○ open question</span><span class="pcount sans">1 source · same-day</span></div><div class="pstmt"><span class="pid mono">evals-0020</span> <span class="s">Preference skills — skills encoding company- or domain-specific knowledge that foundation models lack — should be protected with evals so that agent or model updates do not silently degrade performance on those domain-specific preferences.</span></div></div><div class="pos-row"><div class="pmeta"><span class="badge mat--open">○ open question</span><span class="pcount sans">1 source · same-day</span></div><div class="pstmt"><span class="pid mono">evals-0021</span> <span class="s">According to the Skill Bench 1.1 evaluation across open and closed models and multiple harnesses, skills are effective, improving model performance by roughly 15% on average.</span></div></div><div class="pos-row"><div class="pmeta"><span class="badge mat--open">○ open question</span><span class="pcount sans">1 source · same-day</span></div><div class="pstmt"><span class="pid mono">evals-0022</span> <span class="s">Human-written skills outperform AI-generated skills and are the best skills you can provide to AI agents.</span></div></div><div class="pos-row"><div class="pmeta"><span class="badge mat--open">○ open question</span><span class="pcount sans">1 source · same-day</span></div><div class="pstmt"><span class="pid mono">evals-0023</span> <span class="s">Teams should test skills early with a small eval set of roughly 10-20 prompts per skill — about five covering the happy path and five covering cases where the skill should not trigger — and should incorporate real production traces into these tests when available.</span></div></div><div class="pos-row"><div class="pmeta"><span class="badge mat--open">○ open question</span><span class="pcount sans">1 source · same-day</span></div><div class="pstmt"><span class="pid mono">evals-0024</span> <span class="s">AI-generated skills tend to contain many &#x27;no-ops&#x27; — instructions that do not actually change agent behavior (e.g., telling the model to make code easy to read) — and these no-op instructions should be identified and removed from skills.</span></div></div><div class="pos-row"><div class="pmeta"><span class="badge mat--open">○ open question</span><span class="pcount sans">1 source · same-day</span></div><div class="pstmt"><span class="pid mono">evals-0025</span> <span class="s">Teams should periodically run evals with a skill enabled and disabled, and retire the skill if the model performs just as well without it, in order to save token cost and reduce maintenance burden.</span></div></div><div class="pos-row"><div class="pmeta"><span class="badge mat--open">○ open question</span><span class="pcount sans">1 source · same-day</span></div><div class="pstmt"><span class="pid mono">evals-0026</span> <span class="s">Most skill evals can be implemented as simple, cheap regex-based assertions (e.g., checking for the correct SDK, model, methods, and the absence of deprecated patterns) that are easy to update and rerun, while LLM-as-judge evaluation is better reserved for complex skills that require judging whole traces.</span></div></div><div class="pos-row"><div class="pmeta"><span class="badge mat--open">○ open question</span><span class="pcount sans">1 source · same-day</span></div><div class="pstmt"><span class="pid mono">evals-0027</span> <span class="s">Skill evals should assert on task outcomes rather than on the specific trajectory the model takes — e.g., it should not matter on which turn the skill loads, only whether the model achieves the task from the prompt.</span></div></div><div class="pos-row"><div class="pmeta"><span class="badge mat--open">○ open question</span><span class="pcount sans">1 source · same-day</span></div><div class="pstmt"><span class="pid mono">evals-0028</span> <span class="s">Skill evals should be run in isolated environments, because coding agents are adept at &#x27;cheating&#x27; — retrieving context from prior chats or other executions instead of genuinely exercising the skill under test.</span></div></div><div class="pos-row"><div class="pmeta"><span class="badge mat--open">○ open question</span><span class="pcount sans">1 source · same-day</span></div><div class="pstmt"><span class="pid mono">evals-0029</span> <span class="s">Because model outputs are non-deterministic, skill evals should run multiple trials (roughly two to six) per test case in order to reliably measure skill performance.</span></div></div><div class="pos-row"><div class="pmeta"><span class="badge mat--open">○ open question</span><span class="pcount sans">1 source · same-day</span></div><div class="pstmt"><span class="pid mono">evals-0030</span> <span class="s">Skill evals should be tested across multiple agent harnesses and models rather than a single one, because a skill&#x27;s effectiveness can vary significantly depending on the harness and model used.</span></div></div><div class="pos-row"><div class="pmeta"><span class="badge mat--open">○ open question</span><span class="pcount sans">1 source · same-day</span></div><div class="pstmt"><span class="pid mono">evals-0031</span> <span class="s">When a skill is retired because the model no longer needs it, its eval should be retained and kept running so that future model or agent regressions can be detected and the skill reintroduced if performance degrades.</span></div></div></section>
+<footer class="foot">Generated by the YouTube-KB pipeline for topic <b>evals</b>, run of July 22, 2026. This page is a diff of the knowledge base; the canonical state lives in <code>kb-data/evals/positions.json</code>. Self-contained — no external requests.</footer>
+</div>
+<script>
+(function () {
+  var bar = document.getElementById('filterbar');
+  if (!bar) return;
+  bar.hidden = false;
+  bar.addEventListener('click', function (e) {
+    var chip = e.target.closest('.chip');
+    if (!chip) return;
+    var cat = chip.getAttribute('data-cat');
+    var on = chip.getAttribute('aria-pressed') !== 'false';
+    chip.setAttribute('aria-pressed', on ? 'false' : 'true');
+    document.body.classList.toggle('hide-' + cat, on);
+  });
+})();
+</script>
+</body>
+</html>

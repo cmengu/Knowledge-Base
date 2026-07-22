@@ -327,11 +327,13 @@ def test_reconciled_contested_kb_saves_and_reloads(tmp_path):
 
 
 def test_reconcile_against_committed_seed_kb_read_only():
-    # Loads the real committed seed KB (kb-data/evals) and reconciles a fixture unit against
-    # it WITHOUT saving — proves the engine works on realistic positions, disk untouched.
-    from kb.config import KB_DATA_DIR
+    # Loads the committed sample KB (fixtures/sample-kb/evals) and reconciles a fixture unit
+    # against it WITHOUT saving — proves the engine works on realistic positions, disk
+    # untouched. The illustrative sample lives under fixtures/ so kb-data/ holds only the
+    # pipeline's own real run output.
+    from kb.config import FIXTURES_DIR
 
-    store = KBStore.load("evals", root=KB_DATA_DIR)
+    store = KBStore.load("evals", root=FIXTURES_DIR / "sample-kb")
     before = len(store)
     assert before >= 1                                 # the seed KB has positions
     inc = make_incoming("A brand-new eval idea nobody has stated.", video_id="vidNew", date="2025-10-01")

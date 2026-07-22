@@ -4,47 +4,27 @@
     {
       "position_id": "evals-0001",
       "topic": "evals",
-      "statement": "Evaluating an LLM system is different from evaluating an LLM model — you must evaluate your own system on the task it is meant to solve, not just the base model.",
-      "maturity": "converging",
+      "statement": "Research shows that using too many skills at once actually makes an agent substantially worse.",
+      "maturity": "open-question",
       "sources": [
         {
-          "unit_id": "K8LLVi5Xrh8#0",
-          "video_id": "K8LLVi5Xrh8",
-          "date": "2025-05-11",
+          "unit_id": "spNAUEgq_A8#17",
+          "video_id": "spNAUEgq_A8",
+          "date": "2026-06-29",
           "alignment": "supporting",
           "stance": "affirms",
-          "quote": "evaluating LLM systems is not the same as evaluating LLM models, which is usually done through benchmarks",
-          "statement": "LLM system evaluation is different from LLM model evaluation, which is typically done via public benchmarks.",
+          "quote": "there's lots of research out there that shows that if you use very many of these, it actually makes your agent substantially worse.",
+          "statement": "Research shows that using too many skills at once actually makes an agent substantially worse.",
           "evidence_offered": []
         },
         {
-          "unit_id": "K8LLVi5Xrh8#2",
-          "video_id": "K8LLVi5Xrh8",
-          "date": "2025-05-11",
+          "unit_id": "spNAUEgq_A8#20",
+          "video_id": "spNAUEgq_A8",
+          "date": "2026-06-29",
           "alignment": "supporting",
-          "stance": "affirms",
-          "quote": "if you're building a specific application like a chatbot or even a simpler prompt chain you need to test it on the tasks that it is meant to solve",
-          "statement": "If you build a specific application (e.g., a chatbot or prompt chain), you need to test the whole system on the tasks it's meant to solve, not just the underlying model.",
-          "evidence_offered": []
-        },
-        {
-          "unit_id": "demo-eval-talk-02#4",
-          "video_id": "demo-eval-talk-02",
-          "date": "2025-07-08",
-          "alignment": "supporting",
-          "stance": "affirms",
-          "quote": "[illustrative] benchmarks tell you about the model, evals tell you about your product",
-          "statement": "[illustrative] System-level evaluation matters more than model benchmarks.",
-          "evidence_offered": []
-        },
-        {
-          "unit_id": "demo-eval-talk-03#7",
-          "video_id": "demo-eval-talk-03",
-          "date": "2025-09-20",
-          "alignment": "supporting",
-          "stance": "affirms",
-          "quote": "[illustrative] stop shipping on vibes; measure the system you actually built",
-          "statement": "[illustrative] Teams should evaluate their assembled system, not the raw model.",
+          "stance": "mixed",
+          "quote": "the truth about inheritance is it works. It does work... Eventually, inheritance starts to break down... There's some point at which I get diminishing returns from adding additional context.",
+          "statement": "The inheritance approach to building agents (stacking more skills/MCPs/context onto one agent) does work, but it breaks down and produces diminishing returns as the number of added capabilities grows very large.",
           "evidence_offered": []
         }
       ],
@@ -52,52 +32,28 @@
         {
           "from_maturity": null,
           "to_maturity": "open-question",
-          "at": "2025-05-11T09:00:00",
-          "reason": "first stated in the ingested evals talk",
-          "trigger_unit_id": "K8LLVi5Xrh8#0"
-        },
-        {
-          "from_maturity": "open-question",
-          "to_maturity": "emerging-trend",
-          "at": "2025-07-08T09:00:00",
-          "reason": "a second, independent voice agreed",
-          "trigger_unit_id": "demo-eval-talk-02#4"
-        },
-        {
-          "from_maturity": "emerging-trend",
-          "to_maturity": "converging",
-          "at": "2025-09-20T09:00:00",
-          "reason": "three independent sources agreeing over >3 months, no contest",
-          "trigger_unit_id": "demo-eval-talk-03#7"
+          "at": "2026-07-22T09:00:00",
+          "reason": "opened as a new open position (novel unit)",
+          "trigger_unit_id": "spNAUEgq_A8#17"
         }
       ],
-      "created_at": "2025-05-11T09:00:00",
-      "updated_at": "2025-09-20T09:00:00"
+      "created_at": "2026-07-22T09:00:00",
+      "updated_at": "2026-07-22T09:00:00"
     },
     {
       "position_id": "evals-0002",
       "topic": "evals",
-      "statement": "For a specialized system (e.g. RAG), build your own evaluation rather than reaching for an off-the-shelf public benchmark.",
-      "maturity": "emerging-trend",
+      "statement": "Domain-specific (narrow) agents are substantially more token efficient than broader agents, regularly achieving over 80% token efficiency gains for a given task.",
+      "maturity": "open-question",
       "sources": [
         {
-          "unit_id": "K8LLVi5Xrh8#3",
-          "video_id": "K8LLVi5Xrh8",
-          "date": "2025-05-11",
+          "unit_id": "spNAUEgq_A8#24",
+          "video_id": "spNAUEgq_A8",
+          "date": "2026-06-29",
           "alignment": "supporting",
           "stance": "affirms",
-          "quote": "So if you are building a RAG system don't search for a RAG benchmark - build your own.",
-          "statement": "If you're building a RAG system, don't search for an existing RAG benchmark—build your own evaluation instead.",
-          "evidence_offered": []
-        },
-        {
-          "unit_id": "demo-eval-talk-02#9",
-          "video_id": "demo-eval-talk-02",
-          "date": "2025-07-08",
-          "alignment": "supporting",
-          "stance": "affirms",
-          "quote": "[illustrative] a generic RAG leaderboard won't tell you if YOUR retrieval works",
-          "statement": "[illustrative] Custom evals beat generic benchmarks for retrieval systems.",
+          "quote": "they are far more token efficient. Far more token efficient. We regularly see over 80% token efficiency for any given task.",
+          "statement": "Domain-specific agents (narrow agents targeted to a specific domain) are far more token efficient, regularly achieving over 80% token efficiency gains for a given task compared to broader agents.",
           "evidence_offered": []
         }
       ],
@@ -105,45 +61,28 @@
         {
           "from_maturity": null,
           "to_maturity": "open-question",
-          "at": "2025-05-11T09:00:00",
-          "reason": "stated in the ingested evals talk",
-          "trigger_unit_id": "K8LLVi5Xrh8#3"
-        },
-        {
-          "from_maturity": "open-question",
-          "to_maturity": "emerging-trend",
-          "at": "2025-07-08T09:00:00",
-          "reason": "a second source agreed within three months",
-          "trigger_unit_id": "demo-eval-talk-02#9"
+          "at": "2026-07-22T09:00:00",
+          "reason": "opened as a new open position (novel unit)",
+          "trigger_unit_id": "spNAUEgq_A8#24"
         }
       ],
-      "created_at": "2025-05-11T09:00:00",
-      "updated_at": "2025-07-08T09:00:00"
+      "created_at": "2026-07-22T09:00:00",
+      "updated_at": "2026-07-22T09:00:00"
     },
     {
       "position_id": "evals-0003",
       "topic": "evals",
-      "statement": "Manual evaluation is the right place to start; automation scales human judgment but does not replace it.",
+      "statement": "The cost and usability advantages of small models depend on the model reliably completing its narrowly scoped task; repeated failures erode both the savings and the usability benefit.",
       "maturity": "open-question",
       "sources": [
         {
-          "unit_id": "K8LLVi5Xrh8#16",
-          "video_id": "K8LLVi5Xrh8",
-          "date": "2025-05-11",
+          "unit_id": "spNAUEgq_A8#28",
+          "video_id": "spNAUEgq_A8",
+          "date": "2026-06-29",
           "alignment": "supporting",
-          "stance": "affirms",
-          "quote": "The first obvious solution to this complexity is manual evaluations, and honestly that's where you should start.",
-          "statement": "Manual evaluation—reading outputs yourself—is the right place to start, since it builds intuition, reveals patterns, and clarifies what 'good' means for your use case.",
-          "evidence_offered": []
-        },
-        {
-          "unit_id": "K8LLVi5Xrh8#19",
-          "video_id": "K8LLVi5Xrh8",
-          "date": "2025-05-11",
-          "alignment": "supporting",
-          "stance": "affirms",
-          "quote": "Automated evaluations are there to scale your judgment, not to replace it. If you don't know yet what you're evaluating manually, there is nothing to automate.",
-          "statement": "Automated evaluations exist to scale human judgment, not replace it—if you haven't figured out what to evaluate manually first, there's nothing meaningful to automate.",
+          "stance": "mixed",
+          "quote": "if DeepSeek V4 Flash fails over and over and over again to do the job, then not only is it going to be, you know, not that much cheaper, it's also going to be much more annoying to use it.",
+          "statement": "The cost advantage of small models only holds if the small model can reliably complete the narrowly scoped task; if it fails repeatedly, the savings and usability benefits erode.",
           "evidence_offered": []
         }
       ],
@@ -151,38 +90,38 @@
         {
           "from_maturity": null,
           "to_maturity": "open-question",
-          "at": "2025-05-11T09:00:00",
-          "reason": "single source so far — genuinely open",
-          "trigger_unit_id": "K8LLVi5Xrh8#16"
+          "at": "2026-07-22T09:00:00",
+          "reason": "opened as a new open position (novel unit)",
+          "trigger_unit_id": "spNAUEgq_A8#28"
         }
       ],
-      "created_at": "2025-05-11T09:00:00",
-      "updated_at": "2025-05-11T09:00:00"
+      "created_at": "2026-07-22T09:00:00",
+      "updated_at": "2026-07-22T09:00:00"
     },
     {
       "position_id": "evals-0004",
       "topic": "evals",
-      "statement": "LLM-as-a-judge is reliable enough to depend on for evaluating LLM outputs.",
+      "statement": "The long-running decline in the cost of intelligence reversed in 2026: IQ-adjusted token costs have risen roughly 29-30% this year, and unadjusted token costs have risen roughly 76%.",
       "maturity": "contested",
       "sources": [
         {
-          "unit_id": "K8LLVi5Xrh8#28",
-          "video_id": "K8LLVi5Xrh8",
-          "date": "2025-05-11",
+          "unit_id": "spNAUEgq_A8#36",
+          "video_id": "spNAUEgq_A8",
+          "date": "2026-06-29",
           "alignment": "supporting",
-          "stance": "affirms",
-          "quote": "And it works surprisingly well. Just remember that your LLM judge is like a small machine learning project in itself and it also requires some tuning and evaluation.",
-          "statement": "LLM-as-a-judge works surprisingly well, but the judge itself is like a small ML project that requires its own tuning and evaluation.",
+          "stance": "denies",
+          "quote": "the cost of intelligence is going down. That trend reversed in 2026... They're up 29% when you adjust for IQ... tokens are up 76% this year.",
+          "statement": "Contrary to popular belief, the cost of intelligence (tokens adjusted for IQ) is not going down anymore — that trend reversed in 2026, with IQ-adjusted token costs up about 29-30% this year, and unadjusted token costs up about 76% this year.",
           "evidence_offered": []
         },
         {
-          "unit_id": "demo-critic-05#2",
-          "video_id": "demo-critic-05",
-          "date": "2025-08-03",
+          "unit_id": "pMggiOb18tc#27",
+          "video_id": "pMggiOb18tc",
+          "date": "2026-07-09",
           "alignment": "opposing",
-          "stance": "denies",
-          "quote": "[illustrative] an uncalibrated LLM judge is confidently wrong; don't trust it raw",
-          "statement": "[illustrative] LLM-as-a-judge is NOT reliable without heavy calibration.",
+          "stance": "affirms",
+          "quote": "GPT 5.6 Terra, I think it's in like dark blue in there. Brings GPT 5.5 level intelligence, but at half the cost.",
+          "statement": "GPT 5.6 Terra delivers GPT 5.5-level intelligence at half the cost, showing continued payoff from OpenAI's focus on cost efficiency.",
           "evidence_offered": []
         }
       ],
@@ -190,20 +129,850 @@
         {
           "from_maturity": null,
           "to_maturity": "open-question",
-          "at": "2025-05-11T09:00:00",
-          "reason": "stated (with a caveat) in the ingested evals talk",
-          "trigger_unit_id": "K8LLVi5Xrh8#28"
+          "at": "2026-07-22T09:00:00",
+          "reason": "opened as a new open position (novel unit)",
+          "trigger_unit_id": "spNAUEgq_A8#36"
         },
         {
           "from_maturity": "open-question",
           "to_maturity": "contested",
-          "at": "2025-08-03T09:00:00",
-          "reason": "a credible dissent — both stances now kept side by side",
-          "trigger_unit_id": "demo-critic-05#2"
+          "at": "2026-07-22T09:00:00",
+          "reason": "contested — empirical disagreement, unreconciled — genuinely open: They disagree over the factual direction of intelligence costs in 2026. The existing position asserts a measured, aggregate reversal (IQ-adjusted token costs up ~29-30%, unadjusted up ~76%), while the new unit cites a specific model release as evidence that costs are still falling (same intelligence at half the cost). One flagship release halving its price does not by itself settle whether aggregate IQ-adjusted costs rose this year, and neither side presents data covering the other's scope, so the disagreement remains an unresolved question of measurement.",
+          "trigger_unit_id": "pMggiOb18tc#27"
         }
       ],
-      "created_at": "2025-05-11T09:00:00",
-      "updated_at": "2025-08-03T09:00:00"
+      "created_at": "2026-07-22T09:00:00",
+      "updated_at": "2026-07-22T09:00:00"
+    },
+    {
+      "position_id": "evals-0005",
+      "topic": "evals",
+      "statement": "Being able to distinguish good skills from bad skills for AI agents is becoming increasingly important.",
+      "maturity": "open-question",
+      "sources": [
+        {
+          "unit_id": "UNzCG3lw6O0#0",
+          "video_id": "UNzCG3lw6O0",
+          "date": "2026-06-29",
+          "alignment": "supporting",
+          "stance": "affirms",
+          "quote": "the ability to distinguish good skills from bad skills is only getting more important",
+          "statement": "The ability to distinguish good skills from bad skills for AI agents is becoming increasingly important.",
+          "evidence_offered": []
+        }
+      ],
+      "status_history": [
+        {
+          "from_maturity": null,
+          "to_maturity": "open-question",
+          "at": "2026-07-22T09:00:00",
+          "reason": "opened as a new open position (novel unit)",
+          "trigger_unit_id": "UNzCG3lw6O0#0"
+        }
+      ],
+      "created_at": "2026-07-22T09:00:00",
+      "updated_at": "2026-07-22T09:00:00"
+    },
+    {
+      "position_id": "evals-0006",
+      "topic": "evals",
+      "statement": "The root cause of 'skill hell' is the absence of a shared rubric or framework for evaluating what makes a skill great.",
+      "maturity": "open-question",
+      "sources": [
+        {
+          "unit_id": "UNzCG3lw6O0#2",
+          "video_id": "UNzCG3lw6O0",
+          "date": "2026-06-29",
+          "alignment": "supporting",
+          "stance": "affirms",
+          "quote": "the thing that we're missing is we don't know what makes a skill great...There's no shared rubric, no framework for looking at a skill and making it better",
+          "statement": "The core problem underlying skill hell is that there is no shared rubric or framework for evaluating what makes a skill great.",
+          "evidence_offered": []
+        }
+      ],
+      "status_history": [
+        {
+          "from_maturity": null,
+          "to_maturity": "open-question",
+          "at": "2026-07-22T09:00:00",
+          "reason": "opened as a new open position (novel unit)",
+          "trigger_unit_id": "UNzCG3lw6O0#2"
+        }
+      ],
+      "created_at": "2026-07-22T09:00:00",
+      "updated_at": "2026-07-22T09:00:00"
+    },
+    {
+      "position_id": "evals-0007",
+      "topic": "evals",
+      "statement": "Model-invoked skills are unpredictable because the model can decline to invoke a skill even when it is a perfect fit for the task, which forces developers to build evals to verify that skills are invoked at the right time.",
+      "maturity": "emerging-trend",
+      "sources": [
+        {
+          "unit_id": "UNzCG3lw6O0#11",
+          "video_id": "UNzCG3lw6O0",
+          "date": "2026-06-29",
+          "alignment": "supporting",
+          "stance": "affirms",
+          "quote": "the model may just choose not to follow it, you know, even if it's absolutely perfect for the task, it may just choose not to invoke the skill.",
+          "statement": "Model-invoked skills introduce unpredictability because the model may simply choose not to invoke a skill even when it's a perfect fit, which forces people to build evals to verify skills are called at the right time.",
+          "evidence_offered": []
+        },
+        {
+          "unit_id": "UNzCG3lw6O0#12",
+          "video_id": "UNzCG3lw6O0",
+          "date": "2026-06-29",
+          "alignment": "supporting",
+          "stance": "affirms",
+          "quote": "I much prefer removing that level of unpredictability, imposing a bit more cognitive load on the user, and what you get is just you're removing a class of problem from even being a problem.",
+          "statement": "The speaker prefers user-invoked skills because removing the unpredictability of model invocation, despite adding user cognitive load, eliminates an entire class of problems (needing to eval whether skills trigger correctly).",
+          "evidence_offered": []
+        },
+        {
+          "unit_id": "0vphxNt4wyk#25",
+          "video_id": "0vphxNt4wyk",
+          "date": "2026-07-14",
+          "alignment": "supporting",
+          "stance": "affirms",
+          "quote": "we have seen 50% of the failures uh because the skill was not triggered correctly because the prompt of the user was not uh detailed enough for the model to understand",
+          "statement": "About 50% of skill failures happen because the skill wasn't triggered correctly, often because the user's prompt wasn't detailed enough for the model to recognize it should use the skill — especially problematic for agents built for others.",
+          "evidence_offered": []
+        }
+      ],
+      "status_history": [
+        {
+          "from_maturity": null,
+          "to_maturity": "open-question",
+          "at": "2026-07-22T09:00:00",
+          "reason": "opened as a new open position (novel unit)",
+          "trigger_unit_id": "UNzCG3lw6O0#11"
+        },
+        {
+          "from_maturity": "open-question",
+          "to_maturity": "emerging-trend",
+          "at": "2026-07-22T09:00:00",
+          "reason": "emerging — 2 independent sources so far (15d span)",
+          "trigger_unit_id": "0vphxNt4wyk#25"
+        }
+      ],
+      "created_at": "2026-07-22T09:00:00",
+      "updated_at": "2026-07-22T09:00:00"
+    },
+    {
+      "position_id": "evals-0008",
+      "topic": "evals",
+      "statement": "The effectiveness of a leading-word technique can be verified by observing whether the chosen phrase appears in the agent's reasoning/thinking traces.",
+      "maturity": "open-question",
+      "sources": [
+        {
+          "unit_id": "UNzCG3lw6O0#21",
+          "video_id": "UNzCG3lw6O0",
+          "date": "2026-06-29",
+          "alignment": "supporting",
+          "stance": "affirms",
+          "quote": "The cool thing about this technique is you can know if it's worked because you say vertical slice in your skill, and then you'll notice in the reasoning traces that it's saying, \"Okay, we're going to do this as a thin vertical slice.\"",
+          "statement": "You can verify a leading word technique is working by checking whether the chosen phrase actually appears in the agent's reasoning/thinking traces.",
+          "evidence_offered": []
+        }
+      ],
+      "status_history": [
+        {
+          "from_maturity": null,
+          "to_maturity": "open-question",
+          "at": "2026-07-22T09:00:00",
+          "reason": "opened as a new open position (novel unit)",
+          "trigger_unit_id": "UNzCG3lw6O0#21"
+        }
+      ],
+      "created_at": "2026-07-22T09:00:00",
+      "updated_at": "2026-07-22T09:00:00"
+    },
+    {
+      "position_id": "evals-0009",
+      "topic": "evals",
+      "statement": "Skills can be kept small and effective by systematically applying deletion tests, compacting instructions into leading words, and removing irrelevant content and sediment.",
+      "maturity": "open-question",
+      "sources": [
+        {
+          "unit_id": "UNzCG3lw6O0#30",
+          "video_id": "UNzCG3lw6O0",
+          "date": "2026-06-29",
+          "alignment": "supporting",
+          "stance": "affirms",
+          "quote": "it's just using these techniques, using deletion tests, using um making sure that I compact things into leading words, I don't have anything irrelevant in there, and I don't have any sediment.",
+          "statement": "The speaker keeps his skills small by systematically using deletion tests, compacting instructions into leading words, and removing irrelevant content and sediment.",
+          "evidence_offered": []
+        }
+      ],
+      "status_history": [
+        {
+          "from_maturity": null,
+          "to_maturity": "open-question",
+          "at": "2026-07-22T09:00:00",
+          "reason": "opened as a new open position (novel unit)",
+          "trigger_unit_id": "UNzCG3lw6O0#30"
+        }
+      ],
+      "created_at": "2026-07-22T09:00:00",
+      "updated_at": "2026-07-22T09:00:00"
+    },
+    {
+      "position_id": "evals-0010",
+      "topic": "evals",
+      "statement": "A key challenge with Fable is identifying its 'capability overhang' — discovering what tasks are newly possible with the model that were not possible before.",
+      "maturity": "open-question",
+      "sources": [
+        {
+          "unit_id": "9fubhllmsBU#8",
+          "video_id": "9fubhllmsBU",
+          "date": "2026-07-06",
+          "alignment": "supporting",
+          "stance": "affirms",
+          "quote": "this is I think part of the challenge with Fable is figuring out this capability overhang. What is now possible?",
+          "statement": "A key challenge with Fable is figuring out this 'capability overhang' — discovering what is now newly possible with the model.",
+          "evidence_offered": []
+        }
+      ],
+      "status_history": [
+        {
+          "from_maturity": null,
+          "to_maturity": "open-question",
+          "at": "2026-07-22T09:00:00",
+          "reason": "opened as a new open position (novel unit)",
+          "trigger_unit_id": "9fubhllmsBU#8"
+        }
+      ],
+      "created_at": "2026-07-22T09:00:00",
+      "updated_at": "2026-07-22T09:00:00"
+    },
+    {
+      "position_id": "evals-0011",
+      "topic": "evals",
+      "statement": "Benchmark scores for the same model vary dramatically depending on the evaluation harness used; in HarnessBench, the same model scored between 52.4% and 76.2% — a swing of more than 20 points — with only the harness changed.",
+      "maturity": "open-question",
+      "sources": [
+        {
+          "unit_id": "2e9ANoOEn28#5",
+          "video_id": "2e9ANoOEn28",
+          "date": "2026-07-07",
+          "alignment": "supporting",
+          "stance": "affirms",
+          "quote": "scores range from 52.4% to 76.2%. So, more than a 20-point difference, and only the harness changed.",
+          "statement": "In HarnessBench, scores for the same model ranged from 52.4% to 76.2% depending solely on the harness used, a more than 20-point swing.",
+          "evidence_offered": []
+        }
+      ],
+      "status_history": [
+        {
+          "from_maturity": null,
+          "to_maturity": "open-question",
+          "at": "2026-07-22T09:00:00",
+          "reason": "opened as a new open position (novel unit)",
+          "trigger_unit_id": "2e9ANoOEn28#5"
+        }
+      ],
+      "created_at": "2026-07-22T09:00:00",
+      "updated_at": "2026-07-22T09:00:00"
+    },
+    {
+      "position_id": "evals-0012",
+      "topic": "evals",
+      "statement": "The PFA version of the agent is the best demonstrated so far because it produces the correct solution without any human input, although it still does not actually apply the fix to the code itself.",
+      "maturity": "open-question",
+      "sources": [
+        {
+          "unit_id": "2e9ANoOEn28#25",
+          "video_id": "2e9ANoOEn28",
+          "date": "2026-07-07",
+          "alignment": "supporting",
+          "stance": "mixed",
+          "quote": "this version of this agent is the best one we've seen so far because it does give us the correct solution without any human input needed, but it hasn't actually fixed the code.",
+          "statement": "The PFA version is the best agent shown so far because it gives the correct solution without human input, even though it still hasn't actually fixed the code itself.",
+          "evidence_offered": []
+        }
+      ],
+      "status_history": [
+        {
+          "from_maturity": null,
+          "to_maturity": "open-question",
+          "at": "2026-07-22T09:00:00",
+          "reason": "opened as a new open position (novel unit)",
+          "trigger_unit_id": "2e9ANoOEn28#25"
+        }
+      ],
+      "created_at": "2026-07-22T09:00:00",
+      "updated_at": "2026-07-22T09:00:00"
+    },
+    {
+      "position_id": "evals-0013",
+      "topic": "evals",
+      "statement": "Self-optimization is a major advance because it replaces trial-and-error prompt tweaking (guess-and-check) with a systematic, measurable process for improving agent performance.",
+      "maturity": "open-question",
+      "sources": [
+        {
+          "unit_id": "2e9ANoOEn28#36",
+          "video_id": "2e9ANoOEn28",
+          "date": "2026-07-07",
+          "alignment": "supporting",
+          "stance": "affirms",
+          "quote": "the reason this self-optimization is so great is because we're not guessing and checking. We're systematically measuring and improving, which is a big leap forward.",
+          "statement": "Self-optimization is a major improvement because it replaces trial-and-error prompt tweaking with a systematic, measurable process for improving performance.",
+          "evidence_offered": []
+        }
+      ],
+      "status_history": [
+        {
+          "from_maturity": null,
+          "to_maturity": "open-question",
+          "at": "2026-07-22T09:00:00",
+          "reason": "opened as a new open position (novel unit)",
+          "trigger_unit_id": "2e9ANoOEn28#36"
+        }
+      ],
+      "created_at": "2026-07-22T09:00:00",
+      "updated_at": "2026-07-22T09:00:00"
+    },
+    {
+      "position_id": "evals-0014",
+      "topic": "evals",
+      "statement": "Given equal time on a medium-length computer task, current AI models typically outperform an average person on the average task.",
+      "maturity": "open-question",
+      "sources": [
+        {
+          "unit_id": "pMggiOb18tc#11",
+          "video_id": "pMggiOb18tc",
+          "date": "2026-07-09",
+          "alignment": "supporting",
+          "stance": "affirms",
+          "quote": "if you pick like a medium length computer task and you give me and the model the same amount of time to get that task done, probably at least in my case, the model will do a better job than me for the average task.",
+          "statement": "Given the same amount of time on a medium-length computer task, current models will typically outperform an average person, including the speaker, on the average task.",
+          "evidence_offered": []
+        }
+      ],
+      "status_history": [
+        {
+          "from_maturity": null,
+          "to_maturity": "open-question",
+          "at": "2026-07-22T09:00:00",
+          "reason": "opened as a new open position (novel unit)",
+          "trigger_unit_id": "pMggiOb18tc#11"
+        }
+      ],
+      "created_at": "2026-07-22T09:00:00",
+      "updated_at": "2026-07-22T09:00:00"
+    },
+    {
+      "position_id": "evals-0015",
+      "topic": "evals",
+      "statement": "The Luna model outperforms several notable models on the featured benchmark while being priced at only $1 per million input tokens and $6 per million output tokens, making it exceptional value for its performance.",
+      "maturity": "open-question",
+      "sources": [
+        {
+          "unit_id": "pMggiOb18tc#28",
+          "video_id": "pMggiOb18tc",
+          "date": "2026-07-09",
+          "alignment": "supporting",
+          "stance": "affirms",
+          "quote": "Luna there beats some pretty notable models in this eval. But at only $1 per million input tokens and $6 per million output tokens... that is insane value.",
+          "statement": "The Luna model beats several notable models on the benchmark shown while costing only $1 per million input tokens and $6 per million output tokens, representing exceptional value.",
+          "evidence_offered": []
+        }
+      ],
+      "status_history": [
+        {
+          "from_maturity": null,
+          "to_maturity": "open-question",
+          "at": "2026-07-22T09:00:00",
+          "reason": "opened as a new open position (novel unit)",
+          "trigger_unit_id": "pMggiOb18tc#28"
+        }
+      ],
+      "created_at": "2026-07-22T09:00:00",
+      "updated_at": "2026-07-22T09:00:00"
+    },
+    {
+      "position_id": "evals-0016",
+      "topic": "evals",
+      "statement": "GPT 5.6 Sol running on Cerebras hardware delivers frontier-level intelligence at approximately 750 tokens per second.",
+      "maturity": "open-question",
+      "sources": [
+        {
+          "unit_id": "pMggiOb18tc#29",
+          "video_id": "pMggiOb18tc",
+          "date": "2026-07-09",
+          "alignment": "supporting",
+          "stance": "affirms",
+          "quote": "this is GPT 5.6 Soul running on Cerebras, the frontier intelligence at now 750 tokens a second.",
+          "statement": "GPT 5.6 Sol running on Cerebras hardware delivers frontier-level intelligence at a speed of 750 tokens per second.",
+          "evidence_offered": []
+        }
+      ],
+      "status_history": [
+        {
+          "from_maturity": null,
+          "to_maturity": "open-question",
+          "at": "2026-07-22T09:00:00",
+          "reason": "opened as a new open position (novel unit)",
+          "trigger_unit_id": "pMggiOb18tc#29"
+        }
+      ],
+      "created_at": "2026-07-22T09:00:00",
+      "updated_at": "2026-07-22T09:00:00"
+    },
+    {
+      "position_id": "evals-0017",
+      "topic": "evals",
+      "statement": "As AI agents improve at self-verification and correctness checking, the human role in checking correctness is decreasing over time.",
+      "maturity": "open-question",
+      "sources": [
+        {
+          "unit_id": "WkBPX-oDMnA#4",
+          "video_id": "WkBPX-oDMnA",
+          "date": "2026-07-10",
+          "alignment": "supporting",
+          "stance": "affirms",
+          "quote": "the role of humans in correctness checking is decreasing.",
+          "statement": "As agents get better at self-verification and correctness checking, the human role in checking correctness is decreasing over time.",
+          "evidence_offered": []
+        }
+      ],
+      "status_history": [
+        {
+          "from_maturity": null,
+          "to_maturity": "open-question",
+          "at": "2026-07-22T09:00:00",
+          "reason": "opened as a new open position (novel unit)",
+          "trigger_unit_id": "WkBPX-oDMnA#4"
+        }
+      ],
+      "created_at": "2026-07-22T09:00:00",
+      "updated_at": "2026-07-22T09:00:00"
+    },
+    {
+      "position_id": "evals-0018",
+      "topic": "evals",
+      "statement": "Reduced human involvement in correctness-checking is acceptable, provided the human's intent is clear and the agent executes it correctly.",
+      "maturity": "open-question",
+      "sources": [
+        {
+          "unit_id": "WkBPX-oDMnA#5",
+          "video_id": "WkBPX-oDMnA",
+          "date": "2026-07-10",
+          "alignment": "supporting",
+          "stance": "affirms",
+          "quote": "And you know what? I actually don't hate that. If I have a clear idea of what I want to do, and the agent does it correctly... I'm into it.",
+          "statement": "The speaker is not bothered by humans doing less correctness-checking, as long as agents execute a clear intent correctly.",
+          "evidence_offered": []
+        }
+      ],
+      "status_history": [
+        {
+          "from_maturity": null,
+          "to_maturity": "open-question",
+          "at": "2026-07-22T09:00:00",
+          "reason": "opened as a new open position (novel unit)",
+          "trigger_unit_id": "WkBPX-oDMnA#5"
+        }
+      ],
+      "created_at": "2026-07-22T09:00:00",
+      "updated_at": "2026-07-22T09:00:00"
+    },
+    {
+      "position_id": "evals-0019",
+      "topic": "evals",
+      "statement": "The vast majority of publicly shared skills lack evals — Skill Bench indexed over 50,000 skills and found almost none had evals, with most being AI-written and untested, making it hard to assess skill quality given agent non-determinism.",
+      "maturity": "open-question",
+      "sources": [
+        {
+          "unit_id": "0vphxNt4wyk#0",
+          "video_id": "0vphxNt4wyk",
+          "date": "2026-07-14",
+          "alignment": "supporting",
+          "stance": "affirms",
+          "quote": "Skill Bench is a very popular and nice like eval or benchmark which um index like over like 50,000 skills from like it up and like try to look into him and almost none of those skills had evals. Most of them were AI written um not really tested",
+          "statement": "Skill Bench indexed over 50,000 skills and found that almost none had evals; most were AI-written and untested, making it hard to know if a skill is good or bad because agents are non-deterministic.",
+          "evidence_offered": []
+        }
+      ],
+      "status_history": [
+        {
+          "from_maturity": null,
+          "to_maturity": "open-question",
+          "at": "2026-07-22T09:00:00",
+          "reason": "opened as a new open position (novel unit)",
+          "trigger_unit_id": "0vphxNt4wyk#0"
+        }
+      ],
+      "created_at": "2026-07-22T09:00:00",
+      "updated_at": "2026-07-22T09:00:00"
+    },
+    {
+      "position_id": "evals-0020",
+      "topic": "evals",
+      "statement": "Preference skills — skills encoding company- or domain-specific knowledge that foundation models lack — should be protected with evals so that agent or model updates do not silently degrade performance on those domain-specific preferences.",
+      "maturity": "open-question",
+      "sources": [
+        {
+          "unit_id": "0vphxNt4wyk#4",
+          "video_id": "0vphxNt4wyk",
+          "date": "2026-07-14",
+          "alignment": "supporting",
+          "stance": "affirms",
+          "quote": "those uh preference skills are then protected with e-walls where because most of like the foundation models might not uh integrate the knowledge which is very specific to your use case or your domain.",
+          "statement": "Preference skills should be protected with evals because foundation models often lack knowledge specific to a company's domain, and teams need to ensure agent updates don't degrade performance on those preferences.",
+          "evidence_offered": []
+        }
+      ],
+      "status_history": [
+        {
+          "from_maturity": null,
+          "to_maturity": "open-question",
+          "at": "2026-07-22T09:00:00",
+          "reason": "opened as a new open position (novel unit)",
+          "trigger_unit_id": "0vphxNt4wyk#4"
+        }
+      ],
+      "created_at": "2026-07-22T09:00:00",
+      "updated_at": "2026-07-22T09:00:00"
+    },
+    {
+      "position_id": "evals-0021",
+      "topic": "evals",
+      "statement": "According to the Skill Bench 1.1 evaluation across open and closed models and multiple harnesses, skills are effective, improving model performance by roughly 15% on average.",
+      "maturity": "open-question",
+      "sources": [
+        {
+          "unit_id": "0vphxNt4wyk#5",
+          "video_id": "0vphxNt4wyk",
+          "date": "2026-07-14",
+          "alignment": "supporting",
+          "stance": "affirms",
+          "quote": "do skills work? Yes, they do work and I going back to a skills bench which has an update of 1.1 which has evaluated all kinds of open and closed models in different harnesses showing that skills on average improve the performance by roughly 15%.",
+          "statement": "Skills do work: an updated Skill Bench 1.1 evaluation across open and closed models and different harnesses shows skills improve performance by roughly 15% on average.",
+          "evidence_offered": []
+        }
+      ],
+      "status_history": [
+        {
+          "from_maturity": null,
+          "to_maturity": "open-question",
+          "at": "2026-07-22T09:00:00",
+          "reason": "opened as a new open position (novel unit)",
+          "trigger_unit_id": "0vphxNt4wyk#5"
+        }
+      ],
+      "created_at": "2026-07-22T09:00:00",
+      "updated_at": "2026-07-22T09:00:00"
+    },
+    {
+      "position_id": "evals-0022",
+      "topic": "evals",
+      "statement": "Human-written skills outperform AI-generated skills and are the best skills you can provide to AI agents.",
+      "maturity": "open-question",
+      "sources": [
+        {
+          "unit_id": "0vphxNt4wyk#7",
+          "video_id": "0vphxNt4wyk",
+          "date": "2026-07-14",
+          "alignment": "supporting",
+          "stance": "affirms",
+          "quote": "human-written skills are the best we can provide.",
+          "statement": "Human-written skills are the best skills you can provide, outperforming AI-generated ones.",
+          "evidence_offered": []
+        },
+        {
+          "unit_id": "0vphxNt4wyk#8",
+          "video_id": "0vphxNt4wyk",
+          "date": "2026-07-14",
+          "alignment": "supporting",
+          "stance": "affirms",
+          "quote": "AI-generated skills can uh impact performance negatively.",
+          "statement": "AI-generated skills can negatively impact model performance compared to human-written ones.",
+          "evidence_offered": []
+        }
+      ],
+      "status_history": [
+        {
+          "from_maturity": null,
+          "to_maturity": "open-question",
+          "at": "2026-07-22T09:00:00",
+          "reason": "opened as a new open position (novel unit)",
+          "trigger_unit_id": "0vphxNt4wyk#7"
+        }
+      ],
+      "created_at": "2026-07-22T09:00:00",
+      "updated_at": "2026-07-22T09:00:00"
+    },
+    {
+      "position_id": "evals-0023",
+      "topic": "evals",
+      "statement": "Teams should test skills early with a small eval set of roughly 10-20 prompts per skill — about five covering the happy path and five covering cases where the skill should not trigger — and should incorporate real production traces into these tests when available.",
+      "maturity": "open-question",
+      "sources": [
+        {
+          "unit_id": "0vphxNt4wyk#18",
+          "video_id": "0vphxNt4wyk",
+          "date": "2026-07-14",
+          "alignment": "supporting",
+          "stance": "affirms",
+          "quote": "Always try to create 10 of 20 prompts. I like to create five for like the happy path... Five when I don't want to use that skill just to make sure the model is not over triggering... nothing is better than than real-world data.",
+          "statement": "Teams should test skills early by creating 10-20 prompts per skill — around five for the happy path and five for cases where the skill should not trigger — and should incorporate real production traces when available.",
+          "evidence_offered": []
+        },
+        {
+          "unit_id": "0vphxNt4wyk#27",
+          "video_id": "0vphxNt4wyk",
+          "date": "2026-07-14",
+          "alignment": "supporting",
+          "stance": "affirms",
+          "quote": "include negative tests. Uh we always forget negative tests. Start small. Even like 10 to 20 skill eval samples are better than nothing. You will be surprised on how much you will find even from like five to 10 examples.",
+          "statement": "Negative tests should always be included in skill evals, and starting small — even 10 to 20, or just 5 to 10, eval samples — is far better than having no evals at all, and will surface surprising issues.",
+          "evidence_offered": []
+        }
+      ],
+      "status_history": [
+        {
+          "from_maturity": null,
+          "to_maturity": "open-question",
+          "at": "2026-07-22T09:00:00",
+          "reason": "opened as a new open position (novel unit)",
+          "trigger_unit_id": "0vphxNt4wyk#18"
+        }
+      ],
+      "created_at": "2026-07-22T09:00:00",
+      "updated_at": "2026-07-22T09:00:00"
+    },
+    {
+      "position_id": "evals-0024",
+      "topic": "evals",
+      "statement": "AI-generated skills tend to contain many 'no-ops' — instructions that do not actually change agent behavior (e.g., telling the model to make code easy to read) — and these no-op instructions should be identified and removed from skills.",
+      "maturity": "open-question",
+      "sources": [
+        {
+          "unit_id": "0vphxNt4wyk#19",
+          "video_id": "0vphxNt4wyk",
+          "date": "2026-07-14",
+          "alignment": "supporting",
+          "stance": "affirms",
+          "quote": "AI generated skills tend to include a lot of no-ops. And no-ops basically is an instruction which does nothing to change the agent's behavior. It's like before making an implementation easy to read.",
+          "statement": "AI-generated skills tend to include a lot of 'no-ops' — instructions that don't actually change agent behavior (like telling the model to write easy-to-read code) — and these should be identified and removed, per AI educator Matt's findings.",
+          "evidence_offered": []
+        }
+      ],
+      "status_history": [
+        {
+          "from_maturity": null,
+          "to_maturity": "open-question",
+          "at": "2026-07-22T09:00:00",
+          "reason": "opened as a new open position (novel unit)",
+          "trigger_unit_id": "0vphxNt4wyk#19"
+        }
+      ],
+      "created_at": "2026-07-22T09:00:00",
+      "updated_at": "2026-07-22T09:00:00"
+    },
+    {
+      "position_id": "evals-0025",
+      "topic": "evals",
+      "statement": "Teams should periodically run evals with a skill enabled and disabled, and retire the skill if the model performs just as well without it, in order to save token cost and reduce maintenance burden.",
+      "maturity": "open-question",
+      "sources": [
+        {
+          "unit_id": "0vphxNt4wyk#20",
+          "video_id": "0vphxNt4wyk",
+          "date": "2026-07-14",
+          "alignment": "supporting",
+          "stance": "affirms",
+          "quote": "always try to run evals with and without the skill enabled. And if the model achieves the performance without even like triggering the skill, you know you can retire that skill, save the cost uh for your tokens",
+          "statement": "Teams should periodically run evals with and without a skill enabled; if the model performs just as well without the skill, the skill should be retired to save token cost and reduce maintenance.",
+          "evidence_offered": []
+        }
+      ],
+      "status_history": [
+        {
+          "from_maturity": null,
+          "to_maturity": "open-question",
+          "at": "2026-07-22T09:00:00",
+          "reason": "opened as a new open position (novel unit)",
+          "trigger_unit_id": "0vphxNt4wyk#20"
+        }
+      ],
+      "created_at": "2026-07-22T09:00:00",
+      "updated_at": "2026-07-22T09:00:00"
+    },
+    {
+      "position_id": "evals-0026",
+      "topic": "evals",
+      "statement": "Most skill evals can be implemented as simple, cheap regex-based assertions (e.g., checking for the correct SDK, model, methods, and the absence of deprecated patterns) that are easy to update and rerun, while LLM-as-judge evaluation is better reserved for complex skills that require judging whole traces.",
+      "maturity": "open-question",
+      "sources": [
+        {
+          "unit_id": "0vphxNt4wyk#23",
+          "video_id": "0vphxNt4wyk",
+          "date": "2026-07-14",
+          "alignment": "supporting",
+          "stance": "affirms",
+          "quote": "most of the tests or evals for skills can be regex... it's really for us it was all about, 'Okay, do we use the correct SDK? Do we use the correct um model?'... But of course, you can use LLM as a judge if you have like more complex skills",
+          "statement": "Most skill evals can be simple, cheap regex-based asserts (checking correct SDK, model, methods, and absence of old patterns) that are easy to update and run repeatedly, while LLM-as-judge is better suited for complex skills requiring evaluation of whole traces.",
+          "evidence_offered": []
+        }
+      ],
+      "status_history": [
+        {
+          "from_maturity": null,
+          "to_maturity": "open-question",
+          "at": "2026-07-22T09:00:00",
+          "reason": "opened as a new open position (novel unit)",
+          "trigger_unit_id": "0vphxNt4wyk#23"
+        }
+      ],
+      "created_at": "2026-07-22T09:00:00",
+      "updated_at": "2026-07-22T09:00:00"
+    },
+    {
+      "position_id": "evals-0027",
+      "topic": "evals",
+      "statement": "Skill evals should assert on task outcomes rather than on the specific trajectory the model takes — e.g., it should not matter on which turn the skill loads, only whether the model achieves the task from the prompt.",
+      "maturity": "open-question",
+      "sources": [
+        {
+          "unit_id": "0vphxNt4wyk#28",
+          "video_id": "0vphxNt4wyk",
+          "date": "2026-07-14",
+          "alignment": "supporting",
+          "stance": "affirms",
+          "quote": "definitely like create outcomes, not paths. Uh we don't want to test if the model loads the skill on like the first turn. We really want to test if it can achieve the task based on the prompt.",
+          "statement": "Skill evals should test outcomes, not the exact path taken — it doesn't matter whether the skill loads on the first turn or the fifth, only whether the model achieves the task.",
+          "evidence_offered": []
+        }
+      ],
+      "status_history": [
+        {
+          "from_maturity": null,
+          "to_maturity": "open-question",
+          "at": "2026-07-22T09:00:00",
+          "reason": "opened as a new open position (novel unit)",
+          "trigger_unit_id": "0vphxNt4wyk#28"
+        }
+      ],
+      "created_at": "2026-07-22T09:00:00",
+      "updated_at": "2026-07-22T09:00:00"
+    },
+    {
+      "position_id": "evals-0028",
+      "topic": "evals",
+      "statement": "Skill evals should be run in isolated environments, because coding agents are adept at 'cheating' — retrieving context from prior chats or other executions instead of genuinely exercising the skill under test.",
+      "maturity": "open-question",
+      "sources": [
+        {
+          "unit_id": "0vphxNt4wyk#29",
+          "video_id": "0vphxNt4wyk",
+          "date": "2026-07-14",
+          "alignment": "supporting",
+          "stance": "affirms",
+          "quote": "coding agents are very good at finding or cheating. So, if you run inside uh your existing environment, it might look up previous chats or it might look up some other executions and then like try to cheat it and get the context from the skill without even using the skill.",
+          "statement": "Skill evals should run in isolated environments because coding agents are good at 'cheating' — pulling context from prior chats or other executions instead of genuinely using the skill.",
+          "evidence_offered": []
+        }
+      ],
+      "status_history": [
+        {
+          "from_maturity": null,
+          "to_maturity": "open-question",
+          "at": "2026-07-22T09:00:00",
+          "reason": "opened as a new open position (novel unit)",
+          "trigger_unit_id": "0vphxNt4wyk#29"
+        }
+      ],
+      "created_at": "2026-07-22T09:00:00",
+      "updated_at": "2026-07-22T09:00:00"
+    },
+    {
+      "position_id": "evals-0029",
+      "topic": "evals",
+      "statement": "Because model outputs are non-deterministic, skill evals should run multiple trials (roughly two to six) per test case in order to reliably measure skill performance.",
+      "maturity": "open-question",
+      "sources": [
+        {
+          "unit_id": "0vphxNt4wyk#30",
+          "video_id": "0vphxNt4wyk",
+          "date": "2026-07-14",
+          "alignment": "supporting",
+          "stance": "affirms",
+          "quote": "definitely run more than one trial when running evals. Like agents, our models are non-deterministic... always run the to six uh trials per case and to measure reliability",
+          "statement": "Because models are non-deterministic, skill evals should run multiple trials per test case (roughly two to six) to properly measure reliability.",
+          "evidence_offered": []
+        }
+      ],
+      "status_history": [
+        {
+          "from_maturity": null,
+          "to_maturity": "open-question",
+          "at": "2026-07-22T09:00:00",
+          "reason": "opened as a new open position (novel unit)",
+          "trigger_unit_id": "0vphxNt4wyk#30"
+        }
+      ],
+      "created_at": "2026-07-22T09:00:00",
+      "updated_at": "2026-07-22T09:00:00"
+    },
+    {
+      "position_id": "evals-0030",
+      "topic": "evals",
+      "statement": "Skill evals should be tested across multiple agent harnesses and models rather than a single one, because a skill's effectiveness can vary significantly depending on the harness and model used.",
+      "maturity": "open-question",
+      "sources": [
+        {
+          "unit_id": "0vphxNt4wyk#31",
+          "video_id": "0vphxNt4wyk",
+          "date": "2026-07-14",
+          "alignment": "supporting",
+          "stance": "affirms",
+          "quote": "test across different harnesses... not only just evaluate against Claude or anti-gravity... maybe your skill is very good with a Gemini but very bad with Codex and then you have uh customers, consumers using your harness with Codex and then it fails.",
+          "statement": "Skill evals should be tested across different agent harnesses and models, not just one (e.g. Claude or Gemini), since a skill's effectiveness can vary significantly by harness and model.",
+          "evidence_offered": []
+        }
+      ],
+      "status_history": [
+        {
+          "from_maturity": null,
+          "to_maturity": "open-question",
+          "at": "2026-07-22T09:00:00",
+          "reason": "opened as a new open position (novel unit)",
+          "trigger_unit_id": "0vphxNt4wyk#31"
+        }
+      ],
+      "created_at": "2026-07-22T09:00:00",
+      "updated_at": "2026-07-22T09:00:00"
+    },
+    {
+      "position_id": "evals-0031",
+      "topic": "evals",
+      "statement": "When a skill is retired because the model no longer needs it, its eval should be retained and kept running so that future model or agent regressions can be detected and the skill reintroduced if performance degrades.",
+      "maturity": "open-question",
+      "sources": [
+        {
+          "unit_id": "0vphxNt4wyk#32",
+          "video_id": "0vphxNt4wyk",
+          "date": "2026-07-14",
+          "alignment": "supporting",
+          "stance": "affirms",
+          "quote": "You don't need to throw that eval away because you throw the skill away. You can keep that eval to make sure that the model or the agent keeps the performance and as soon as you start seeing some degradation, you can reintroduce the skill.",
+          "statement": "Even after retiring a skill because the model no longer needs it, the eval for that skill should be kept so future model regressions can be detected and the skill reintroduced if performance degrades.",
+          "evidence_offered": []
+        }
+      ],
+      "status_history": [
+        {
+          "from_maturity": null,
+          "to_maturity": "open-question",
+          "at": "2026-07-22T09:00:00",
+          "reason": "opened as a new open position (novel unit)",
+          "trigger_unit_id": "0vphxNt4wyk#32"
+        }
+      ],
+      "created_at": "2026-07-22T09:00:00",
+      "updated_at": "2026-07-22T09:00:00"
     }
   ]
 }

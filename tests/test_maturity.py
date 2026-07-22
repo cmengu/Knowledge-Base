@@ -407,7 +407,7 @@ def test_machine_reproduces_the_sample_kb_labels():
     # The hand-authored sample positions (ticket #06) double as an oracle: run the machine
     # over them and it must reproduce every hand-assigned flag. `now` is the latest run
     # recorded in that KB. Deterministic disk read, no network/LLM.
-    store = KBStore.load("evals", root=PROJECT_ROOT / "kb-data")
+    store = KBStore.load("evals", root=PROJECT_ROOT / "fixtures" / "sample-kb")
     now = dt.datetime(2025, 9, 20, 9, 0)
     cfg = load_maturity_config()
     labelled = {p.position_id: p.maturity for p in store.positions()}

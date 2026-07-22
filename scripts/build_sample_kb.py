@@ -15,7 +15,7 @@ added to show the ladder climbing and a genuine disagreement. Deciding which rea
 actually support or oppose which position across videos is the reconciliation engine's
 job (ticket #08); here it is hand-assembled purely to give the model shape.
 
-Run it to (re)generate ``kb-data/evals/positions.json`` + ``positions.md``:
+Run it to (re)generate ``fixtures/sample-kb/evals/positions.json`` + ``positions.md``:
 
     python scripts/build_sample_kb.py
 """
@@ -25,11 +25,15 @@ from __future__ import annotations
 import datetime as dt
 import json
 
-from kb.config import FIXTURES_DIR, KB_DATA_DIR
+from kb.config import FIXTURES_DIR
 from kb.extract import Unit
 from kb.reconcile import Alignment, KBStore, Maturity, PositionSource
 
 REAL_VIDEO_ID = "K8LLVi5Xrh8"
+
+# The illustrative demo KB is a committed fixture (an artifact to react to), not pipeline
+# output — it lives under fixtures/ so kb-data/ carries only the pipeline's own real run.
+SAMPLE_KB_DIR = FIXTURES_DIR / "sample-kb"
 
 
 def _run_time(day: dt.date) -> dt.datetime:
@@ -76,7 +80,7 @@ def build() -> KBStore:
         unit, video_id, date = real[unit_id]
         return PositionSource.from_unit(unit, video_id=video_id, date=date, alignment=alignment)
 
-    store = KBStore("evals", root=KB_DATA_DIR)
+    store = KBStore("evals", root=SAMPLE_KB_DIR)
 
     # -- evals-0001: converging (real anchor + two illustrative later sources) --------
     d1 = dt.date(2025, 5, 11)
