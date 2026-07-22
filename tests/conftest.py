@@ -4,8 +4,8 @@ from __future__ import annotations
 
 import pytest
 
-from kb.extract import TranscriptSegment
-from tests.helpers import FakeLLMClient, transcript_ids
+from kb.extract import ExtractedVideo, TranscriptSegment
+from tests.helpers import FakeLLMClient, load_recorded_extraction, routing_ids, transcript_ids
 
 
 @pytest.fixture
@@ -23,6 +23,23 @@ def fixture_video_id(request) -> str:
     """Parametrizes over every committed transcript fixture (currently one)."""
 
     return request.param
+
+
+@pytest.fixture(params=routing_ids())
+def routing_video_id(request) -> str:
+    """Parametrizes over every committed routing fixture (currently one)."""
+
+    return request.param
+
+
+@pytest.fixture
+def sample_extracted() -> ExtractedVideo:
+    """The committed Layer 2 sample extraction, loaded as an ``ExtractedVideo``.
+
+    This is issue-4's committed output consumed as issue-7's routing input.
+    """
+
+    return ExtractedVideo.model_validate(load_recorded_extraction("K8LLVi5Xrh8"))
 
 
 @pytest.fixture
