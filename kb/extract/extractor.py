@@ -13,6 +13,7 @@ schema) raises :class:`~kb.extract.llm.ExtractionError`.
 
 from __future__ import annotations
 
+import re
 from datetime import date
 
 from pydantic import ValidationError
@@ -20,10 +21,45 @@ from pydantic import ValidationError
 from kb.extract.config import ExtractionConfig
 from kb.extract.llm import ExtractionError, LLMClient
 from kb.extract.prompt import build_prompt
-from kb.extract.schema import ExtractedVideo, ExtractionPayload
-from kb.extract.transcript import TranscriptSegment
+from kb.extract.schema import ExtractedVideo, ExtractionPayload, Unit
+from kb.extract.transcript import TranscriptSegment, chunk_segments
 
-__all__ = ["extract_units", "extract_json_object"]
+__all__ = ["extract_units", "extract_json_object", "merge_units"]
+
+_NORMALIZE = re.compile(r"[^a-z0-9]+")
+
+
+def _dedupe_key(unit: Unit) -> str:
+    """A normalized form of a unit's statement for near-duplicate detection.
+
+    Chunk overlap (ticket #18) means a unit near a boundary can be extracted by two
+    adjacent chunks. Lower-casing and collapsing every non-alphanumeric run to a single
+    space folds those re-statements together (minor whitespace/punctuation differences)
+    without merging genuinely distinct points.
+    """
+
+    return _NORMALIZE.sub(" ", unit.text.lower()).strip()
+
+
+def merge_units(unit_lists: list[list[Unit]]) -> list[Unit]:
+    """Concatenate per-chunk unit lists into one, dropping near-identical restatements.
+
+    Units are kept in first-seen order (transcript order across chunks); the first unit
+    with a given normalized statement wins and later duplicates — the artifact of chunk
+    overlap — are dropped. ``unit_id`` is assigned by the caller after the merge, so it
+    plays no part here.
+    """
+
+    merged: list[Unit] = []
+    seen: set[str] = set()
+    for units in unit_lists:
+        for unit in units:
+            key = _dedupe_key(unit)
+            if key and key in seen:
+                continue
+            seen.add(key)
+            merged.append(unit)
+    return merged
 
 
 def extract_json_object(text: str) -> str:
@@ -89,21 +125,41 @@ def extract_units(
 
     config = config or ExtractionConfig()
 
-    system, prompt = build_prompt(segments, max_chars=config.max_transcript_chars)
-    raw = llm.complete(system=system, prompt=prompt, model=config.model)
+    chunks = chunk_segments(
+        segments,
+        max_chars=config.chunk_max_chars,
+        overlap_chars=config.chunk_overlap_chars,
+    )
 
-    payload_json = extract_json_object(raw)
-    try:
-        payload = ExtractionPayload.model_validate_json(payload_json)
-    except ValidationError as exc:
-        raise ExtractionError(f"LLM output did not match the unit schema: {exc}") from exc
+    # Short transcript (one chunk): the existing single-call path, unchanged — the whole
+    # transcript is rendered under the same truncation guard as before. Long transcripts
+    # fan out to one call per chunk and the unit lists are merged (ticket #18).
+    per_chunk: list[list[Unit]] = []
+    for chunk in chunks:
+        max_chars = config.max_transcript_chars if len(chunks) == 1 else None
+        system, prompt = build_prompt(chunk, max_chars=max_chars)
+        raw = llm.complete(system=system, prompt=prompt, model=config.model)
+        per_chunk.append(_parse_units(raw))
 
-    for index, unit in enumerate(payload.units):
+    units = per_chunk[0] if len(chunks) == 1 else merge_units(per_chunk)
+
+    for index, unit in enumerate(units):
         unit.unit_id = f"{video_id}#{index}"
 
     return ExtractedVideo(
         video_id=video_id,
         date=date,
         topic_tags=[],  # populated by Layer 3 routing (ticket #07)
-        units=payload.units,
+        units=units,
     )
+
+
+def _parse_units(raw: str) -> list[Unit]:
+    """Pull the ``units`` array out of one LLM response, validated against the schema."""
+
+    payload_json = extract_json_object(raw)
+    try:
+        payload = ExtractionPayload.model_validate_json(payload_json)
+    except ValidationError as exc:
+        raise ExtractionError(f"LLM output did not match the unit schema: {exc}") from exc
+    return payload.units

@@ -14,7 +14,7 @@ surface:
 from __future__ import annotations
 
 from kb.extract.config import ExtractionConfig, load_extraction_config
-from kb.extract.extractor import extract_json_object, extract_units
+from kb.extract.extractor import extract_json_object, extract_units, merge_units
 from kb.extract.llm import AgentSDKClient, ExtractionError, LLMClient
 from kb.extract.prompt import SYSTEM_PROMPT, build_prompt, build_user_prompt
 from kb.extract.schema import (
@@ -25,7 +25,12 @@ from kb.extract.schema import (
     UnitType,
     parse_timestamp,
 )
-from kb.extract.transcript import TranscriptSegment, format_timestamp, render_transcript
+from kb.extract.transcript import (
+    TranscriptSegment,
+    chunk_segments,
+    format_timestamp,
+    render_transcript,
+)
 
 __all__ = [
     # schema
@@ -39,6 +44,7 @@ __all__ = [
     "TranscriptSegment",
     "render_transcript",
     "format_timestamp",
+    "chunk_segments",
     # prompt
     "SYSTEM_PROMPT",
     "build_prompt",
@@ -46,6 +52,7 @@ __all__ = [
     # extraction step
     "extract_units",
     "extract_json_object",
+    "merge_units",
     # llm seam
     "LLMClient",
     "AgentSDKClient",

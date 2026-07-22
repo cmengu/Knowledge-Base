@@ -15,7 +15,14 @@ from __future__ import annotations
 
 from typing import Protocol, runtime_checkable
 
-__all__ = ["LLMClient", "AgentSDKClient", "ExtractionError", "LLMError"]
+__all__ = ["LLMClient", "AgentSDKClient", "ExtractionError", "LLMError", "DEFAULT_MAX_TURNS"]
+
+# Belt-and-braces for long transcripts (ticket #18). A single extraction turn caps how
+# much JSON the model can emit; a dense transcript busts it and the SDK aborts with
+# "Reached maximum number of turns (1)". Allowing several turns lets the model continue
+# its own output across turns, so a chunk whose units don't fit one turn still completes.
+# Chunking bounds each call's size; this keeps a dense chunk from failing at the boundary.
+DEFAULT_MAX_TURNS = 8
 
 
 class ExtractionError(Exception):
@@ -46,13 +53,15 @@ class LLMClient(Protocol):
 class AgentSDKClient:
     """Real :class:`LLMClient` backed by the Claude Agent SDK (subscription credit).
 
-    Runs a stateless, tool-free, single-turn query so the model does pure extraction —
-    no file access, no repo settings — and returns the assembled text. Used by the
-    prototype scripts; never exercised by the test suite.
+    Runs a stateless, tool-free query so the model does pure extraction — no file access,
+    no repo settings — and returns the assembled text. ``max_turns`` allows the model to
+    continue its own output across turns (:data:`DEFAULT_MAX_TURNS`); see ticket #18. Used
+    by the prototype scripts; never exercised by the test suite.
     """
 
-    def __init__(self, *, cwd: str | None = None) -> None:
+    def __init__(self, *, cwd: str | None = None, max_turns: int = DEFAULT_MAX_TURNS) -> None:
         self._cwd = cwd
+        self._max_turns = max_turns
 
     def complete(self, *, system: str, prompt: str, model: str) -> str:
         import anyio
@@ -73,7 +82,7 @@ class AgentSDKClient:
         options = ClaudeAgentOptions(
             model=model,
             system_prompt=system,
-            max_turns=1,
+            max_turns=self._max_turns,
             allowed_tools=[],          # pure text extraction — grant no tools
             setting_sources=None,      # ignore any project/user CLAUDE.md and settings
             cwd=self._cwd,
