@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "youtube-kb"
+version = "0.1.0"
+description = "YouTube AI-topic knowledge-base pipeline (evals vertical slice)"
+requires-python = ">=3.10"
+dependencies = [
+    "pydantic>=2",
+    "pyyaml>=6",
+    # Layer 1 ingest (transcript fetch) — used by scripts/, not by the extract layer or tests.
+    "youtube-transcript-api>=1.2",
+    # Layer 2+ LLM execution on the Claude subscription (Agent SDK credit). Used by the
+    # real LLM client and prototype scripts, never inside the test suite.
+    "claude-agent-sdk>=0.2",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[tool.setuptools.packages.find]
+include = ["kb*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
