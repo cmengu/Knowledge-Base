@@ -1,0 +1,48 @@
+# Layer 4/5 (reconcile) — maturity state-machine thresholds — ticket #09.
+#
+# These knobs drive every position's maturity flag. The reconciliation engine
+# (ticket #08) reloads this file and re-runs the machine over EVERY position on
+# EVERY batch (not one-time) via kb.reconcile.apply_maturity, so tuning a value
+# here re-flags the whole KB on the next run. All values are "tunable later".
+#
+# The spec's recommended defaults, encoded:
+#   open        = < emerging_min_sources independent sources
+#   emerging    = >= emerging_min_sources sources, one direction, but short of
+#                 converging (too few sources, or span < converging_min_span_days)
+#   converging  = >= converging_min_sources sources agreeing over
+#                 >= converging_min_span_days, no recent contest
+#   solved      = converging PLUS a full clean window: >= solved_min_sources sources
+#                 and none of the last solved_clean_window videos opposing it
+#   contested   = ANY opposing source within recent_contest_days of the run knocks a
+#                 position back here (or to open, if no support remains)
+#
+# "Independent sources" are counted as DISTINCT VIDEOS: two units from one video
+# count once (Position.distinct_videos). "The last N videos" is read over this
+# position's own source videos, since the machine is pure over a single position.
+
+# --- source-count thresholds (independent = distinct videos) ---
+# Must stay monotonic: emerging_min <= converging_min <= solved_min (validated on load).
+emerging_min_sources: 2      # >=2 independent sources to leave `open`
+converging_min_sources: 3    # >=3 independent sources to reach `converging`
+solved_min_sources: 3        # >=3 independent sources to be eligible for `solved`
+
+# --- time-span threshold ---
+# The spec's ">3 months" for converging, expressed in days over the SUPPORTING
+# sources' span. A span >= this qualifies (the boundary day counts as converging);
+# below it the position stays `emerging` even with enough sources.
+converging_min_span_days: 90
+
+# --- contest-recency window (calendar) ---
+# An OPPOSING source dated within this many days before the run is a "recent contest".
+# It (a) triggers the adversarial reset to `contested` and (b) is exactly what
+# converging's "no recent contest" forbids. An older contest is "buried": it no longer
+# blocks the climb, which is how a once-contested position is allowed to re-converge
+# (its status history records both turns). Set very large to make any dissent permanent.
+recent_contest_days: 90
+
+# --- solved clean window (count) ---
+# `solved` additionally requires a full clean streak of this many distinct source videos:
+# at least this many videos must exist AND none of the most-recent this-many may oppose
+# the position. This is a stricter, sequence-based guarantee than converging's calendar
+# window — a freshly-converged position (e.g. 3 agreeing sources) has not yet earned it.
+solved_clean_window: 5
