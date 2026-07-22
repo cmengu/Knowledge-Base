@@ -16,6 +16,7 @@ __all__ = [
     "PROJECT_ROOT",
     "CONFIG_DIR",
     "FIXTURES_DIR",
+    "KB_DATA_DIR",
     "FIXED_TOPICS",
     "load_yaml",
     "load_topics",
@@ -24,6 +25,11 @@ __all__ = [
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 CONFIG_DIR = PROJECT_ROOT / "config"
 FIXTURES_DIR = PROJECT_ROOT / "fixtures"
+
+# The per-topic position store (Layer 4, ticket #06). One directory per topic holds the
+# canonical ``positions.json`` plus a rendered ``positions.md``; see :mod:`kb.reconcile`.
+# Tests point the store at a tmp dir instead, so nothing here is written during a run.
+KB_DATA_DIR = PROJECT_ROOT / "kb-data"
 
 # Fallback mirror of config/topics.yaml, so a caller without the file (or before it is
 # created) still sees the spec's six-topic set. config/topics.yaml is the source of truth.
