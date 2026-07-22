@@ -1,0 +1,65 @@
+{
+  "newly_confirmed": [
+    {
+      "position_id": "evals-0001",
+      "position_statement": "Evaluating an LLM system is different from evaluating an LLM model — you must evaluate your own system on the task it is meant to solve, not just the base model.",
+      "kind": "redundant",
+      "citation": {
+        "unit_id": "demo-eval-talk-06#0",
+        "video_id": "demo-eval-talk-06",
+        "date": "2025-10-15",
+        "quote": "[illustrative] test the system you actually built, not the model in isolation",
+        "statement": "You have to evaluate the whole system you assembled, not just the raw base model."
+      }
+    }
+  ],
+  "net_new": [
+    {
+      "position_id": "evals-0005",
+      "statement": "Eval datasets should be version-controlled (kept in git) alongside the application code they test.",
+      "citation": {
+        "unit_id": "demo-eval-talk-06#1",
+        "video_id": "demo-eval-talk-06",
+        "date": "2025-10-15",
+        "quote": "[illustrative] keep your evals in git next to the code they test",
+        "statement": "Your eval datasets should be version-controlled alongside your application code."
+      }
+    }
+  ],
+  "newly_contested": [
+    {
+      "position_id": "evals-0003",
+      "position_statement": "Manual evaluation is the right place to start; automation scales human judgment but does not replace it.",
+      "supporting": {
+        "unit_id": "K8LLVi5Xrh8#16",
+        "video_id": "K8LLVi5Xrh8",
+        "date": "2025-05-11",
+        "quote": "The first obvious solution to this complexity is manual evaluations, and honestly that's where you should start.",
+        "statement": "Manual evaluation—reading outputs yourself—is the right place to start, since it builds intuition, reveals patterns, and clarifies what 'good' means for your use case."
+      },
+      "opposing": {
+        "unit_id": "demo-eval-talk-06#2",
+        "video_id": "demo-eval-talk-06",
+        "date": "2025-10-15",
+        "quote": "[illustrative] don't waste time reading outputs by hand — automate from the start",
+        "statement": "Skip manual evaluation entirely and automate grading from day one."
+      },
+      "reconciliation": {
+        "type": "empirical",
+        "reconciled": false,
+        "explanation": "The two make opposite process recommendations about where evaluation should begin. Position evals-0003 holds that you must start by reading outputs manually to learn what 'good' means before anything can be automated; the new unit holds that manual reading is wasted effort and grading should be automated from the outset. Whether starting manual actually produces better evals than starting automated is a checkable claim about practice, but nothing here resolves it, so it stays contested."
+      },
+      "became_contested": true
+    }
+  ],
+  "maturity_transitions": [
+    {
+      "position_id": "evals-0003",
+      "statement": "Manual evaluation is the right place to start; automation scales human judgment but does not replace it.",
+      "from_maturity": "open-question",
+      "to_maturity": "contested",
+      "reason": "contested — empirical disagreement, unreconciled — genuinely open: The two make opposite process recommendations about where evaluation should begin. Position evals-0003 holds that you must start by reading outputs manually to learn what 'good' means before anything can be automated; the new unit holds that manual reading is wasted effort and grading should be automated from the outset. Whether starting manual actually produces better evals than starting automated is a checkable claim about practice, but nothing here resolves it, so it stays contested.",
+      "trigger_unit_id": "demo-eval-talk-06#2"
+    }
+  ]
+}

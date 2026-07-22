@@ -1,0 +1,49 @@
+{
+  "name": "llm-judge-adversarial",
+  "incoming": {
+    "unit": {
+      "type": "claim",
+      "text": "LLM-as-a-judge is not reliable and you should not depend on it to evaluate outputs.",
+      "raw_quote": "Do not trust an LLM to grade another LLM — the judge is unreliable and you should not depend on it.",
+      "timestamp": 142.0,
+      "stance": "denies",
+      "evidence_offered": [
+        "cites judge-calibration failures"
+      ],
+      "unit_id": "demo-critic-05#2"
+    },
+    "video_id": "demo-critic-05",
+    "date": "2025-08-03"
+  },
+  "candidates": [
+    {
+      "position_id": "evals-0004",
+      "topic": "evals",
+      "statement": "LLM-as-a-judge is reliable enough to depend on for evaluating LLM outputs.",
+      "maturity": "open-question",
+      "sources": [
+        {
+          "unit_id": "K8LLVi5Xrh8#28",
+          "video_id": "K8LLVi5Xrh8",
+          "date": "2025-05-11",
+          "alignment": "supporting",
+          "stance": "affirms",
+          "quote": "And it works surprisingly well. Just remember that your LLM judge is like a small machine learning project in itself and it also requires some tuning and evaluation.",
+          "statement": "LLM-as-a-judge works surprisingly well, but the judge itself is like a small ML project that requires its own tuning and evaluation.",
+          "evidence_offered": []
+        }
+      ],
+      "status_history": [
+        {
+          "from_maturity": null,
+          "to_maturity": "open-question",
+          "at": "2025-08-03T09:00:00",
+          "reason": "stated in the ingested evals talk",
+          "trigger_unit_id": "K8LLVi5Xrh8#28"
+        }
+      ],
+      "created_at": "2025-08-03T09:00:00",
+      "updated_at": "2025-08-03T09:00:00"
+    }
+  ]
+}

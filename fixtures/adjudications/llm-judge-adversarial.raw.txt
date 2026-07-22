@@ -1,0 +1,10 @@
+{
+    "classification": "adversarial",
+    "target_position_id": "evals-0004",
+    "reconciliation": {
+        "type": "empirical",
+        "reconciled": false,
+        "explanation": "This is a checkable question of fact about how well LLM judges actually perform. One side reports that with tuning it works surprisingly well; the other cites judge-calibration failures showing it cannot be trusted. Both point to observed behavior of judge models, so the dispute is empirical — but the two accounts of the evidence are not reconciled here; the calibration-failure claim and the works-well claim directly conflict without a resolving condition."
+    },
+    "rationale": "The existing position (evals-0004) claims LLM-as-a-judge is reliable enough to depend on, supported by 'it works surprisingly well. Just remember that your LLM judge is like a small machine learning project in itself and it also requires some tuning and evaluation.' — K8LLVi5Xrh8 · 2025-05-11. The new unit directly contradicts this: 'Do not trust an LLM to grade another LLM — the judge is unreliable and you should not depend on it.' — demo-critic-05 · 2025-08-03, citing judge-calibration failures. One asserts dependable reliability, the other denies it — a negation of the same claim, hence adversarial rather than confirming."
+}

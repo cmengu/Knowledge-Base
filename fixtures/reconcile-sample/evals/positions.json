@@ -1,0 +1,265 @@
+{
+  "topic": "evals",
+  "positions": [
+    {
+      "position_id": "evals-0001",
+      "topic": "evals",
+      "statement": "Evaluating an LLM system is different from evaluating an LLM model — you must evaluate your own system on the task it is meant to solve, not just the base model.",
+      "maturity": "converging",
+      "sources": [
+        {
+          "unit_id": "K8LLVi5Xrh8#0",
+          "video_id": "K8LLVi5Xrh8",
+          "date": "2025-05-11",
+          "alignment": "supporting",
+          "stance": "affirms",
+          "quote": "evaluating LLM systems is not the same as evaluating LLM models, which is usually done through benchmarks",
+          "statement": "LLM system evaluation is different from LLM model evaluation, which is typically done via public benchmarks.",
+          "evidence_offered": []
+        },
+        {
+          "unit_id": "K8LLVi5Xrh8#2",
+          "video_id": "K8LLVi5Xrh8",
+          "date": "2025-05-11",
+          "alignment": "supporting",
+          "stance": "affirms",
+          "quote": "if you're building a specific application like a chatbot or even a simpler prompt chain you need to test it on the tasks that it is meant to solve",
+          "statement": "If you build a specific application (e.g., a chatbot or prompt chain), you need to test the whole system on the tasks it's meant to solve, not just the underlying model.",
+          "evidence_offered": []
+        },
+        {
+          "unit_id": "demo-eval-talk-02#4",
+          "video_id": "demo-eval-talk-02",
+          "date": "2025-07-08",
+          "alignment": "supporting",
+          "stance": "affirms",
+          "quote": "[illustrative] benchmarks tell you about the model, evals tell you about your product",
+          "statement": "[illustrative] System-level evaluation matters more than model benchmarks.",
+          "evidence_offered": []
+        },
+        {
+          "unit_id": "demo-eval-talk-03#7",
+          "video_id": "demo-eval-talk-03",
+          "date": "2025-09-20",
+          "alignment": "supporting",
+          "stance": "affirms",
+          "quote": "[illustrative] stop shipping on vibes; measure the system you actually built",
+          "statement": "[illustrative] Teams should evaluate their assembled system, not the raw model.",
+          "evidence_offered": []
+        },
+        {
+          "unit_id": "demo-eval-talk-06#0",
+          "video_id": "demo-eval-talk-06",
+          "date": "2025-10-15",
+          "alignment": "supporting",
+          "stance": "affirms",
+          "quote": "[illustrative] test the system you actually built, not the model in isolation",
+          "statement": "You have to evaluate the whole system you assembled, not just the raw base model.",
+          "evidence_offered": []
+        }
+      ],
+      "status_history": [
+        {
+          "from_maturity": null,
+          "to_maturity": "open-question",
+          "at": "2025-05-11T09:00:00",
+          "reason": "first stated in the ingested evals talk",
+          "trigger_unit_id": "K8LLVi5Xrh8#0"
+        },
+        {
+          "from_maturity": "open-question",
+          "to_maturity": "emerging-trend",
+          "at": "2025-07-08T09:00:00",
+          "reason": "a second, independent voice agreed",
+          "trigger_unit_id": "demo-eval-talk-02#4"
+        },
+        {
+          "from_maturity": "emerging-trend",
+          "to_maturity": "converging",
+          "at": "2025-09-20T09:00:00",
+          "reason": "three independent sources agreeing over >3 months, no contest",
+          "trigger_unit_id": "demo-eval-talk-03#7"
+        }
+      ],
+      "created_at": "2025-05-11T09:00:00",
+      "updated_at": "2025-10-15T09:00:00"
+    },
+    {
+      "position_id": "evals-0002",
+      "topic": "evals",
+      "statement": "For a specialized system (e.g. RAG), build your own evaluation rather than reaching for an off-the-shelf public benchmark.",
+      "maturity": "emerging-trend",
+      "sources": [
+        {
+          "unit_id": "K8LLVi5Xrh8#3",
+          "video_id": "K8LLVi5Xrh8",
+          "date": "2025-05-11",
+          "alignment": "supporting",
+          "stance": "affirms",
+          "quote": "So if you are building a RAG system don't search for a RAG benchmark - build your own.",
+          "statement": "If you're building a RAG system, don't search for an existing RAG benchmark—build your own evaluation instead.",
+          "evidence_offered": []
+        },
+        {
+          "unit_id": "demo-eval-talk-02#9",
+          "video_id": "demo-eval-talk-02",
+          "date": "2025-07-08",
+          "alignment": "supporting",
+          "stance": "affirms",
+          "quote": "[illustrative] a generic RAG leaderboard won't tell you if YOUR retrieval works",
+          "statement": "[illustrative] Custom evals beat generic benchmarks for retrieval systems.",
+          "evidence_offered": []
+        }
+      ],
+      "status_history": [
+        {
+          "from_maturity": null,
+          "to_maturity": "open-question",
+          "at": "2025-05-11T09:00:00",
+          "reason": "stated in the ingested evals talk",
+          "trigger_unit_id": "K8LLVi5Xrh8#3"
+        },
+        {
+          "from_maturity": "open-question",
+          "to_maturity": "emerging-trend",
+          "at": "2025-07-08T09:00:00",
+          "reason": "a second source agreed within three months",
+          "trigger_unit_id": "demo-eval-talk-02#9"
+        }
+      ],
+      "created_at": "2025-05-11T09:00:00",
+      "updated_at": "2025-07-08T09:00:00"
+    },
+    {
+      "position_id": "evals-0003",
+      "topic": "evals",
+      "statement": "Manual evaluation is the right place to start; automation scales human judgment but does not replace it.",
+      "maturity": "contested",
+      "sources": [
+        {
+          "unit_id": "K8LLVi5Xrh8#16",
+          "video_id": "K8LLVi5Xrh8",
+          "date": "2025-05-11",
+          "alignment": "supporting",
+          "stance": "affirms",
+          "quote": "The first obvious solution to this complexity is manual evaluations, and honestly that's where you should start.",
+          "statement": "Manual evaluation—reading outputs yourself—is the right place to start, since it builds intuition, reveals patterns, and clarifies what 'good' means for your use case.",
+          "evidence_offered": []
+        },
+        {
+          "unit_id": "K8LLVi5Xrh8#19",
+          "video_id": "K8LLVi5Xrh8",
+          "date": "2025-05-11",
+          "alignment": "supporting",
+          "stance": "affirms",
+          "quote": "Automated evaluations are there to scale your judgment, not to replace it. If you don't know yet what you're evaluating manually, there is nothing to automate.",
+          "statement": "Automated evaluations exist to scale human judgment, not replace it—if you haven't figured out what to evaluate manually first, there's nothing meaningful to automate.",
+          "evidence_offered": []
+        },
+        {
+          "unit_id": "demo-eval-talk-06#2",
+          "video_id": "demo-eval-talk-06",
+          "date": "2025-10-15",
+          "alignment": "opposing",
+          "stance": "denies",
+          "quote": "[illustrative] don't waste time reading outputs by hand — automate from the start",
+          "statement": "Skip manual evaluation entirely and automate grading from day one.",
+          "evidence_offered": []
+        }
+      ],
+      "status_history": [
+        {
+          "from_maturity": null,
+          "to_maturity": "open-question",
+          "at": "2025-05-11T09:00:00",
+          "reason": "single source so far — genuinely open",
+          "trigger_unit_id": "K8LLVi5Xrh8#16"
+        },
+        {
+          "from_maturity": "open-question",
+          "to_maturity": "contested",
+          "at": "2025-10-15T09:00:00",
+          "reason": "contested — empirical disagreement, unreconciled — genuinely open: The two make opposite process recommendations about where evaluation should begin. Position evals-0003 holds that you must start by reading outputs manually to learn what 'good' means before anything can be automated; the new unit holds that manual reading is wasted effort and grading should be automated from the outset. Whether starting manual actually produces better evals than starting automated is a checkable claim about practice, but nothing here resolves it, so it stays contested.",
+          "trigger_unit_id": "demo-eval-talk-06#2"
+        }
+      ],
+      "created_at": "2025-05-11T09:00:00",
+      "updated_at": "2025-10-15T09:00:00"
+    },
+    {
+      "position_id": "evals-0004",
+      "topic": "evals",
+      "statement": "LLM-as-a-judge is reliable enough to depend on for evaluating LLM outputs.",
+      "maturity": "contested",
+      "sources": [
+        {
+          "unit_id": "K8LLVi5Xrh8#28",
+          "video_id": "K8LLVi5Xrh8",
+          "date": "2025-05-11",
+          "alignment": "supporting",
+          "stance": "affirms",
+          "quote": "And it works surprisingly well. Just remember that your LLM judge is like a small machine learning project in itself and it also requires some tuning and evaluation.",
+          "statement": "LLM-as-a-judge works surprisingly well, but the judge itself is like a small ML project that requires its own tuning and evaluation.",
+          "evidence_offered": []
+        },
+        {
+          "unit_id": "demo-critic-05#2",
+          "video_id": "demo-critic-05",
+          "date": "2025-08-03",
+          "alignment": "opposing",
+          "stance": "denies",
+          "quote": "[illustrative] an uncalibrated LLM judge is confidently wrong; don't trust it raw",
+          "statement": "[illustrative] LLM-as-a-judge is NOT reliable without heavy calibration.",
+          "evidence_offered": []
+        }
+      ],
+      "status_history": [
+        {
+          "from_maturity": null,
+          "to_maturity": "open-question",
+          "at": "2025-05-11T09:00:00",
+          "reason": "stated (with a caveat) in the ingested evals talk",
+          "trigger_unit_id": "K8LLVi5Xrh8#28"
+        },
+        {
+          "from_maturity": "open-question",
+          "to_maturity": "contested",
+          "at": "2025-08-03T09:00:00",
+          "reason": "a credible dissent — both stances now kept side by side",
+          "trigger_unit_id": "demo-critic-05#2"
+        }
+      ],
+      "created_at": "2025-05-11T09:00:00",
+      "updated_at": "2025-08-03T09:00:00"
+    },
+    {
+      "position_id": "evals-0005",
+      "topic": "evals",
+      "statement": "Eval datasets should be version-controlled (kept in git) alongside the application code they test.",
+      "maturity": "open-question",
+      "sources": [
+        {
+          "unit_id": "demo-eval-talk-06#1",
+          "video_id": "demo-eval-talk-06",
+          "date": "2025-10-15",
+          "alignment": "supporting",
+          "stance": "affirms",
+          "quote": "[illustrative] keep your evals in git next to the code they test",
+          "statement": "Your eval datasets should be version-controlled alongside your application code.",
+          "evidence_offered": []
+        }
+      ],
+      "status_history": [
+        {
+          "from_maturity": null,
+          "to_maturity": "open-question",
+          "at": "2025-10-15T09:00:00",
+          "reason": "opened as a new open position (novel unit)",
+          "trigger_unit_id": "demo-eval-talk-06#1"
+        }
+      ],
+      "created_at": "2025-10-15T09:00:00",
+      "updated_at": "2025-10-15T09:00:00"
+    }
+  ]
+}
