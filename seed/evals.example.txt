@@ -1,0 +1,16 @@
+# Example seed file for exercising the Layer 1 ingest CLI:
+#
+#     python -m kb.ingest seed/evals.example.txt
+#
+# One YouTube URL or bare 11-char video id per line. Blank lines and lines
+# starting with '#' are ignored. Re-running is a no-op for videos already in
+# the database (dedup is by video id).
+#
+# NOTE: this is only an EXAMPLE to smoke-test the pipeline. The real, curated
+# `seed/evals.txt` — 10-15 hand-picked evals videos spanning time and viewpoints,
+# with at least one genuine disagreement — is ticket 05 and stays the curator's
+# job (a human picks these; the pipeline never auto-selects videos).
+
+# Two verified public AI talks that both touch on evals:
+https://www.youtube.com/watch?v=zjkBMFhNj_g   # Karpathy — [1hr Talk] Intro to Large Language Models
+https://youtu.be/hM_h0UA7upI                  # No Priors Ep. 80 — Andrej Karpathy
