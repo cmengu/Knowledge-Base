@@ -1,0 +1,127 @@
+[
+  {
+    "text": "hi everyone so recently I gave a",
+    "start": 0.16,
+    "duration": 4.08
+  },
+  {
+    "text": "30-minute talk on large language models",
+    "start": 2.28,
+    "duration": 4.119
+  },
+  {
+    "text": "just kind of like an intro talk um",
+    "start": 4.24,
+    "duration": 4.24
+  },
+  {
+    "text": "unfortunately that talk was not recorded",
+    "start": 6.399,
+    "duration": 3.681
+  },
+  {
+    "text": "but a lot of people came to me after the",
+    "start": 8.48,
+    "duration": 3.0
+  },
+  {
+    "text": "talk and they told me that uh they",
+    "start": 10.08,
+    "duration": 3.599
+  },
+  {
+    "text": "really liked the talk so I would just I",
+    "start": 11.48,
+    "duration": 3.64
+  },
+  {
+    "text": "thought I would just re-record it and",
+    "start": 13.679,
+    "duration": 3.241
+  },
+  {
+    "text": "basically put it up on YouTube so here",
+    "start": 15.12,
+    "duration": 4.319
+  },
+  {
+    "text": "we go the busy person's intro to large",
+    "start": 16.92,
+    "duration": 4.96
+  },
+  {
+    "text": "language models director Scott okay so",
+    "start": 19.439,
+    "duration": 5.16
+  },
+  {
+    "text": "let's begin first of all what is a large",
+    "start": 21.88,
+    "duration": 4.68
+  },
+  {
+    "text": "language model really well a large",
+    "start": 24.599,
+    "duration": 4.961
+  },
+  {
+    "text": "language model is just two files right",
+    "start": 26.56,
+    "duration": 4.719
+  },
+  {
+    "text": "um there will be two files in this",
+    "start": 29.56,
+    "duration": 3.6
+  },
+  {
+    "text": "hypothetical directory so for example",
+    "start": 31.279,
+    "duration": 3.561
+  },
+  {
+    "text": "working with a specific example of the",
+    "start": 33.16,
+    "duration": 5.079
+  },
+  {
+    "text": "Llama 270b model this is a large",
+    "start": 34.84,
+    "duration": 6.559
+  },
+  {
+    "text": "language model released by meta Ai and",
+    "start": 38.239,
+    "duration": 4.961
+  },
+  {
+    "text": "this is basically the Llama series of",
+    "start": 41.399,
+    "duration": 3.921
+  },
+  {
+    "text": "language models the second iteration of",
+    "start": 43.2,
+    "duration": 4.56
+  },
+  {
+    "text": "it and this is the 70 billion parameter",
+    "start": 45.32,
+    "duration": 6.64
+  },
+  {
+    "text": "model of uh of this series so there's",
+    "start": 47.76,
+    "duration": 6.439
+  },
+  {
+    "text": "multiple models uh belonging to the",
+    "start": 51.96,
+    "duration": 5.72
+  },
+  {
+    "text": "Llama 2 Series uh 7 billion um 13",
+    "start": 54.199,
+    "duration": 5.84
+  }
+]

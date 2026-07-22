@@ -1,0 +1,116 @@
+{
+  "id": "zjkBMFhNj_g",
+  "channel": "Andrej Karpathy",
+  "uploader": "Andrej Karpathy",
+  "timestamp": 1700706468,
+  "upload_date": "20231123",
+  "view_count": 3895018,
+  "title": "[1hr Talk] Intro to Large Language Models",
+  "chapters": [
+    {
+      "start_time": 0,
+      "title": "Intro: Large Language Model (LLM) talk",
+      "end_time": 20
+    },
+    {
+      "start_time": 20,
+      "title": "LLM Inference",
+      "end_time": 257
+    },
+    {
+      "start_time": 257,
+      "title": "LLM Training",
+      "end_time": 538
+    },
+    {
+      "start_time": 538,
+      "title": "LLM dreams",
+      "end_time": 682
+    },
+    {
+      "start_time": 682,
+      "title": "How do they work?",
+      "end_time": 854
+    },
+    {
+      "start_time": 854,
+      "title": "Finetuning into an Assistant",
+      "end_time": 1072
+    },
+    {
+      "start_time": 1072,
+      "title": "Summary so far",
+      "end_time": 1265
+    },
+    {
+      "start_time": 1265,
+      "title": "Appendix: Comparisons, Labeling docs, RLHF, Synthetic data, Leaderboard",
+      "end_time": 1543
+    },
+    {
+      "start_time": 1543,
+      "title": "LLM Scaling Laws",
+      "end_time": 1663
+    },
+    {
+      "start_time": 1663,
+      "title": "Tool Use (Browser, Calculator, Interpreter, DALL-E)",
+      "end_time": 2012
+    },
+    {
+      "start_time": 2012,
+      "title": "Multimodality (Vision, Audio)",
+      "end_time": 2100
+    },
+    {
+      "start_time": 2100,
+      "title": "Thinking, System 1/2",
+      "end_time": 2282
+    },
+    {
+      "start_time": 2282,
+      "title": "Self-improvement, LLM AlphaGo",
+      "end_time": 2445
+    },
+    {
+      "start_time": 2445,
+      "title": "LLM Customization, GPTs store",
+      "end_time": 2535
+    },
+    {
+      "start_time": 2535,
+      "title": "LLM OS",
+      "end_time": 2743
+    },
+    {
+      "start_time": 2743,
+      "title": "LLM Security Intro",
+      "end_time": 2774
+    },
+    {
+      "start_time": 2774,
+      "title": "Jailbreaks",
+      "end_time": 3090
+    },
+    {
+      "start_time": 3090,
+      "title": "Prompt Injection",
+      "end_time": 3383
+    },
+    {
+      "start_time": 3383,
+      "title": "Data poisoning",
+      "end_time": 3517
+    },
+    {
+      "start_time": 3517,
+      "title": "LLM Security conclusions",
+      "end_time": 3563
+    },
+    {
+      "start_time": 3563,
+      "title": "Outro",
+      "end_time": 3588
+    }
+  ]
+}
