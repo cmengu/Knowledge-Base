@@ -17,7 +17,13 @@ from kb.extract import ExtractedVideo, TranscriptSegment
 from kb.ingest.errors import MetadataUnavailableError, TranscriptUnavailableError
 from kb.ingest.fetchers import metadata_from_info
 from kb.store import VideoStore
-from tests.helpers import FakeLLMClient, load_recorded_extraction, routing_ids, transcript_ids
+from tests.helpers import (
+    FakeLLMClient,
+    adjudication_names,
+    load_recorded_extraction,
+    routing_ids,
+    transcript_ids,
+)
 
 FIXTURES = Path(__file__).parent / "fixtures"
 
@@ -135,6 +141,13 @@ def fixture_video_id(request) -> str:
 @pytest.fixture(params=routing_ids())
 def routing_video_id(request) -> str:
     """Parametrizes over every committed routing fixture (currently one)."""
+
+    return request.param
+
+
+@pytest.fixture(params=adjudication_names())
+def adjudication_name(request) -> str:
+    """Parametrizes over every committed adjudicator fixture (currently one)."""
 
     return request.param
 

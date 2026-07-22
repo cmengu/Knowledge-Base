@@ -1,27 +1,67 @@
-"""Layer 4 — the per-topic knowledge base of positions (ticket #06).
+"""Layers 4 & 5 — the per-topic knowledge base and the reconciliation engine.
 
-This package owns the *state* the pipeline accumulates: the position data model and the
-per-topic store that persists it as flat JSON (canonical) + Markdown (rendered). The
-reconciliation *engine* that decides how incoming units update these positions — the
-two-stage matcher and the Opus adjudicator (ticket #08) — builds on this substrate and
-will land here alongside it. The **maturity state machine** that drives the flags
-(ticket #09) lives here now: :func:`compute_maturity` (pure) and :func:`apply_maturity`,
-driven by :class:`MaturityConfig` from ``config/maturity.yaml``.
+Layer 4 (ticket #06) owns the *state* the pipeline accumulates: the position data model
+and the per-topic store that persists it as flat JSON (canonical) + Markdown (rendered).
+
+Layer 5 (ticket #08) is the core value on top of that state: the **two-stage matcher +
+reconciliation engine**. Stage 1 retrieves candidate positions by local embedding
+similarity; stage 2, the injected Opus adjudicator, judges each unit as confirming /
+novel / adversarial — never merging on distance alone — and the engine applies the
+verdict, re-flags maturity (ticket #09's policy, injected), and emits a typed diff the
+digest (#10) renders directly. The **maturity state machine** (ticket #09) lives here
+too: :func:`compute_maturity` (pure) and :func:`apply_maturity`, driven by
+:class:`MaturityConfig` from ``config/maturity.yaml``.
 
 Public surface::
 
     from kb.reconcile import (
-        Position, PositionSource, StatusEvent,   # the position data model
-        Maturity, Alignment,                     # the enums
-        KBStore,                                  # per-topic load/save + CRUD
-        render_markdown,                          # the human-readable view
-        MaturityConfig, load_maturity_config,     # the maturity thresholds (#09)
-        compute_maturity, apply_maturity,         # the maturity state machine (#09)
+        # Layer 4 — position data model + store
+        Position, PositionSource, StatusEvent, Maturity, Alignment, KBStore, render_markdown,
+        # Layer 5 — the reconciliation seam
+        reconcile, ReconcileResult, ReconcileConfig, IncomingUnit,
+        # stage 1 — retrieval (injected)
+        CandidateRetriever, Candidate, LocalVectorRetriever,
+        # stage 2 — adjudication (injected)
+        Adjudicator, OpusAdjudicator, Verdict, Classification, parse_verdict,
+        # typed diff the digest consumes
+        Deltas, ConfirmedDelta, NetNewDelta, ContestedDelta, MaturityTransitionDelta,
+        Citation, ConfirmingKind, Reconciliation, ReconciliationType,
+        # maturity policy (config-driven, injected)
+        compute_maturity, apply_maturity, MaturityConfig,
     )
 """
 
 from __future__ import annotations
 
+from kb.reconcile.adjudicator import (
+    AdjudicationConfig,
+    AdjudicationError,
+    Adjudicator,
+    Classification,
+    OpusAdjudicator,
+    Verdict,
+    build_adjudication_prompt,
+    parse_verdict,
+)
+from kb.reconcile.deltas import (
+    Citation,
+    ConfirmedDelta,
+    ConfirmingKind,
+    ContestedDelta,
+    Deltas,
+    MaturityTransitionDelta,
+    NetNewDelta,
+    Reconciliation,
+    ReconciliationType,
+)
+from kb.reconcile.engine import (
+    ReconcileConfig,
+    ReconcileError,
+    ReconcileResult,
+    load_reconcile_config,
+    reconcile,
+)
+from kb.reconcile.incoming import IncomingUnit
 from kb.reconcile.markdown import render_markdown
 from kb.reconcile.maturity import (
     MaturityConfig,
@@ -30,6 +70,7 @@ from kb.reconcile.maturity import (
     compute_maturity,
     load_maturity_config,
 )
+from kb.reconcile.retrieval import Candidate, CandidateRetriever, LocalVectorRetriever
 from kb.reconcile.schema import (
     Alignment,
     Maturity,
@@ -40,20 +81,48 @@ from kb.reconcile.schema import (
 from kb.reconcile.store import KBStore
 
 __all__ = [
-    # data model
+    # -- Layer 4: data model + store --
     "Position",
     "PositionSource",
     "StatusEvent",
     "Maturity",
     "Alignment",
-    # store
     "KBStore",
-    # rendering
     "render_markdown",
-    # maturity state machine (#09)
-    "MaturityConfig",
-    "load_maturity_config",
+    # -- Layer 5: the reconciliation seam --
+    "reconcile",
+    "ReconcileResult",
+    "ReconcileConfig",
+    "ReconcileError",
+    "load_reconcile_config",
+    "IncomingUnit",
+    # -- stage 1: retrieval (injected) --
+    "CandidateRetriever",
+    "Candidate",
+    "LocalVectorRetriever",
+    # -- stage 2: adjudication (injected) --
+    "Adjudicator",
+    "OpusAdjudicator",
+    "AdjudicationConfig",
+    "AdjudicationError",
+    "Verdict",
+    "Classification",
+    "parse_verdict",
+    "build_adjudication_prompt",
+    # -- typed diff the digest consumes --
+    "Deltas",
+    "ConfirmedDelta",
+    "NetNewDelta",
+    "ContestedDelta",
+    "MaturityTransitionDelta",
+    "Citation",
+    "ConfirmingKind",
+    "Reconciliation",
+    "ReconciliationType",
+    # -- maturity policy (config-driven, injected) --
     "compute_maturity",
     "apply_maturity",
     "apply_maturity_batch",
+    "MaturityConfig",
+    "load_maturity_config",
 ]
