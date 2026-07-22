@@ -17,6 +17,7 @@ __all__ = [
     "CONFIG_DIR",
     "FIXTURES_DIR",
     "KB_DATA_DIR",
+    "DIGESTS_DIR",
     "FIXED_TOPICS",
     "load_yaml",
     "load_topics",
@@ -30,6 +31,12 @@ FIXTURES_DIR = PROJECT_ROOT / "fixtures"
 # canonical ``positions.json`` plus a rendered ``positions.md``; see :mod:`kb.reconcile`.
 # Tests point the store at a tmp dir instead, so nothing here is written during a run.
 KB_DATA_DIR = PROJECT_ROOT / "kb-data"
+
+# The digest output surface (Layer "digest", ticket #10). Every run renders one
+# self-contained HTML briefing here, named ``YYYY-MM-DD-<topic>.html``; see
+# :mod:`kb.digest`. The date is injected by the caller (never the wall clock), so the
+# path is deterministic and tests write into a tmp dir instead.
+DIGESTS_DIR = PROJECT_ROOT / "digests"
 
 # Fallback mirror of config/topics.yaml, so a caller without the file (or before it is
 # created) still sees the spec's six-topic set. config/topics.yaml is the source of truth.
