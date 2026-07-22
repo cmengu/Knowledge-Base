@@ -7,8 +7,18 @@
 # cheap bulk steps.
 model: sonnet
 
-# Single-call guard. A transcript rendered longer than this (characters of the
-# timestamped prompt body) is truncated before the LLM call, keeping one video = one
-# request. Multi-call chunking of very long videos is deferred (see PR notes); the
-# evals-slice talks all fit comfortably under this ceiling.
+# Last-resort truncation guard. A transcript rendered longer than this (characters of
+# the timestamped prompt body) is truncated before the LLM call. Long videos are split
+# by the chunker below before this ever bites, so it only guards pathological inputs.
 max_transcript_chars: 200000
+
+# Multi-call chunking of long transcripts (ticket #18). A transcript whose rendered body
+# exceeds chunk_max_chars is split into consecutive chunks (each within the budget, cut
+# on segment boundaries) run as separate extraction calls whose unit lists are merged;
+# shorter transcripts keep the single-call path unchanged. 45k was chosen from the seed
+# set: the shortest talk that overflowed the one-turn output budget rendered ~21k chars,
+# so 45k splits only the clear outliers and leaves the working majority single-call.
+# chunk_overlap_chars repeats that many characters at each boundary so a unit straddling
+# the cut is still wholly present in one chunk; it must be smaller than chunk_max_chars.
+chunk_max_chars: 45000
+chunk_overlap_chars: 2000

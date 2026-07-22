@@ -16,10 +16,15 @@ from kb.extract import (
     ExtractedVideo,
     ExtractionConfig,
     ExtractionError,
+    TranscriptSegment,
     UnitType,
+    chunk_segments,
     extract_json_object,
     extract_units,
+    merge_units,
 )
+from kb.extract.schema import Unit
+from tests.helpers import ScriptedLLMClient
 
 UNITS_JSON = json.dumps(
     {
@@ -145,6 +150,112 @@ def test_is_deterministic(sample_segments, fake_llm_factory):
     first = run(fake_llm_factory(UNITS_JSON), sample_segments)
     second = run(fake_llm_factory(UNITS_JSON), sample_segments)
     assert first == second
+
+
+# --- chunking of long transcripts (ticket #18) ----------------------------
+
+
+def _units_response(texts: list[str]) -> str:
+    """A scripted extraction response carrying one claim per statement in ``texts``."""
+    return json.dumps(
+        {
+            "units": [
+                {
+                    "type": "claim",
+                    "text": t,
+                    "raw_quote": t,
+                    "timestamp": i,
+                    "stance": "affirms",
+                    "evidence_offered": [],
+                }
+                for i, t in enumerate(texts)
+            ]
+        }
+    )
+
+
+def _long_segments(count: int) -> list[TranscriptSegment]:
+    return [
+        TranscriptSegment(text=f"point number {i} stated plainly here", start=float(i))
+        for i in range(count)
+    ]
+
+
+CHUNKY = ExtractionConfig(chunk_max_chars=250, chunk_overlap_chars=40)
+
+
+def test_short_transcript_stays_single_call(sample_segments, fake_llm_factory):
+    # The two-segment sample renders well under the chunk budget → one call, unchanged.
+    client = fake_llm_factory(UNITS_JSON)
+    run(client, sample_segments, config=CHUNKY)
+    assert len(client.calls) == 1
+
+
+def test_long_transcript_fans_out_one_call_per_chunk():
+    segments = _long_segments(40)
+    chunks = chunk_segments(segments, max_chars=250, overlap_chars=40)
+    assert len(chunks) >= 2  # this transcript really is split
+
+    # Script a distinct unit per chunk so nothing dedupes away.
+    responses = [_units_response([f"claim from chunk {i}"]) for i in range(len(chunks))]
+    client = ScriptedLLMClient(responses)
+    video = run(client, segments, config=CHUNKY)
+
+    assert len(client.calls) == len(chunks)                 # one call per chunk
+    assert len(video.units) == len(chunks)                  # all merged in
+    assert [u.unit_id for u in video.units] == [
+        f"vid123#{i}" for i in range(len(chunks))
+    ]                                                        # ids re-sequenced post-merge
+
+
+def test_merge_dedupes_units_repeated_across_chunk_overlap():
+    segments = _long_segments(24)
+    two_chunk = ExtractionConfig(chunk_max_chars=600, chunk_overlap_chars=40)
+    chunks = chunk_segments(segments, max_chars=600, overlap_chars=40)
+    assert len(chunks) == 2  # keep the merge assertion concrete
+
+    # The overlap makes the boundary unit appear in both chunks; it must merge to one.
+    client = ScriptedLLMClient(
+        [
+            _units_response(["alpha point", "shared boundary point"]),
+            _units_response(["Shared boundary point.", "gamma point"]),
+        ]
+    )
+    video = run(client, segments, config=two_chunk)
+
+    assert [u.text for u in video.units] == [
+        "alpha point",
+        "shared boundary point",
+        "gamma point",
+    ]
+    assert [u.unit_id for u in video.units] == ["vid123#0", "vid123#1", "vid123#2"]
+
+
+def test_chunk_segments_short_returns_original_single_chunk():
+    segments = _long_segments(3)
+    chunks = chunk_segments(segments, max_chars=100_000, overlap_chars=2_000)
+    assert chunks == [segments]  # same objects, single chunk
+
+
+def test_chunk_segments_overlaps_the_boundary():
+    segments = _long_segments(30)
+    chunks = chunk_segments(segments, max_chars=250, overlap_chars=60)
+    assert len(chunks) >= 2
+    # consecutive chunks share at least one boundary segment (the overlap)
+    first_starts = {s.start for s in chunks[0]}
+    second_starts = {s.start for s in chunks[1]}
+    assert first_starts & second_starts
+    # every original non-empty segment is covered by some chunk
+    covered = {s.start for chunk in chunks for s in chunk}
+    assert covered == {s.start for s in segments}
+
+
+def test_merge_units_keeps_first_and_drops_near_duplicates():
+    def u(text: str) -> Unit:
+        return Unit(type="claim", text=text, raw_quote=text, timestamp=0, stance="affirms")
+
+    merged = merge_units([[u("A point"), u("B point")], [u("a  point!!"), u("C point")]])
+    assert [m.text for m in merged] == ["A point", "B point", "C point"]
 
 
 # --- extract_json_object helper -------------------------------------------
