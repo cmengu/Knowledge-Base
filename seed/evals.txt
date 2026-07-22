@@ -1,0 +1,18 @@
+# Seed video set — evals vertical slice (issue #5)
+# Source: AI Engineer channel (@aiDotEngineer), uploads 2026-06-22..2026-07-22,
+# ranked by view count, top 15, shorts/teasers (<5 min) excluded. Generated 2026-07-22.
+https://www.youtube.com/watch?v=9fubhllmsBU  # 114304 views, 20260706 — Field Guide to Fable — Thariq Shihipar, Anthropic
+https://www.youtube.com/watch?v=UNzCG3lw6O0  # 110438 views, 20260629 — Building Great Agent Skills: The Missing Manual
+https://www.youtube.com/watch?v=xUnRQ9vLXxo  # 81754 views, 20260708 — Everything we knew about software has changed — Theo Browne, @t3dotgg ​
+https://www.youtube.com/watch?v=WkBPX-oDMnA  # 79171 views, 20260710 — Understanding is the new bottleneck — Geoffrey Litt, Notion
+https://www.youtube.com/watch?v=pMggiOb18tc  # 62409 views, 20260709 — The Golden Age of AI Engineering — Alexander Embiricos & Romain Huet & Peter Steinberger, OpenAI
+https://www.youtube.com/watch?v=spNAUEgq_A8  # 36470 views, 20260629 — The Future Is Domain-Specific Agents - Justin Schroeder, StandardAgents
+https://www.youtube.com/watch?v=0vphxNt4wyk  # 33508 views, 20260714 — Don't Ship Skills Without Evals — Philipp Schmid, Google DeepMind
+https://www.youtube.com/watch?v=OqM67QG_Ikk  # 31070 views, 20260713 — From fork() to Fleet: Designing an Agent Sandbox Cloud — Abhishek Bhardwaj, OpenAI
+https://www.youtube.com/watch?v=n97BCfyFIvw  # 23857 views, 20260714 — "The engineer of the future is the person who is able to choose what is worth doing." — Addy Osmani
+https://www.youtube.com/watch?v=eBUyTS7SzV4  # 21860 views, 20260717 — Every company should have a Brain — Garry Tan, Y Combinator
+https://www.youtube.com/watch?v=KB41dTlX1Uc  # 18860 views, 20260711 — State of the Union: Why Local, Why Now — NVIDIA, Osmantic, Roboflow, EXO Labs, @matthew_berman
+https://www.youtube.com/watch?v=GdvKNwMcfd0  # 16119 views, 20260711 — From Writing Code to Designing Systems: How the Developer Role is Changing — Chris Noring, Microsoft
+https://www.youtube.com/watch?v=APqXGyCoGW4  # 11875 views, 20260714 — Forward Deployed Engineering at Cursor — Pauline Brunet
+https://www.youtube.com/watch?v=8G_1-3IO4ZQ  # 9556 views, 20260714 — WTF Is the Context Layer? The Missing Infrastructure for Production Agents — Prukalpa Sankar
+https://www.youtube.com/watch?v=2e9ANoOEn28  # 9512 views, 20260707 — What if the harness mattered more than the model? - Aditya Bhargava, Etsy
