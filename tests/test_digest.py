@@ -328,6 +328,72 @@ def test_write_digest_overwrites_same_date(tmp_path, sample_deltas, sample_posit
     assert len(list(tmp_path.glob("*.html"))) == 1
 
 
+# --- narrative brief placement (issue #19) ----------------------------------
+
+BRIEF_PROSE = (
+    "The evals field is pulled apart by one live disagreement over manual review.\n\n"
+    "Beyond that, a version-control practice is emerging as several voices converge.\n\n"
+    "What changed this run is a single dissent that flipped a settled point back open."
+)
+
+
+def test_brief_none_is_byte_identical_to_no_brief(sample_deltas, sample_positions):
+    """The brief is optional: render with brief=None must equal render with no brief arg,
+    so existing callers and tests are untouched (spec/#19)."""
+    without = render_digest(sample_deltas, topic="evals", date=RUN_DATE, positions=sample_positions)
+    with_none = render_digest(
+        sample_deltas, topic="evals", date=RUN_DATE, positions=sample_positions, brief=None
+    )
+    assert without == with_none
+    assert "The Brief" not in without                    # no brief chrome leaks in
+
+
+def test_brief_renders_first_as_its_own_section(sample_deltas, sample_positions):
+    html = render_digest(
+        sample_deltas, topic="evals", date=RUN_DATE, positions=sample_positions, brief=BRIEF_PROSE,
+    )
+    assert 'id="brief"' in html
+    assert "The Brief" in html
+    # the brief prose is present, split into paragraphs (escaped model output)
+    assert "pulled apart by one live disagreement" in html
+    # it leads: the brief section comes before the diff sections and the position list
+    assert html.index('id="brief"') < html.index('id="state"')
+    assert html.index('id="brief"') < html.index('class="tiles"')
+
+
+def test_brief_moves_position_list_into_collapsible_appendix(sample_deltas, sample_positions):
+    html = render_digest(
+        sample_deltas, topic="evals", date=RUN_DATE, positions=sample_positions, brief=BRIEF_PROSE,
+    )
+    # the full position list is now a secondary, collapsible appendix
+    assert "<details" in html
+    assert 'class="state-appendix"' in html
+    assert "Full position list" in html
+    # every position still renders (nothing is dropped) — just tucked away
+    assert "evals-0001" in html
+    # the appendix <details> is self-contained (no extra <script> needed for it)
+    assert html.count("<script>") == 1
+
+
+def test_brief_paragraphs_are_escaped_not_injected():
+    html = render_digest(
+        Deltas(), topic="evals", date=RUN_DATE,
+        brief="<script>alert(1)</script> a genuine paragraph of the brief.",
+    )
+    assert "<script>alert(1)</script>" not in html       # not injected raw
+    assert "&lt;script&gt;" in html
+    assert html.count("<script>") == 1                    # only our own trusted JS block
+
+
+def test_brief_works_on_no_changes_page(sample_positions):
+    html = render_digest(
+        Deltas(), topic="evals", date=RUN_DATE, positions=sample_positions, brief=BRIEF_PROSE,
+    )
+    assert "The Brief" in html
+    assert "No changes since the last run" in html
+    assert 'class="state-appendix"' in html              # list still collapsed on quiet runs
+
+
 # --- committed eyeball sample stays in sync ---------------------------------
 
 

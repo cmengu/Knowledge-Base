@@ -87,6 +87,7 @@ def render_digest(
     date: dt.date | str,
     positions: KBStore | Sequence[Position] | None = None,
     previous_date: dt.date | str | None = None,
+    brief: str | None = None,
 ) -> str:
     """Render ``deltas`` as one self-contained HTML digest document and return it.
 
@@ -98,6 +99,13 @@ def render_digest(
     Supplying it is what makes a no-changes page substantive, so the pipeline always does.
     ``previous_date`` — the last run's date, if known — sharpens the "since …" framing.
 
+    ``brief`` is an optional LLM-written narrative summary (issue #19,
+    :mod:`kb.digest.brief`). When supplied it is rendered as the first section, "The Brief",
+    and the full position list drops below it into a collapsible, clearly-secondary
+    appendix — so a reader gets the state of the field from prose and only drills into the
+    list on demand. **When ``brief`` is ``None`` the output is byte-identical to a digest
+    rendered without the argument at all**, so existing callers and tests are untouched.
+
     The returned string is a complete ``<!doctype html>`` document with all CSS and JS
     inlined; it is never empty, even when ``deltas`` is.
     """
@@ -106,19 +114,24 @@ def render_digest(
     prev_date = _coerce_date(previous_date) if previous_date is not None else None
     pos_list = _normalize_positions(positions)
     pos_by_id = {p.position_id: p for p in pos_list} if pos_list is not None else {}
+    has_brief = brief is not None
 
     title = f"{topic} digest · {run_date.isoformat()}"
     masthead = _masthead(topic, run_date, prev_date, empty=deltas.is_empty)
+    brief_block = _brief_section(brief) if has_brief else ""
 
     if deltas.is_empty:
         body = "\n".join(
-            [
+            part
+            for part in [
                 masthead,
+                brief_block,
                 _no_changes_hero(topic, run_date),
-                _state_section(pos_list, standing=True),
+                _state_section(pos_list, standing=True, collapsible=has_brief),
                 _critique_callout(),
                 _footer(topic, run_date),
             ]
+            if part
         )
         return _document(title, body)
 
@@ -126,17 +139,20 @@ def render_digest(
     sections, present = _diff_sections(deltas, citations, pos_by_id)
 
     body = "\n".join(
-        [
+        part
+        for part in [
             masthead,
+            brief_block,
             _stat_tiles(deltas),
             _filter_bar(present),
-            _toc(present, has_state=pos_list is not None),
+            _toc(present, has_state=pos_list is not None, has_brief=has_brief),
             _lede(deltas, topic, prev_date),
             sections,
             _critique_callout(),
-            _state_section(pos_list, standing=True),
+            _state_section(pos_list, standing=True, collapsible=has_brief),
             _footer(topic, run_date),
         ]
+        if part
     )
     return _document(title, body)
 
@@ -154,6 +170,7 @@ def write_digest(
     date: dt.date | str,
     positions: KBStore | Sequence[Position] | None = None,
     previous_date: dt.date | str | None = None,
+    brief: str | None = None,
     out_dir: str | Path = DIGESTS_DIR,
 ) -> Path:
     """Render the digest and write it to ``<out_dir>/YYYY-MM-DD-<topic>.html`` atomically.
@@ -161,13 +178,16 @@ def write_digest(
     Returns the path written. The write is atomic (temp file + ``os.replace``, matching the
     KB store) so an interrupted run cannot leave a half-written page. ``date`` names the
     file, so re-running with the same date overwrites in place rather than piling up.
+    ``brief`` is the optional narrative lede (issue #19), passed straight through to
+    :func:`render_digest`.
     """
 
     out_dir = Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
     path = out_dir / digest_filename(topic, date)
     document = render_digest(
-        deltas, topic=topic, date=date, positions=positions, previous_date=previous_date
+        deltas, topic=topic, date=date, positions=positions,
+        previous_date=previous_date, brief=brief,
     )
     tmp = path.with_name(f"{path.name}.tmp.{os.getpid()}")
     tmp.write_text(document, encoding="utf-8")
@@ -198,6 +218,29 @@ def _masthead(topic: str, date: dt.date, prev: dt.date | None, *, empty: bool) -
         f'<p class="dek">{dek}</p>'
         f'<p class="dateline sans">{dateline}</p>'
         "</header>"
+    )
+
+
+def _brief_section(brief: str) -> str:
+    """The LLM-written narrative brief, rendered as the digest's opening section (issue #19).
+
+    The model returns plain prose with blank-line-separated paragraphs; each becomes a
+    ``<p>`` (HTML-escaped — the brief is model output, never trusted markup). The section
+    leads the page so the reader gets the state of the field, contradictions first, before
+    any list. An empty/blank brief falls back to a note rather than an empty section.
+    """
+
+    paragraphs = [p.strip() for p in brief.replace("\r\n", "\n").split("\n\n") if p.strip()]
+    if not paragraphs:
+        prose = '<p class="empty-note">No brief was generated for this run.</p>'
+    else:
+        prose = "".join(f"<p>{_esc(para)}</p>" for para in paragraphs)
+    return (
+        '<section class="brief" id="brief">'
+        '<p class="section-kicker">The Brief</p>'
+        '<h2 class="section-title">What the field looks like right now</h2>'
+        f'<div class="brief-body">{prose}</div>'
+        "</section>"
     )
 
 
@@ -521,21 +564,29 @@ def _trend_citations(
 # ----------------------------------------------------------------------------
 
 
-def _state_section(positions: list[Position] | None, *, standing: bool) -> str:
+def _state_section(
+    positions: list[Position] | None, *, standing: bool, collapsible: bool = False
+) -> str:
+    """The full position list ("state of the field").
+
+    ``collapsible`` (set when a narrative brief leads the digest, issue #19) wraps the whole
+    section in a ``<details>`` appendix so the long list no longer dominates the scroll — the
+    reader has the brief for the overview and opens the list only to drill in. Self-contained
+    ``<details>`` needs no JavaScript, so the page stays complete offline.
+    """
+
     if positions is None:
         if standing:
-            return (
-                '<section class="diff" id="state"><p class="section-kicker">State</p>'
-                '<h2 class="section-title">State of the field</h2>'
+            return _state_wrap(
+                collapsible,
                 '<p class="empty-note">The current knowledge base was not supplied to this '
-                "render.</p></section>"
+                "render.</p>",
             )
         return ""
     if not positions:
-        return (
-            '<section class="diff" id="state"><p class="section-kicker">State</p>'
-            '<h2 class="section-title">State of the field</h2>'
-            '<p class="empty-note">The knowledge base has no positions yet.</p></section>'
+        return _state_wrap(
+            collapsible,
+            '<p class="empty-note">The knowledge base has no positions yet.</p>',
         )
 
     counts = _maturity_counts(positions)
@@ -549,13 +600,35 @@ def _state_section(positions: list[Position] | None, *, standing: bool) -> str:
         _position_row(p)
         for p in sorted(positions, key=lambda p: (_STATE_RANK.get(p.maturity.value, 9), p.position_id))
     )
+    return _state_wrap(
+        collapsible,
+        f'<p class="section-intro">{intro}</p>'
+        f"{_distribution_bar(counts, len(positions))}"
+        f"{rows}",
+        count=len(positions),
+    )
+
+
+def _state_wrap(collapsible: bool, inner: str, *, count: int | None = None) -> str:
+    """Wrap the state-section body in either a plain ``<section>`` (default) or, when a brief
+    leads the page, a collapsible ``<details>`` appendix with a clearly-secondary heading."""
+
+    if collapsible:
+        n = f" ({count})" if count is not None else ""
+        return (
+            '<section class="diff appendix" id="state">'
+            '<details class="state-appendix">'
+            f'<summary class="sans"><span class="section-kicker">Appendix</span>'
+            f'<span class="appendix-title">Full position list{_esc(n)}</span>'
+            '<span class="appendix-hint">tap to expand</span></summary>'
+            f'<div class="appendix-body">{inner}</div>'
+            "</details></section>"
+        )
     return (
         '<section class="diff" id="state">'
         '<p class="section-kicker">State</p>'
         '<h2 class="section-title">State of the field</h2>'
-        f'<p class="section-intro">{intro}</p>'
-        f"{_distribution_bar(counts, len(positions))}"
-        f"{rows}"
+        f"{inner}"
         "</section>"
     )
 
@@ -648,10 +721,14 @@ def _footer(topic: str, date: dt.date) -> str:
     )
 
 
-def _toc(present: list[tuple[str, str, str]], *, has_state: bool) -> str:
-    links = [f'<a href="#{cat}">{_esc(toc_label)}</a>' for cat, _chip_label, toc_label in present]
+def _toc(present: list[tuple[str, str, str]], *, has_state: bool, has_brief: bool = False) -> str:
+    links = []
+    if has_brief:
+        links.append('<a href="#brief">The Brief</a>')
+    links += [f'<a href="#{cat}">{_esc(toc_label)}</a>' for cat, _chip_label, toc_label in present]
     if has_state:
-        links.append('<a href="#state">State of the field</a>')
+        label = "Full position list" if has_brief else "State of the field"
+        links.append(f'<a href="#state">{label}</a>')
     if not links:
         return ""
     return f'<nav class="toc sans">{"".join(links)}</nav>'

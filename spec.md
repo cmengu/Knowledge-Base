@@ -91,6 +91,12 @@ widening to all six topics.
     on thin air.
 26. As a reader, I want minority and contested views kept separate rather than smoothed
     into a narrative, so that the digest critiques rather than predicts.
+26a. As a reader faced with dozens of positions, I want each topic digest to OPEN with a
+    500–1000-word narrative brief that leads with the contradictions — every contested
+    position, what each side claims, which videos back each side, and how it was (or was
+    not) resolved — then covers what is emerging/converging, the open questions, and what
+    changed this run, so that I get the state of the field from prose and drill into the
+    full position list (now a collapsed appendix) only when I want detail.
 27. As an operator, I want the whole pipeline to run on my Claude subscription rather than
     a metered API, so that cost is predictable.
 28. As an operator, I want cheap model tiers used for bulk extraction and routing and the
@@ -159,7 +165,15 @@ canonical, vectors are a derived cache rebuildable from it.
 **Digest output.** On every run, a rich HTML briefing rendered in the `/explain-diff-html`
 style — because the digest *is* a diff of the KB since the last run. Per topic it shows
 newly confirmed, net-new, newly contested (both stances quoted + dated), and maturity
-transitions since last run, with citations for any trend claim.
+transitions since last run, with citations for any trend claim. Atop that, an **optional
+LLM-written narrative brief** (issue #19, `kb.digest.brief`): the digest's opening section,
+500–1000 words of plain prose that leads with the contradictions (each contested position,
+both sides, the videos behind each, the resolution or its absence) before emerging/converging
+themes, open questions, and the run's changes. The brief runs on Opus (`claude-opus-4-8`) via
+the same injected `LLMClient` seam used elsewhere — so it is offline-testable with a fake and
+carries a word-count guard (one corrective retry, then accept-with-warning). It is optional at
+the API level: `render_digest(..., brief=None)` is byte-identical to a digest rendered without
+it, and when a brief is present the full position list collapses into a `<details>` appendix.
 
 ## Testing Decisions
 

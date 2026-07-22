@@ -80,6 +80,40 @@ h1.title { font-size: clamp(30px, 6vw, 46px); line-height: 1.08; margin: 0 0 12p
 .dateline { font-size: 14px; color: var(--muted); margin: 0; }
 .dateline .sep { opacity: .5; padding: 0 8px; }
 
+/* --- the narrative brief (issue #19): the digest's opening lede section --- */
+section.brief {
+  margin: 30px 0 8px; padding: 26px 28px; border-radius: 16px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-top: 4px solid var(--accent); box-shadow: var(--shadow);
+}
+section.brief .section-kicker { color: var(--accent-ink); }
+section.brief h2.section-title { margin: 2px 0 10px; }
+.brief-body { font-size: 18.5px; line-height: 1.7; color: var(--ink); }
+.brief-body p { margin: 0 0 16px; }
+.brief-body p:first-child { font-size: 19.5px; }
+.brief-body p:first-child::first-letter {
+  float: left; font-size: 58px; line-height: .82; padding: 4px 10px 0 0;
+  font-weight: 700; color: var(--accent);
+}
+.brief-body p:last-child { margin-bottom: 0; }
+
+/* --- collapsed full-position-list appendix (shown when a brief leads the page) --- */
+section.diff.appendix { margin-top: 34px; }
+.state-appendix { border-top: 1px solid var(--border); padding-top: 8px; }
+.state-appendix > summary {
+  cursor: pointer; list-style: none; display: flex; flex-wrap: wrap; align-items: baseline;
+  gap: 10px; padding: 10px 0; color: var(--ink-soft);
+}
+.state-appendix > summary::-webkit-details-marker { display: none; }
+.state-appendix > summary .section-kicker {
+  font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted);
+  font-weight: 700; margin: 0;
+}
+.state-appendix > summary .appendix-title { font-size: 20px; font-weight: 700; color: var(--ink); }
+.state-appendix > summary .appendix-hint { font-size: 13px; color: var(--muted); margin-left: auto; }
+.state-appendix[open] > summary .appendix-hint { visibility: hidden; }
+.appendix-body { padding-top: 6px; }
+
 /* --- stat tiles --- */
 .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; margin: 24px 0 8px; }
 .tile {
