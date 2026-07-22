@@ -1,0 +1,613 @@
+{
+  "video_id": "K8LLVi5Xrh8",
+  "date": "2025-05-11",
+  "topic_tags": [
+    "evals",
+    "swe-practices"
+  ],
+  "units": [
+    {
+      "unit": {
+        "type": "claim",
+        "text": "LLM system evaluation is different from LLM model evaluation, which is typically done via public benchmarks.",
+        "raw_quote": "evaluating LLM systems is not the same as evaluating LLM models, which is usually done through benchmarks",
+        "timestamp": 19.0,
+        "stance": "affirms",
+        "evidence_offered": [],
+        "unit_id": "K8LLVi5Xrh8#0"
+      },
+      "topics": [
+        "evals"
+      ]
+    },
+    {
+      "unit": {
+        "type": "claim",
+        "text": "Public benchmarks are like school exams that test general skills, not the specific tasks a real application needs to perform.",
+        "raw_quote": "they are like school exams: they test general skills",
+        "timestamp": 31.0,
+        "stance": "affirms",
+        "evidence_offered": [],
+        "unit_id": "K8LLVi5Xrh8#1"
+      },
+      "topics": [
+        "evals"
+      ]
+    },
+    {
+      "unit": {
+        "type": "claim",
+        "text": "If you build a specific application (e.g., a chatbot or prompt chain), you need to test the whole system on the tasks it's meant to solve, not just the underlying model.",
+        "raw_quote": "if you're building a specific application like a chatbot or even a simpler prompt chain you need to test it on the tasks that it is meant to solve",
+        "timestamp": 40.0,
+        "stance": "affirms",
+        "evidence_offered": [],
+        "unit_id": "K8LLVi5Xrh8#2"
+      },
+      "topics": [
+        "evals",
+        "swe-practices"
+      ]
+    },
+    {
+      "unit": {
+        "type": "claim",
+        "text": "If you're building a RAG system, don't search for an existing RAG benchmark—build your own evaluation instead.",
+        "raw_quote": "So if you are building a RAG system don't search for a RAG benchmark - build your own.",
+        "timestamp": 55.0,
+        "stance": "affirms",
+        "evidence_offered": [],
+        "unit_id": "K8LLVi5Xrh8#3"
+      },
+      "topics": [
+        "evals"
+      ]
+    },
+    {
+      "unit": {
+        "type": "claim",
+        "text": "Evaluation is not a standalone activity in itself; it's a tool that helps answer questions and make product decisions, and its role changes across the product lifecycle.",
+        "raw_quote": "evaluations is not some standalone activity like \"doing evals\". It is a tool that helps you answer questions and make decisions about your product.",
+        "timestamp": 61.0,
+        "stance": "affirms",
+        "evidence_offered": [],
+        "unit_id": "K8LLVi5Xrh8#4"
+      },
+      "topics": [
+        "evals"
+      ]
+    },
+    {
+      "unit": {
+        "type": "content",
+        "text": "During early product building, evaluation is mainly used for experiments: comparing models or prompts, or diagnosing a specific observed error mode.",
+        "raw_quote": "If you're just building your product, it is often about experiments. Maybe you're comparing different models or different prompts or you're trying to fix a particular error mode that you observed.",
+        "timestamp": 77.0,
+        "stance": "neutral",
+        "evidence_offered": [],
+        "unit_id": "K8LLVi5Xrh8#5"
+      },
+      "topics": [
+        "evals"
+      ]
+    },
+    {
+      "unit": {
+        "type": "content",
+        "text": "Stress-testing or red-teaming involves sending tricky or adversarial inputs to the system to see if it can be provoked into unsafe behavior.",
+        "raw_quote": "You can also run stress-testing or red-teaming where you send tricky or adversarial inputs to your system to see if you can provoke it to do something unsafe.",
+        "timestamp": 92.0,
+        "stance": "neutral",
+        "evidence_offered": [],
+        "unit_id": "K8LLVi5Xrh8#6"
+      },
+      "topics": [
+        "evals"
+      ]
+    },
+    {
+      "unit": {
+        "type": "content",
+        "text": "Once a system is in production, evaluation shifts to continuous online monitoring—checking things like whether users get stuck, whether hallucinations occur, and whether the chatbot wrongly refuses valid questions.",
+        "raw_quote": "Once the system is in production, it is all about monitoring: you want to make sure that your users are getting good experience.",
+        "timestamp": 110.0,
+        "stance": "neutral",
+        "evidence_offered": [],
+        "unit_id": "K8LLVi5Xrh8#7"
+      },
+      "topics": [
+        "evals"
+      ]
+    },
+    {
+      "unit": {
+        "type": "claim",
+        "text": "Before rolling out changes like a prompt fix or bug fix, you need regression testing to make sure the change doesn't break anything else.",
+        "raw_quote": "before you roll out these changes you need to make sure that they don't break anything else. So you need regression testing.",
+        "timestamp": 126.0,
+        "stance": "affirms",
+        "evidence_offered": [],
+        "unit_id": "K8LLVi5Xrh8#8"
+      },
+      "topics": [
+        "evals",
+        "swe-practices"
+      ]
+    },
+    {
+      "unit": {
+        "type": "claim",
+        "text": "Evaluations look different depending on which lifecycle stage (experimentation, red-teaming, monitoring, regression testing) they're being used for, and evolve along with the product.",
+        "raw_quote": "In each of these cases evaluations will look slightly differently. And they will evolve with your product, just like your product itself.",
+        "timestamp": 135.0,
+        "stance": "affirms",
+        "evidence_offered": [],
+        "unit_id": "K8LLVi5Xrh8#9"
+      },
+      "topics": [
+        "evals"
+      ]
+    },
+    {
+      "unit": {
+        "type": "claim",
+        "text": "Beyond typical software testing, LLM systems require evaluating the actual content of interactions—the inputs and outputs—which is a fundamentally different challenge.",
+        "raw_quote": "you still need to test your software, but now you also need to evaluation the contents of your interactions: the inputs and outputs that your system gets. And that's quite different.",
+        "timestamp": 151.0,
+        "stance": "affirms",
+        "evidence_offered": [],
+        "unit_id": "K8LLVi5Xrh8#10"
+      },
+      "topics": [
+        "evals"
+      ]
+    },
+    {
+      "unit": {
+        "type": "claim",
+        "text": "LLMs are non-deterministic, meaning the same input can produce different outputs, and this is generally acceptable.",
+        "raw_quote": "LLMs are non-deterministic which means that even for the exact same input you can get different outputs, and that's sort of okay.",
+        "timestamp": 161.0,
+        "stance": "affirms",
+        "evidence_offered": [],
+        "unit_id": "K8LLVi5Xrh8#11"
+      },
+      "topics": [
+        "evals"
+      ]
+    },
+    {
+      "unit": {
+        "type": "claim",
+        "text": "Prompts are brittle—small changes such as punctuation can alter the system's behavior.",
+        "raw_quote": "You're also dealing with prompts which are very brittle. Sometimes changing something very small like punctuation can actually alter the behavior of the system.",
+        "timestamp": 171.0,
+        "stance": "affirms",
+        "evidence_offered": [],
+        "unit_id": "K8LLVi5Xrh8#12"
+      },
+      "topics": [
+        "evals",
+        "swe-practices"
+      ]
+    },
+    {
+      "unit": {
+        "type": "content",
+        "text": "LLM applications often address open-ended tasks (like generating emails) where there is no single definition of a 'good' output.",
+        "raw_quote": "You're also often solving very open-ended tasks like for example generating emails. How do you even define what a good email is?",
+        "timestamp": 181.0,
+        "stance": "neutral",
+        "evidence_offered": [],
+        "unit_id": "K8LLVi5Xrh8#13"
+      },
+      "topics": [
+        "evals"
+      ]
+    },
+    {
+      "unit": {
+        "type": "claim",
+        "text": "Probabilistic language-generating systems introduce new risks: hallucinations (making things up), jailbreaks (bypassing safety measures), and data leaks (exposing sensitive data).",
+        "raw_quote": "you also now face new risks like hallucinations: the model can make things up. Jailbreaks: users can try bypass the safety measures. Or data leaks where LLMs can expose sensitive data.",
+        "timestamp": 192.0,
+        "stance": "affirms",
+        "evidence_offered": [],
+        "unit_id": "K8LLVi5Xrh8#14"
+      },
+      "topics": [
+        "evals"
+      ]
+    },
+    {
+      "unit": {
+        "type": "claim",
+        "text": "With LLMs it isn't enough to test functionality alone—you also need a way to evaluate the safety and quality of responses.",
+        "raw_quote": "So with LLMs it's not enough to just test functionality, you also need a way to evaluate the safety and quality of responses.",
+        "timestamp": 205.0,
+        "stance": "affirms",
+        "evidence_offered": [],
+        "unit_id": "K8LLVi5Xrh8#15"
+      },
+      "topics": [
+        "evals"
+      ]
+    },
+    {
+      "unit": {
+        "type": "claim",
+        "text": "Manual evaluation—reading outputs yourself—is the right place to start, since it builds intuition, reveals patterns, and clarifies what 'good' means for your use case.",
+        "raw_quote": "The first obvious solution to this complexity is manual evaluations, and honestly that's where you should start.",
+        "timestamp": 217.0,
+        "stance": "affirms",
+        "evidence_offered": [],
+        "unit_id": "K8LLVi5Xrh8#16"
+      },
+      "topics": [
+        "evals"
+      ]
+    },
+    {
+      "unit": {
+        "type": "claim",
+        "text": "Having subject matter experts label data is extremely valuable, especially early in a project.",
+        "raw_quote": "If you can ask subject matter experts to label some data, this is priceless, especially early on.",
+        "timestamp": 228.0,
+        "stance": "affirms",
+        "evidence_offered": [],
+        "unit_id": "K8LLVi5Xrh8#17"
+      },
+      "topics": [
+        "evals"
+      ]
+    },
+    {
+      "unit": {
+        "type": "claim",
+        "text": "Manual evaluation doesn't scale, so automation is necessary to keep up as volume grows.",
+        "raw_quote": "However, this doesn't scale. You cannot continue manually labeling everything forever, so you need automations.",
+        "timestamp": 234.0,
+        "stance": "affirms",
+        "evidence_offered": [],
+        "unit_id": "K8LLVi5Xrh8#18"
+      },
+      "topics": [
+        "evals",
+        "swe-practices"
+      ]
+    },
+    {
+      "unit": {
+        "type": "claim",
+        "text": "Automated evaluations exist to scale human judgment, not replace it—if you haven't figured out what to evaluate manually first, there's nothing meaningful to automate.",
+        "raw_quote": "Automated evaluations are there to scale your judgment, not to replace it. If you don't know yet what you're evaluating manually, there is nothing to automate.",
+        "timestamp": 243.0,
+        "stance": "affirms",
+        "evidence_offered": [],
+        "unit_id": "K8LLVi5Xrh8#19"
+      },
+      "topics": [
+        "evals"
+      ]
+    },
+    {
+      "unit": {
+        "type": "claim",
+        "text": "Manual and automated evaluation should continue side by side even after automation is built, since each informs the other.",
+        "raw_quote": "You should still continue looking at the logs: manual evaluations and automated evaluations go hand in hand. One will inform another.",
+        "timestamp": 260.0,
+        "stance": "affirms",
+        "evidence_offered": [],
+        "unit_id": "K8LLVi5Xrh8#20"
+      },
+      "topics": [
+        "evals"
+      ]
+    },
+    {
+      "unit": {
+        "type": "content",
+        "text": "The basic anatomy of an eval is: provide an input, run it through the application, capture the output, then evaluate that output; a reference/ground-truth answer can optionally be included.",
+        "raw_quote": "You get an input, you run it through your application, you capture the output and you evaluate it.",
+        "timestamp": 276.0,
+        "stance": "neutral",
+        "evidence_offered": [],
+        "unit_id": "K8LLVi5Xrh8#21"
+      },
+      "topics": [
+        "evals"
+      ]
+    },
+    {
+      "unit": {
+        "type": "content",
+        "text": "Reference-based evaluation compares system outputs against expected/ground-truth answers, and is useful for regression testing and experiments—e.g. a chatbot tested against a set of questions with known expected answers.",
+        "raw_quote": "if you have this reference answer or so-called ground truth response, you can run reference-based evaluations. There, the goal is to compare the answers you get against some expected answers.",
+        "timestamp": 286.0,
+        "stance": "neutral",
+        "evidence_offered": [],
+        "unit_id": "K8LLVi5Xrh8#22"
+      },
+      "topics": [
+        "evals"
+      ]
+    },
+    {
+      "unit": {
+        "type": "content",
+        "text": "Open-ended (reference-free) evaluation is used when there's no correct answer in advance, such as production monitoring or complex conversational scenarios, and instead measures qualities like safety, politeness, correctness, and length.",
+        "raw_quote": "the second way to run evaluations is open-ended or reference-free evaluations. That's where you don't have a correct answer in advance.",
+        "timestamp": 313.0,
+        "stance": "neutral",
+        "evidence_offered": [],
+        "unit_id": "K8LLVi5Xrh8#23"
+      },
+      "topics": [
+        "evals"
+      ]
+    },
+    {
+      "unit": {
+        "type": "claim",
+        "text": "Unlike testing simple deterministic logic, LLM evaluation requires running tests across a range of possible outputs, which means you must deliberately design a representative test dataset.",
+        "raw_quote": "With LLMs you cannot just test that 2 plus 2 equals 4 and call it a day. You actually need to run evaluations across a range of possible outputs.",
+        "timestamp": 341.0,
+        "stance": "affirms",
+        "evidence_offered": [],
+        "unit_id": "K8LLVi5Xrh8#24"
+      },
+      "topics": [
+        "evals"
+      ]
+    },
+    {
+      "unit": {
+        "type": "content",
+        "text": "You can maintain several distinct test datasets: 'happy path' normal queries, important edge cases, and an adversarial dataset probing weak spots.",
+        "raw_quote": "one will include so-called \"happy path\" queries, so some expected normal inputs, another one would have some edge cases which are important to you... and you can also have some sort of adversarial dataset",
+        "timestamp": 356.0,
+        "stance": "neutral",
+        "evidence_offered": [],
+        "unit_id": "K8LLVi5Xrh8#25"
+      },
+      "topics": [
+        "evals"
+      ]
+    },
+    {
+      "unit": {
+        "type": "content",
+        "text": "Test cases can be designed manually, sourced from real logs/history, or generated synthetically, but designing them requires deliberate investment.",
+        "raw_quote": "You can design these test cases manually or source them from real logs or some past history or even generate synthetically, but you need to invest in actually designing that.",
+        "timestamp": 378.0,
+        "stance": "neutral",
+        "evidence_offered": [],
+        "unit_id": "K8LLVi5Xrh8#26"
+      },
+      "topics": [
+        "evals",
+        "swe-practices"
+      ]
+    },
+    {
+      "unit": {
+        "type": "content",
+        "text": "LLM-as-a-judge is a popular evaluation method where an LLM (the same or a different one) is given an evaluation prompt to assess or grade a specific quality of another LLM's output, effectively substituting for a human labeler on a narrow task.",
+        "raw_quote": "one of the most popular methods that I want to highlight is called LLM as a judge... Effectively, you're using an LLM to replace a human labeler for a specific narrow constrained task.",
+        "timestamp": 402.0,
+        "stance": "neutral",
+        "evidence_offered": [],
+        "unit_id": "K8LLVi5Xrh8#27"
+      },
+      "topics": [
+        "evals"
+      ]
+    },
+    {
+      "unit": {
+        "type": "claim",
+        "text": "LLM-as-a-judge works surprisingly well, but the judge itself is like a small ML project that requires its own tuning and evaluation.",
+        "raw_quote": "And it works surprisingly well. Just remember that your LLM judge is like a small machine learning project in itself and it also requires some tuning and evaluation.",
+        "timestamp": 436.0,
+        "stance": "affirms",
+        "evidence_offered": [],
+        "unit_id": "K8LLVi5Xrh8#28"
+      },
+      "topics": [
+        "evals"
+      ]
+    },
+    {
+      "unit": {
+        "type": "claim",
+        "text": "A core idea in LLM evaluation is that you must figure out custom criteria relevant to your use case rather than just picking generic metrics.",
+        "raw_quote": "You actually need to figure out these criteria, not just pick some random metrics.",
+        "timestamp": 454.0,
+        "stance": "affirms",
+        "evidence_offered": [],
+        "unit_id": "K8LLVi5Xrh8#29"
+      },
+      "topics": [
+        "evals"
+      ]
+    },
+    {
+      "unit": {
+        "type": "claim",
+        "text": "For objective tasks like classification or ranking, established metrics (precision, recall, NDCG, etc.) are appropriate and not inherently bad.",
+        "raw_quote": "If you're evaluating something objective like classification quality or ranking quality, there are established metrics like precision, recall, NDCG and so on.",
+        "timestamp": 463.0,
+        "stance": "affirms",
+        "evidence_offered": [],
+        "unit_id": "K8LLVi5Xrh8#30"
+      },
+      "topics": [
+        "evals"
+      ]
+    },
+    {
+      "unit": {
+        "type": "claim",
+        "text": "You cannot simply borrow subjective evaluation criteria from someone else's project and apply them to yours—you need to determine what matters for your own use case, though implementations (like a PII detector) can be reused.",
+        "raw_quote": "You cannot just steal someone else's criteria and expect to apply them to your product... you cannot just apply the criteria from some other project to your project. You need to figure out what matters in your use case.",
+        "timestamp": 475.0,
+        "stance": "affirms",
+        "evidence_offered": [],
+        "unit_id": "K8LLVi5Xrh8#31"
+      },
+      "topics": [
+        "evals"
+      ]
+    },
+    {
+      "unit": {
+        "type": "claim",
+        "text": "Measuring 'coherence' is often pointless for modern large LLMs since they already generate fluent output and will always pass, though it may still matter for smaller or self-hosted open-source models.",
+        "raw_quote": "Most modern LLMs can already generate very fluent and coherent output there is no point in measuring it: you will just always pass. However if you're working with smaller LLMs or self-hosting small open source models you might actually want to test for it",
+        "timestamp": 495.0,
+        "stance": "mixed",
+        "evidence_offered": [
+          "general observation about modern LLM fluency"
+        ],
+        "unit_id": "K8LLVi5Xrh8#32"
+      },
+      "topics": [
+        "evals",
+        "small-models"
+      ]
+    },
+    {
+      "unit": {
+        "type": "content",
+        "text": "OpenAI's model card describes a specific test for whether the model follows negative instructions (e.g., 'don't contact customer support'), which was developed in response to an observed failure mode.",
+        "raw_quote": "OpenAI recently published one of their model cards and there they share a specific test that they use for the model to make sure that it follows negative instructions.",
+        "timestamp": 518.0,
+        "stance": "neutral",
+        "evidence_offered": [
+          "OpenAI model card"
+        ],
+        "unit_id": "K8LLVi5Xrh8#33"
+      },
+      "topics": [
+        "evals"
+      ]
+    },
+    {
+      "unit": {
+        "type": "claim",
+        "text": "Effective evaluations are often informed by observing specific real-world error patterns in production, though a given test from another company's model card may or may not apply to your own product.",
+        "raw_quote": "this is a good example of how you can implement evaluations which are informed by observing specific errors in production. Would this apply to your product? Maybe. Maybe not.",
+        "timestamp": 535.0,
+        "stance": "affirms",
+        "evidence_offered": [
+          "OpenAI model card example"
+        ],
+        "unit_id": "K8LLVi5Xrh8#34"
+      },
+      "topics": [
+        "evals"
+      ]
+    },
+    {
+      "unit": {
+        "type": "claim",
+        "text": "LLM evaluation is not purely engineering work—it starts as qualitative analysis before becoming quantitative, making it closer to product analytics than to traditional software observability.",
+        "raw_quote": "you probably figured out that LLM evaluations are not just engineering. You start with qualitative analysis and then you turn it quantitative. In fact, it's probably closer to product analytics than it is to software observability.",
+        "timestamp": 553.0,
+        "stance": "affirms",
+        "evidence_offered": [],
+        "unit_id": "K8LLVi5Xrh8#35"
+      },
+      "topics": [
+        "evals"
+      ]
+    },
+    {
+      "unit": {
+        "type": "content",
+        "text": "Unlike traditional software, which starts with obvious metrics like latency and memory usage, LLM evaluation requires first figuring out what to measure by examining the data and understanding target behaviors and errors.",
+        "raw_quote": "with LLM evaluations you first need to figure out what you're actually measuring. So you need to look at the data and understand what type of behaviors you want to detect",
+        "timestamp": 564.0,
+        "stance": "neutral",
+        "evidence_offered": [],
+        "unit_id": "K8LLVi5Xrh8#36"
+      },
+      "topics": [
+        "evals",
+        "swe-practices"
+      ]
+    },
+    {
+      "unit": {
+        "type": "claim",
+        "text": "Logging all inputs and outputs is essential infrastructure for enabling effective evaluation, especially once real users are involved.",
+        "raw_quote": "you also need logging. This is very important, you need to capture all the inputs and outputs... once you have real users you need to capture everything to make use of this data in your evaluations",
+        "timestamp": 590.0,
+        "stance": "affirms",
+        "evidence_offered": [],
+        "unit_id": "K8LLVi5Xrh8#37"
+      },
+      "topics": [
+        "swe-practices"
+      ]
+    },
+    {
+      "unit": {
+        "type": "claim",
+        "text": "Building a solid evaluation system takes time but is time well spent, functioning as a competitive advantage—essentially a living product spec that encodes what 'good' means in code and datasets.",
+        "raw_quote": "A good evaluation system is actually a competitive advantage. It is like a living product spec which implements what \"good\" is for your use case in code and datasets.",
+        "timestamp": 606.0,
+        "stance": "affirms",
+        "evidence_offered": [],
+        "unit_id": "K8LLVi5Xrh8#38"
+      },
+      "topics": [
+        "evals",
+        "swe-practices"
+      ]
+    },
+    {
+      "unit": {
+        "type": "claim",
+        "text": "A strong evaluation system lets teams move faster (testing prompts/models in hours not days), ship with more confidence, and build user trust, especially in high-stakes domains.",
+        "raw_quote": "you can move faster: you can run experiments... you can ship with confidence... it helps you build trust with your users especially if you're operating in high stakes and high-risk domains.",
+        "timestamp": 624.0,
+        "stance": "affirms",
+        "evidence_offered": [],
+        "unit_id": "K8LLVi5Xrh8#39"
+      },
+      "topics": [
+        "evals",
+        "swe-practices"
+      ]
+    },
+    {
+      "unit": {
+        "type": "claim",
+        "text": "Evaluation creates a continuous improvement loop—learning from real users lets you expand tests with new edge cases, and over time this becomes a competitive moat since good labeled data, sharp tests, and product insight are harder to replicate than access to models.",
+        "raw_quote": "Everyone has access to the same models, but you can have access to good labeled data, sharp tests which actually help you discriminate between good and bad, and product insights that not everyone has.",
+        "timestamp": 643.0,
+        "stance": "affirms",
+        "evidence_offered": [],
+        "unit_id": "K8LLVi5Xrh8#40"
+      },
+      "topics": [
+        "evals"
+      ]
+    },
+    {
+      "unit": {
+        "type": "claim",
+        "text": "Without evaluations, a product is just a prototype.",
+        "raw_quote": "Without evaluations, your product is just a prototype.",
+        "timestamp": 681.0,
+        "stance": "affirms",
+        "evidence_offered": [],
+        "unit_id": "K8LLVi5Xrh8#41"
+      },
+      "topics": [
+        "evals"
+      ]
+    }
+  ]
+}

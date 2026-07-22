@@ -1,0 +1,14 @@
+# Layer 3 (route) configuration — ticket #07.
+#
+# Topic routing classifies each video and each unit into one or more topics from the
+# fixed set in config/topics.yaml (the single source of truth for the topic set — not
+# duplicated here, so widening the set is a one-file change). Routing is a cheap bulk
+# step, so it runs on the Haiku tier and escalates to Sonnet only when Haiku's output
+# fails schema validation. Opus stays reserved for reconciliation (ticket #08).
+model: haiku
+fallback_model: sonnet
+
+# Slice gate. For the evals vertical slice, only units routed to `evals` flow downstream
+# to reconciliation; routing itself still runs over all six topics, so widening later is
+# free. Set this to `null` to let every routed unit through (the widened pipeline).
+slice_topic: evals
