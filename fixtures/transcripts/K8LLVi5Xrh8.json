@@ -1,0 +1,650 @@
+{
+  "video_id": "K8LLVi5Xrh8",
+  "title": "Introduction to LLM evaluations in 10 key ideas",
+  "channel": "Hugging Face",
+  "url": "https://www.youtube.com/watch?v=K8LLVi5Xrh8",
+  "date": "2025-05-11",
+  "language": "en",
+  "segments": [
+    {
+      "text": "[Music] Hi and welcome to the course on LLM \nevaluations. In this video, we're going to  ",
+      "start": 2.743,
+      "duration": 4.777
+    },
+    {
+      "text": "talk about what LLM evaluations are and when you \nneed them in 10 key ideas. This will be the one  ",
+      "start": 7.52,
+      "duration": 6.4
+    },
+    {
+      "text": "theoretical video in this course, everything \nelse will be hands-on. Now, LLM evaluations is  ",
+      "start": 13.92,
+      "duration": 5.92
+    },
+    {
+      "text": "the process of assessing whether your AI system \nworks well. Which brings us to the first point:  ",
+      "start": 19.84,
+      "duration": 6.32
+    },
+    {
+      "text": "evaluating LLM systems is not the same as \nevaluating LLM models, which is usually done  ",
+      "start": 26.16,
+      "duration": 5.12
+    },
+    {
+      "text": "through benchmarks. But these public benchmarks \nhelp you figure out, for example, which model is  ",
+      "start": 31.28,
+      "duration": 4.56
+    },
+    {
+      "text": "better in coding and mathematics. But they are \nlike school exams: they test general skills. And  ",
+      "start": 35.84,
+      "duration": 4.88
+    },
+    {
+      "text": "if you're building a specific application like a \nchatbot or even a simpler prompt chain you need to  ",
+      "start": 40.72,
+      "duration": 5.04
+    },
+    {
+      "text": "test it on the tasks that it is meant to solve. \nAnd it will consist not just from the model,  ",
+      "start": 45.76,
+      "duration": 5.2
+    },
+    {
+      "text": "but the prompts, the application logic and \neverything else that you add on top of it.  ",
+      "start": 50.96,
+      "duration": 4.88
+    },
+    {
+      "text": "So if you are building a RAG system don't search \nfor a RAG benchmark - build your own. That's what  ",
+      "start": 55.84,
+      "duration": 5.44
+    },
+    {
+      "text": "we're going to talk about in the course. One \nmore thing to be clear: evaluations is not some  ",
+      "start": 61.28,
+      "duration": 5.52
+    },
+    {
+      "text": "standalone activity like \"doing evals\". It is \na tool that helps you answer questions and make  ",
+      "start": 66.8,
+      "duration": 5.52
+    },
+    {
+      "text": "decisions about your product. And depending where \nyou are in your product life cycle it can fit  ",
+      "start": 72.32,
+      "duration": 5.12
+    },
+    {
+      "text": "into different workflows. If you're just building \nyour product, it is often about experiments. Maybe  ",
+      "start": 77.44,
+      "duration": 5.68
+    },
+    {
+      "text": "you're comparing different models or different \nprompts or you're trying to fix a particular  ",
+      "start": 83.12,
+      "duration": 4.16
+    },
+    {
+      "text": "error mode that you observed. Evaluations help you \nobjectively decide, for example, which prompt is  ",
+      "start": 87.28,
+      "duration": 5.28
+    },
+    {
+      "text": "better: prompt A or prompt B. You can also run \nstress-testing or red-teaming where you send  ",
+      "start": 92.56,
+      "duration": 6.56
+    },
+    {
+      "text": "tricky or adversarial inputs to your system to \nsee if you can provoke it to do something unsafe.  ",
+      "start": 99.12,
+      "duration": 5.92
+    },
+    {
+      "text": "For example, what if you ask your chatbot to do \nsomething inappropriate? Will it comply or not?  ",
+      "start": 105.04,
+      "duration": 5.68
+    },
+    {
+      "text": "Once the system is in production, it is all about \nmonitoring: you want to make sure that your users  ",
+      "start": 110.72,
+      "duration": 5.04
+    },
+    {
+      "text": "are getting good experience. Like are they getting \nstuck? are there hallucinations? does the chatbot  ",
+      "start": 115.76,
+      "duration": 5.6
+    },
+    {
+      "text": "deny to respond any questions that it should \nnot? So you need continuous online evaluations.  ",
+      "start": 121.36,
+      "duration": 5.36
+    },
+    {
+      "text": "And finally, there is regression testing. \nIf you change something like fix a prompt,  ",
+      "start": 126.72,
+      "duration": 4.32
+    },
+    {
+      "text": "try to fix a bug - before you roll out these \nchanges you need to make sure that they don't  ",
+      "start": 131.04,
+      "duration": 4.08
+    },
+    {
+      "text": "break anything else. So you need regression \ntesting. In each of these cases evaluations  ",
+      "start": 135.12,
+      "duration": 4.88
+    },
+    {
+      "text": "will look slightly differently. And they will \nevolve with your product, just like your product  ",
+      "start": 140.0,
+      "duration": 4.56
+    },
+    {
+      "text": "itself. If you are coming from software background \nsome of these things can sound very familiar,  ",
+      "start": 144.56,
+      "duration": 6.72
+    },
+    {
+      "text": "like regression testing. However dealing with LLMs \nbrings a whole new set of issues. Yes, you still  ",
+      "start": 151.28,
+      "duration": 5.92
+    },
+    {
+      "text": "need to test your software, but now you also need \nto evaluation the contents of your interactions:  ",
+      "start": 157.2,
+      "duration": 4.4
+    },
+    {
+      "text": "the inputs and outputs that your system gets. And \nthat's quite different. First of all, LLMs are  ",
+      "start": 161.6,
+      "duration": 5.44
+    },
+    {
+      "text": "non-deterministic which means that even for the \nexact same input you can get different outputs,  ",
+      "start": 167.04,
+      "duration": 4.72
+    },
+    {
+      "text": "and that's sort of okay. You're also dealing \nwith prompts which are very brittle. Sometimes  ",
+      "start": 171.76,
+      "duration": 4.64
+    },
+    {
+      "text": "changing something very small like punctuation can \nactually alter the behavior of the system. You're  ",
+      "start": 176.4,
+      "duration": 5.28
+    },
+    {
+      "text": "also often solving very open-ended tasks like for \nexample generating emails. How do you even define  ",
+      "start": 181.68,
+      "duration": 5.76
+    },
+    {
+      "text": "what a good email is? There are many answers \nto that. And finally because you're working  ",
+      "start": 187.44,
+      "duration": 5.44
+    },
+    {
+      "text": "with probabilistic systems that generate language, \nyou also now face new risks like hallucinations:  ",
+      "start": 192.88,
+      "duration": 5.84
+    },
+    {
+      "text": "the model can make things up. Jailbreaks: users \ncan try bypass the safety measures. Or data leaks  ",
+      "start": 198.72,
+      "duration": 6.64
+    },
+    {
+      "text": "where LLMs can expose sensitive data. So with \nLLMs it's not enough to just test functionality,  ",
+      "start": 205.36,
+      "duration": 6.48
+    },
+    {
+      "text": "you also need a way to evaluate the safety and \nquality of responses. The first obvious solution  ",
+      "start": 211.84,
+      "duration": 5.76
+    },
+    {
+      "text": "to this complexity is manual evaluations, and \nhonestly that's where you should start. You should  ",
+      "start": 217.6,
+      "duration": 5.04
+    },
+    {
+      "text": "read the outputs you get, and this will help you \nbuild intuition, spot patterns and also understand  ",
+      "start": 222.64,
+      "duration": 5.76
+    },
+    {
+      "text": "what \"good\" means in your use case. If you can \nask subject matter experts to label some data,  ",
+      "start": 228.4,
+      "duration": 5.6
+    },
+    {
+      "text": "this is priceless, especially early on. \nHowever, this doesn't scale. You cannot  ",
+      "start": 234.0,
+      "duration": 4.08
+    },
+    {
+      "text": "continue manually labeling everything forever, so \nyou need automations. And here is one important  ",
+      "start": 238.08,
+      "duration": 5.2
+    },
+    {
+      "text": "point I want to make. Automated evaluations are \nthere to scale your judgment, not to replace  ",
+      "start": 243.28,
+      "duration": 6.16
+    },
+    {
+      "text": "it. If you don't know yet what you're evaluating \nmanually, there is nothing to automate. You first  ",
+      "start": 249.44,
+      "duration": 5.44
+    },
+    {
+      "text": "need to figure it out. But once you do, you can \nbuild very useful proxy metrics and signals both  ",
+      "start": 254.88,
+      "duration": 5.36
+    },
+    {
+      "text": "for experiments and for production monitoring. \nYou should still continue looking at the logs:  ",
+      "start": 260.24,
+      "duration": 4.64
+    },
+    {
+      "text": "manual evaluations and automated evaluations \ngo hand in hand. One will inform another. Now,  ",
+      "start": 264.88,
+      "duration": 6.4
+    },
+    {
+      "text": "let's talk about the \"how\" of evaluations. There \nare two main types here. At a very high level,  ",
+      "start": 271.28,
+      "duration": 5.12
+    },
+    {
+      "text": "the anatomy of a single eval is simple. You get \nan input, you run it through your application,  ",
+      "start": 276.4,
+      "duration": 5.36
+    },
+    {
+      "text": "you capture the output and you evaluate it. \nBut here is one difference: you can also add  ",
+      "start": 281.76,
+      "duration": 4.96
+    },
+    {
+      "text": "a reference answer in the mix. So if you have \nthis reference answer or so-called ground truth  ",
+      "start": 286.72,
+      "duration": 5.44
+    },
+    {
+      "text": "response, you can run reference-based evaluations. \nThere, the goal is to compare the answers you get  ",
+      "start": 292.16,
+      "duration": 5.44
+    },
+    {
+      "text": "against some expected answers. So for example \nif you have a chatbot you can design a set of  ",
+      "start": 297.6,
+      "duration": 5.2
+    },
+    {
+      "text": "test questions and expected answers to these \nquestions and then evaluate if your system is  ",
+      "start": 302.8,
+      "duration": 4.88
+    },
+    {
+      "text": "actually getting them correct. This is useful for \nregression testing and for experiments. And then  ",
+      "start": 307.68,
+      "duration": 5.36
+    },
+    {
+      "text": "the second way to run evaluations is open-ended \nor reference-free evaluations. That's where  ",
+      "start": 313.04,
+      "duration": 5.12
+    },
+    {
+      "text": "you don't have a correct answer in advance. For \nexample, this applies to monitoring in production  ",
+      "start": 318.16,
+      "duration": 5.52
+    },
+    {
+      "text": "or to very complex open-ended or conversational \nscenarios where it's difficult to come up with an  ",
+      "start": 323.68,
+      "duration": 5.28
+    },
+    {
+      "text": "ideal response. In this case, you might measure \nthe specific qualities of the outputs you get.  ",
+      "start": 328.96,
+      "duration": 5.12
+    },
+    {
+      "text": "For example, its safety, politeness, correctness, \nlength and so on. In both cases, we are talking  ",
+      "start": 334.08,
+      "duration": 7.28
+    },
+    {
+      "text": "about datasets - and this is another important \npoint. With LLMs you cannot just test that 2 plus  ",
+      "start": 341.36,
+      "duration": 5.44
+    },
+    {
+      "text": "2 equals 4 and call it a day. You actually need \nto run evaluations across a range of possible  ",
+      "start": 346.8,
+      "duration": 5.12
+    },
+    {
+      "text": "outputs. Which also means that you need to prepare \nthem: so you need to design a test dataset that  ",
+      "start": 351.92,
+      "duration": 4.96
+    },
+    {
+      "text": "represents your use case. You can actually have \nseveral datasets, for example, one will include  ",
+      "start": 356.88,
+      "duration": 4.4
+    },
+    {
+      "text": "so-called \"happy path\" queries, so some expected \nnormal inputs, another one would have some edge  ",
+      "start": 361.28,
+      "duration": 5.76
+    },
+    {
+      "text": "cases which are important to you and you need to \nmake sure that you get them right. and you can  ",
+      "start": 367.04,
+      "duration": 4.8
+    },
+    {
+      "text": "also have some sort of adversarial dataset which \nwill test your system for potential weak spots.  ",
+      "start": 371.84,
+      "duration": 5.92
+    },
+    {
+      "text": "You can design these test cases manually or source \nthem from real logs or some past history or even  ",
+      "start": 378.96,
+      "duration": 6.8
+    },
+    {
+      "text": "generate synthetically, but you need to invest in \nactually designing that. When it comes to methods,  ",
+      "start": 385.76,
+      "duration": 6.48
+    },
+    {
+      "text": "there are quite a few options out there: from \ndeterministic ones like verifying that the code  ",
+      "start": 392.24,
+      "duration": 4.48
+    },
+    {
+      "text": "that was generated by the LLM can actually run to \nmachine learning based evaluations. But one of the  ",
+      "start": 396.72,
+      "duration": 5.92
+    },
+    {
+      "text": "most popular methods that I want to highlight is \ncalled LLM as a judge. The idea is very simple:  ",
+      "start": 402.64,
+      "duration": 5.44
+    },
+    {
+      "text": "you take the output that was generated by your \nsystem and you pass it to another LLM - or to  ",
+      "start": 408.08,
+      "duration": 5.36
+    },
+    {
+      "text": "the same LLM for this matter - but with \nan evaluation prompt. Inside this prompt  ",
+      "start": 413.44,
+      "duration": 4.96
+    },
+    {
+      "text": "you ask an LLM to assess a specific quality \nof the response or to grade it. For example,  ",
+      "start": 418.4,
+      "duration": 5.6
+    },
+    {
+      "text": "\"is this response based on the retrieved context\"? \nor \"does this response follow expected brand  ",
+      "start": 424.0,
+      "duration": 6.48
+    },
+    {
+      "text": "guideline?\" and so on. Effectively, you're using \nan LLM to replace a human labeler for a specific  ",
+      "start": 430.48,
+      "duration": 6.48
+    },
+    {
+      "text": "narrow constrained task. And it works surprisingly \nwell. Just remember that your LLM judge is like a  ",
+      "start": 436.96,
+      "duration": 6.32
+    },
+    {
+      "text": "small machine learning project in itself and \nit also requires some tuning and evaluation.  ",
+      "start": 443.28,
+      "duration": 4.56
+    },
+    {
+      "text": "we will have a separate session about that. One \nof the reasons why LLM judges are so popular is  ",
+      "start": 447.84,
+      "duration": 6.16
+    },
+    {
+      "text": "because they let you implement custom criteria. \nand this is a core idea in LLM evaluations. You  ",
+      "start": 454.0,
+      "duration": 5.12
+    },
+    {
+      "text": "actually need to figure out these criteria, \nnot just pick some random metrics. Of course,  ",
+      "start": 459.12,
+      "duration": 4.8
+    },
+    {
+      "text": "not all metrics are bad. If you're evaluating \nsomething objective like classification quality  ",
+      "start": 463.92,
+      "duration": 5.04
+    },
+    {
+      "text": "or ranking quality, there are established metrics \nlike precision, recall, NDCG and so on. But here  ",
+      "start": 468.96,
+      "duration": 6.32
+    },
+    {
+      "text": "I'm talking about subjective qualities. You \ncannot just steal someone else's criteria  ",
+      "start": 475.28,
+      "duration": 4.88
+    },
+    {
+      "text": "and expect to apply them to your product. You \ncan of course borrow implementations. Like for  ",
+      "start": 480.16,
+      "duration": 4.56
+    },
+    {
+      "text": "example if detecting personal data in outputs is \nimportant to you, you can reuse a PII detector.  ",
+      "start": 484.72,
+      "duration": 6.08
+    },
+    {
+      "text": "But you cannot just apply the criteria from \nsome other project to your project. You need  ",
+      "start": 490.8,
+      "duration": 4.96
+    },
+    {
+      "text": "to figure out what matters in your use case. For \nexample, take a criteria like \"coherence\". Most  ",
+      "start": 495.76,
+      "duration": 6.24
+    },
+    {
+      "text": "modern LLMs can already generate very fluent and \ncoherent output there is no point in measuring it:  ",
+      "start": 502.0,
+      "duration": 6.56
+    },
+    {
+      "text": "you will just always pass. However if you're \nworking with smaller LLMs or self-hosting small  ",
+      "start": 508.56,
+      "duration": 5.76
+    },
+    {
+      "text": "open source models you might actually want to test \nfor it, if this is the problem that you observe  ",
+      "start": 514.32,
+      "duration": 4.64
+    },
+    {
+      "text": "in the outputs. Or take another example: OpenAI \nrecently published one of their model cards and  ",
+      "start": 518.96,
+      "duration": 5.76
+    },
+    {
+      "text": "there they share a specific test that they use for \nthe model to make sure that it follows negative  ",
+      "start": 524.72,
+      "duration": 5.68
+    },
+    {
+      "text": "instructions. Like for example: \"don't contact \ncustomer support\". Clearly, the need for this  ",
+      "start": 530.4,
+      "duration": 5.44
+    },
+    {
+      "text": "test comes from a specific failure mode that they \nobserved so they implemented a way to evaluate  ",
+      "start": 535.84,
+      "duration": 5.12
+    },
+    {
+      "text": "for it. Would this apply to your product? Maybe. \nMaybe not. But this is a good example of how you  ",
+      "start": 540.96,
+      "duration": 5.44
+    },
+    {
+      "text": "can implement evaluations which are informed by \nobserving specific errors in production. By now,  ",
+      "start": 546.4,
+      "duration": 6.64
+    },
+    {
+      "text": "you probably figured out that LLM evaluations are \nnot just engineering. You start with qualitative  ",
+      "start": 553.04,
+      "duration": 6.24
+    },
+    {
+      "text": "analysis and then you turn it quantitative. In \nfact, it's probably closer to product analytics  ",
+      "start": 559.28,
+      "duration": 5.36
+    },
+    {
+      "text": "than it is to software observability. In software, \nyou usually have an initial set of metrics to  ",
+      "start": 564.64,
+      "duration": 4.88
+    },
+    {
+      "text": "start with, like latency and memory usage and \nso on. So you don't have to think too much about  ",
+      "start": 569.52,
+      "duration": 4.96
+    },
+    {
+      "text": "that. But with LLM evaluations you first need \nto figure out what you're actually measuring. So  ",
+      "start": 574.48,
+      "duration": 5.12
+    },
+    {
+      "text": "you need to look at the data and understand what \ntype of behaviors you want to detect, what type of  ",
+      "start": 579.6,
+      "duration": 5.36
+    },
+    {
+      "text": "errors you see and then figure out how you can \ndesign experiments around that. And to enable this  ",
+      "start": 584.96,
+      "duration": 5.52
+    },
+    {
+      "text": "you also need logging. This is very important, \nyou need to capture all the inputs and outputs.  ",
+      "start": 590.48,
+      "duration": 4.56
+    },
+    {
+      "text": "You get you may first start with synthetic data \nbut once you have real users you need to capture  ",
+      "start": 595.04,
+      "duration": 4.72
+    },
+    {
+      "text": "everything to make use of this data in your \nevaluations and your product improvements. If  ",
+      "start": 599.76,
+      "duration": 6.8
+    },
+    {
+      "text": "it sounds like building a solid evaluation system \ntakes time - well it's because it does. But it's  ",
+      "start": 606.56,
+      "duration": 5.04
+    },
+    {
+      "text": "time well spent. A good evaluation system is \nactually a competitive advantage. It is like a  ",
+      "start": 611.6,
+      "duration": 5.68
+    },
+    {
+      "text": "living product spec which implements what \"good\" \nis for your use case in code and datasets. And  ",
+      "start": 617.28,
+      "duration": 6.96
+    },
+    {
+      "text": "this lets you do a lot of great things. First of \nall, you can move faster: you can run experiments,  ",
+      "start": 624.24,
+      "duration": 4.48
+    },
+    {
+      "text": "you can compare different prompts, you can test \nnew models as they come out in hours not days.  ",
+      "start": 628.72,
+      "duration": 5.52
+    },
+    {
+      "text": "Second, you can ship with confidence: you'll \nknow if something will be broken after you make  ",
+      "start": 634.24,
+      "duration": 4.56
+    },
+    {
+      "text": "a change. And lastly it helps you build trust with \nyour users especially if you're operating in high  ",
+      "start": 638.8,
+      "duration": 4.96
+    },
+    {
+      "text": "stakes and high-risk domains. This also creates a \ncontinuous improvement loop where every stage from  ",
+      "start": 643.76,
+      "duration": 7.36
+    },
+    {
+      "text": "early experiments to live monitoring helps you get \nbetter. For example, as you learn from real users,  ",
+      "start": 651.12,
+      "duration": 5.52
+    },
+    {
+      "text": "you can expand your tests with new edge \ncases and over time this can become a moat.  ",
+      "start": 656.64,
+      "duration": 7.52
+    },
+    {
+      "text": "Everyone has access to the same models, but \nyou can have access to good labeled data,  ",
+      "start": 664.16,
+      "duration": 5.2
+    },
+    {
+      "text": "sharp tests which actually help you discriminate \nbetween good and bad, and product insights that  ",
+      "start": 669.36,
+      "duration": 5.28
+    },
+    {
+      "text": "not everyone has. Okay, I know it was a lot \nof theory. But I hope I convinced you why  ",
+      "start": 674.64,
+      "duration": 7.2
+    },
+    {
+      "text": "evaluations matter. Without evaluations, your \nproduct is just a prototype. And if you want to  ",
+      "start": 681.84,
+      "duration": 5.2
+    },
+    {
+      "text": "dig into any of these ideas, we have a separate \nYouTube playlist with introduction to the evals.  ",
+      "start": 687.04,
+      "duration": 5.36
+    },
+    {
+      "text": "In the following videos, we will get hands-on \nand we will start with implementing different  ",
+      "start": 692.4,
+      "duration": 4.24
+    },
+    {
+      "text": "LLM evaluations methods on the toy dataset and \nsee how it works. See you in the next videos!",
+      "start": 696.64,
+      "duration": 5.68
+    }
+  ]
+}
