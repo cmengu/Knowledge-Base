@@ -74,7 +74,12 @@ def _render_history(position: Position) -> list[str]:
 def _render_position(position: Position) -> list[str]:
     badge = MATURITY_BADGE.get(position.maturity.value, position.maturity.value)
     span = position.span_days
-    span_text = "single source" if span == 0 else f"{span}-day span" if span else "no sources"
+    if span is None:
+        span_text = "no sources"
+    elif span == 0:
+        span_text = "same-day"
+    else:
+        span_text = f"{span}-day span"
     lines = [
         f"## {position.position_id} — {badge}",
         "",

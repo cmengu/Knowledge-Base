@@ -47,7 +47,7 @@ _2 source(s) · 58-day span_
 
 **Manual evaluation is the right place to start; automation scales human judgment but does not replace it.**
 
-_1 source(s) · single source_
+_1 source(s) · same-day_
 
 **Sources**
 
