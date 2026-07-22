@@ -5,7 +5,7 @@ from __future__ import annotations
 import pytest
 
 from kb.extract import TranscriptSegment
-from tests.helpers import FakeLLMClient, transcript_ids
+from tests.helpers import FakeLLMClient, adjudication_names, transcript_ids
 
 
 @pytest.fixture
@@ -21,6 +21,13 @@ def fake_llm_factory():
 @pytest.fixture(params=transcript_ids())
 def fixture_video_id(request) -> str:
     """Parametrizes over every committed transcript fixture (currently one)."""
+
+    return request.param
+
+
+@pytest.fixture(params=adjudication_names())
+def adjudication_name(request) -> str:
+    """Parametrizes over every committed adjudicator fixture (currently one)."""
 
     return request.param
 
