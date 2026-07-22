@@ -1,0 +1,20 @@
+# Seed video set — harness vertical slice (issue #20)
+# Topic: agent frameworks, orchestration, tool-use scaffolding.
+# Source: yt-dlp keyword search across reputable AI/talk channels, ranked by
+# recency then view count, top 15, talks/interviews/explainers >=5 min.
+# Deduped against seed/evals.txt and the other four seed lists. Generated 2026-07-22.
+https://www.youtube.com/watch?v=Zqno_vux6d8  # 343542 views, 20260610 — AI agents explained: Build your first agent in 8 minutes
+https://www.youtube.com/watch?v=ow1we5PzK-o  # 192970 views, 20260506 — The Multi-Agent Architecture That Actually Ships — Luke Alvoeiro, Factory
+https://www.youtube.com/watch?v=g9JIUM0MHgQ  # 113942 views, 20260504 — CLI vs MCP: How AI Agents Choose the Right Tool for the Job
+https://www.youtube.com/watch?v=BacJ6sEhqMo  # 100206 views, 20260526 — The Four Types of Memory Every AI Agent Needs
+https://www.youtube.com/watch?v=mtiOK2QG9Q0  # 473053 views, 20260414 — The 7 Skills You Need to Build AI Agents
+https://www.youtube.com/watch?v=GDm_uH6VxPY  # 418607 views, 20260227 — AI agent design patterns
+https://www.youtube.com/watch?v=GchXMRwuWxE  # 417383 views, 20250812 — The AI Agent Tutorial That Should've Been Your First (no code)
+https://www.youtube.com/watch?v=Lg-meK5IU8Q  # 340316 views, 20260420 — What AI Agent Skills Are and How They Work
+https://www.youtube.com/watch?v=xTmU8ZImUO8  # 203594 views, 20250819 — LangChain Explained in 10 Minutes (Components Breakdown + Build Your First AI Chatbot)
+https://www.youtube.com/watch?v=-BhfcPseWFQ  # 140217 views, 20260210 — After This Video, You'll Actually Understand Agent Orchestration
+https://www.youtube.com/watch?v=BMDFPOyezH4  # 138085 views, 20260302 — A2A vs MCP: AI Agent Communication Explained
+https://www.youtube.com/watch?v=CyLYY_xb5bQ  # 114974 views, 20250825 — You Can Learn AI Agent System Design In 19 Min | RAG, Vector Database, Evals, Function Calling
+https://www.youtube.com/watch?v=OFq_CvRCpA0  # 86428 views, 20251014 — Orchestrating Complex AI Workflows with AI Agents & LLMs
+https://www.youtube.com/watch?v=LP5OCa20Zpg  # 577349 views, 20250213 — Tips for building AI agents
+https://www.youtube.com/watch?v=tzrwxLNHtRY  # 519723 views, 20250320 — Model Context Protocol Clearly Explained | MCP Beyond the Hype

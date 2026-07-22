@@ -1,0 +1,20 @@
+# Seed video set — swe-practices vertical slice (issue #20)
+# Topic: software-engineering practice for building with LLMs.
+# Source: yt-dlp keyword search across reputable AI/talk channels, ranked by
+# recency then view count, top 15, talks/interviews/explainers >=5 min.
+# Deduped against seed/evals.txt and the other four seed lists. Generated 2026-07-22.
+https://www.youtube.com/watch?v=96jN2OCOfLs  # 1421976 views, 20260429 — Andrej Karpathy: From Vibe Coding to Agentic Engineering w/ Stephanie Zhan
+https://www.youtube.com/watch?v=-QFHIoCo-Ko  # 1225897 views, 20260424 — Full Walkthrough: Workflow for AI Coding — Matt Pocock
+https://www.youtube.com/watch?v=v4F1gFy-hqg  # 990195 views, 20260423 — "Software Fundamentals Matter More Than Ever" — Matt Pocock
+https://www.youtube.com/watch?v=iQyg-KypKAA  # 628211 views, 20260620 — L8 Principal's Agentic Engineering Workflow
+https://www.youtube.com/watch?v=xYU7zaaRjmE  # 488089 views, 20260502 — The Vibe Coding Era: Why AI Won’t Replace Software Engineers
+https://www.youtube.com/watch?v=wkv2ifxPpF8  # 235704 views, 20260423 — How to Make Claude Code Your AI Engineering Team
+https://www.youtube.com/watch?v=fQmlML9Lay4  # 218137 views, 20260604 — Conductor CEO Charlie Holtz Walks Us Through His AI Coding Setup
+https://www.youtube.com/watch?v=M6mYodf0dJM  # 141802 views, 20260716 — mattpocock/skills: A complete AI Coding workflow, end-to-end
+https://www.youtube.com/watch?v=91B_v-wOaws  # 636580 views, 20260122 — I Have Spent 500+ Hours Programming With AI. This Is what I learned
+https://www.youtube.com/watch?v=mZzhfPle9QU  # 462121 views, 20260207 — How I use Claude Code (Meta Staff Engineer Tips)
+https://www.youtube.com/watch?v=h0hdaHPKDdI  # 406013 views, 20260418 — What 6 months of AI coding did to my dev team
+https://www.youtube.com/watch?v=mViFYTwWvcM  # 371426 views, 20260228 — Spec-Driven Development: AI Assisted Coding Explained
+https://www.youtube.com/watch?v=UhRGHr7pgnU  # 302396 views, 20260313 — My Opencode Workflow As A Senior Engineer
+https://www.youtube.com/watch?v=wEsjK3Smovw  # 284526 views, 20260226 — From Writing Code to Managing Agents. Most Engineers Aren't Ready | Stanford University, Mihail Eric
+https://www.youtube.com/watch?v=am_oeAoUhew  # 195964 views, 20260417 — Harness Engineering: How to Build Software When Humans Steer, Agents Execute — Ryan Lopopolo, OpenAI

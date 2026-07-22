@@ -1,0 +1,20 @@
+# Seed video set — open-source vertical slice (issue #20)
+# Topic: open-weight models, self-hosting, open vs closed ecosystem.
+# Source: yt-dlp keyword search across reputable AI/talk channels, ranked by
+# recency then view count, top 15, talks/interviews/explainers >=5 min.
+# Deduped against seed/evals.txt and the other four seed lists. Generated 2026-07-22.
+https://www.youtube.com/watch?v=6d__WOpZswY  # 470675 views, 20260617 — New #1 open-source AI model is here!
+https://www.youtube.com/watch?v=8Ddjy1nlOWA  # 217468 views, 20260515 — How Meta Went From Open Source Hero to AI's Biggest Villain
+https://www.youtube.com/watch?v=wDf1IR8yP9s  # 160491 views, 20260626 — Z.AI And The Chinese Open Source Moment
+https://www.youtube.com/watch?v=K2IGHj7KQoM  # 140921 views, 20260518 — Are Local Models Finally Good Enough?
+https://www.youtube.com/watch?v=xD9JEvfCH9k  # 125707 views, 20260514 — Developers Finally Got an Open-Source Voice AI Platform (Dograh)
+https://www.youtube.com/watch?v=2lmBj_XQq0I  # 93175 views, 20260624 — You NEED to try these 12 open-source AI projects RIGHT NOW
+https://www.youtube.com/watch?v=-01ZCTt-CJw  # 1359979 views, 20260408 — Google just casually disrupted the open-source AI narrative…
+https://www.youtube.com/watch?v=illvibK_ZmY  # 324497 views, 20251031 — The Best Self-Hosted AI Tools You Can Actually Run in Your Home Lab
+https://www.youtube.com/watch?v=rp5EwOogWEw  # 287543 views, 20251021 — The Ultimate Local AI Coding Guide For 2026
+https://www.youtube.com/watch?v=QKdKcFjjZhE  # 282044 views, 20260312 — Local AI Explained | Hardware, Setup and Models
+https://www.youtube.com/watch?v=vehYE1DfkZg  # 251838 views, 20260324 — Every Way To Run Open Source AI Models
+https://www.youtube.com/watch?v=1uCE0uoKXL8  # 232440 views, 20260212 — Open Source AI In 17 Minutes
+https://www.youtube.com/watch?v=Wdlvy-tKqjo  # 174723 views, 20250828 — Closed-source vs. Open-source models: What enterprises should know | Box AI Explainer Series EP 13
+https://www.youtube.com/watch?v=km5-0jhv0JI  # 129502 views, 20251219 — How to Run LLMs Locally - Full Guide
+https://www.youtube.com/watch?v=Wjrdr0NU4Sk  # 2589909 views, 20240503 — host ALL your AI locally

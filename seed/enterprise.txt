@@ -1,0 +1,20 @@
+# Seed video set — enterprise vertical slice (issue #20)
+# Topic: enterprise LLM adoption, ROI, compliance, rollout.
+# Source: yt-dlp keyword search across reputable AI/talk channels, ranked by
+# recency then view count, top 15, talks/interviews/explainers >=5 min.
+# Deduped against seed/evals.txt and the other four seed lists. Generated 2026-07-22.
+https://www.youtube.com/watch?v=zClA6Pj4zbw  # 74072 views, 20260622 — State of AI in the Enterprise: Why 90% of Data Is Your Biggest AI Unlock
+https://www.youtube.com/watch?v=NHVtXHUcVXE  # 6223 views, 20260630 — Long-Running AI Agents: The Next Breakthrough in Enterprise Work
+https://www.youtube.com/watch?v=HS_Jj5GR1rU  # 5341 views, 20260720 — Why Enterprise AI Is Leaving the Cloud
+https://www.youtube.com/watch?v=pSasVM0YvhY  # 2170 views, 20260427 — Your AI Rollout Will Fail Without This One Step | Shanea Leven, Empromptu AI
+https://www.youtube.com/watch?v=XzokRd_IPSc  # 812 views, 20260608 — AI Adoption in Enterprise Beyond Writing Code - Ivan Bilan
+https://www.youtube.com/watch?v=GY_Ywqd3mzA  # 612001 views, 20251027 — The AI rollout is here - and it's messy | FT Working It
+https://www.youtube.com/watch?v=RRKwmeyIc24  # 324191 views, 20251103 — What Is an AI Stack? LLMs, RAG, & AI Hardware
+https://www.youtube.com/watch?v=RXz8FuzzwI4  # 93016 views, 20260225 — Enterprise AI Infrastructure Security Series - 1) Intro
+https://www.youtube.com/watch?v=4QXtObc61Lw  # 79115 views, 20250903 — Security & AI Governance: Reducing Risks in AI Systems
+https://www.youtube.com/watch?v=UMYtqHptYvA  # 67297 views, 20260219 — Guide to Architect Secure AI Agents: Best Practices for Safety
+https://www.youtube.com/watch?v=vW8wLsb3Nnc  # 39754 views, 20250723 — POC to PROD: Hard Lessons from 200+ Enterprise GenAI Deployments - Randall Hunt, Caylent
+https://www.youtube.com/watch?v=1DbWtkIscsk  # 27195 views, 20260203 — Enterprise AI agents: the gap between prototype and production
+https://www.youtube.com/watch?v=ApGNJqrm3-I  # 8071 views, 20251222 — Generative AI Enterprise Infrastructure | Open Storage Summit 2025
+https://www.youtube.com/watch?v=0sfKGUZ6kcg  # 5956 views, 20251203 — AWS re:Invent 2025 - Build a well-architected foundation for scaling generative AI and agentic apps
+https://www.youtube.com/watch?v=HdelDovObRU  # 2136 views, 20251209 — Deploying AI at Enterprise Scale - ElevenLabs Summit

@@ -1,0 +1,20 @@
+# Seed video set — small-models vertical slice (issue #20)
+# Topic: small/efficient/on-device LLMs, distillation, quantization.
+# Source: yt-dlp keyword search across reputable AI/talk channels, ranked by
+# recency then view count, top 15, talks/interviews/explainers >=5 min.
+# Deduped against seed/evals.txt and the other four seed lists. Generated 2026-07-22.
+https://www.youtube.com/watch?v=fLUtUkqYHnQ  # 130529 views, 20260429 — Everything I Learned Training Frontier Small Models — Maxime Labonne, Liquid AI
+https://www.youtube.com/watch?v=-TiET_K-E_g  # 70319 views, 20260520 — From 46% to 90%: Fine-Tuning Tiny LLMs for On-Device Agents — Cormac Brick, Google
+https://www.youtube.com/watch?v=BKWpYIWvAo4  # 31869 views, 20260503 — TLMs: Tiny LLMs and Agents on Edge Devices with LiteRT-LM — Cormac Brick, Google
+https://www.youtube.com/watch?v=P8m5eHAyrFM  # 159164 views, 20260316 — What Is Llama.cpp? The LLM Inference Engine for Local AI
+https://www.youtube.com/watch?v=NC9nTxn6aos  # 157390 views, 20251010 — This Tiny Model is Insane... (7m Parameters)
+https://www.youtube.com/watch?v=EXB8HokGVMI  # 132754 views, 20260313 — Small Language Models (SLMs) Are the Future: Fine-Tuning AI That Runs on Your iPhone
+https://www.youtube.com/watch?v=VlA_jt_3Qc4  # 92298 views, 20251021 — Stanford CME295 Transformers & LLMs | Autumn 2025 | Lecture 4 - LLM Training
+https://www.youtube.com/watch?v=AVQzG2MY858  # 74528 views, 20260124 — LLM vs. SLM vs. FM: Choosing the Right AI Model
+https://www.youtube.com/watch?v=qdPkA5mxLhg  # 46010 views, 20260331 — Understanding vLLM with a Hands On Demo
+https://www.youtube.com/watch?v=wIXr22QTEHg  # 28754 views, 20260331 — LLM Compression Explained: Build Faster, Efficient AI Models
+https://www.youtube.com/watch?v=zY8cPov5R6M  # 19327 views, 20251121 — Fine-tune a 30B Model for $0.62 (Prompt Distillation with Tinker)
+https://www.youtube.com/watch?v=K75j8MkwgJ0  # 504358 views, 20241228 — Optimize Your AI - Quantization Explained
+https://www.youtube.com/watch?v=7hMoz9q4zv0  # 384983 views, 20250618 — 1-Bit LLM: The Most Efficient LLM Possible?
+https://www.youtube.com/watch?v=XwL_cRuXM2E  # 326729 views, 20240226 — All You Need To Know About Running LLMs Locally
+https://www.youtube.com/watch?v=WBm0nyDkVYM  # 97435 views, 20250528 — The myth of 1-bit LLMs | Quantization-Aware Training
